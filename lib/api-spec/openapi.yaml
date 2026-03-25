@@ -1,22 +1,37 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: EAAPA – East Africa Agripreneurs Alliance API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: members
+    description: Member and user management
+  - name: market
+    description: Market intelligence
+  - name: opportunities
+    description: Investment and funding opportunities
+  - name: network
+    description: Networking and collaboration
+  - name: community
+    description: Forum and community
+  - name: events
+    description: Events and exhibitions
+  - name: resources
+    description: Resources and training
+  - name: impact
+    description: Impact metrics and success stories
+
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +39,469 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /members:
+    get:
+      operationId: listMembers
+      tags: [members]
+      summary: List all members
+      parameters:
+        - name: region
+          in: query
+          schema:
+            type: string
+        - name: sector
+          in: query
+          schema:
+            type: string
+        - name: role
+          in: query
+          schema:
+            type: string
+        - name: commodity
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Members list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Member"
+    post:
+      operationId: createMember
+      tags: [members]
+      summary: Create a member
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateMember"
+      responses:
+        "201":
+          description: Member created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Member"
+
+  /members/{id}:
+    get:
+      operationId: getMember
+      tags: [members]
+      summary: Get a member by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Member
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Member"
+
+  /members/{id}/connect:
+    post:
+      operationId: connectMember
+      tags: [members]
+      summary: Connect with a member
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Connection established
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectionResult"
+
+  /commodities:
+    get:
+      operationId: listCommodities
+      tags: [market]
+      summary: List all commodities with market data
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: region
+          in: query
+          schema:
+            type: string
+        - name: demandLevel
+          in: query
+          schema:
+            type: string
+        - name: currency
+          in: query
+          schema:
+            type: string
+            default: KES
+      responses:
+        "200":
+          description: Commodities list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Commodity"
+
+  /commodities/{id}:
+    get:
+      operationId: getCommodity
+      tags: [market]
+      summary: Get commodity details (Category Data Room)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Commodity detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CommodityDetail"
+
+  /buyers:
+    get:
+      operationId: listBuyers
+      tags: [market]
+      summary: List buyers
+      parameters:
+        - name: commodity
+          in: query
+          schema:
+            type: string
+        - name: region
+          in: query
+          schema:
+            type: string
+        - name: type
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Buyers list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Buyer"
+
+  /opportunities:
+    get:
+      operationId: listOpportunities
+      tags: [opportunities]
+      summary: List investment opportunities
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+        - name: sector
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Opportunities list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Opportunity"
+    post:
+      operationId: submitOpportunity
+      tags: [opportunities]
+      summary: Submit an investment idea
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOpportunity"
+      responses:
+        "201":
+          description: Opportunity submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Opportunity"
+
+  /projects:
+    get:
+      operationId: listProjects
+      tags: [network]
+      summary: List collaboration projects
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Projects list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Project"
+    post:
+      operationId: createProject
+      tags: [network]
+      summary: Create a project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateProject"
+      responses:
+        "201":
+          description: Project created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+
+  /projects/{id}/join:
+    post:
+      operationId: joinProject
+      tags: [network]
+      summary: Join a project
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Joined project
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+
+  /forum/threads:
+    get:
+      operationId: listForumThreads
+      tags: [community]
+      summary: List forum threads
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Forum threads
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ForumThread"
+    post:
+      operationId: createForumThread
+      tags: [community]
+      summary: Create a forum thread
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateForumThread"
+      responses:
+        "201":
+          description: Thread created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ForumThread"
+
+  /events:
+    get:
+      operationId: listEvents
+      tags: [events]
+      summary: List events
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Events list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Event"
+
+  /events/{id}/register:
+    post:
+      operationId: registerEvent
+      tags: [events]
+      summary: Register for an event
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Registered
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+
+  /resources:
+    get:
+      operationId: listResources
+      tags: [resources]
+      summary: List resources
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Resources list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Resource"
+
+  /impact/metrics:
+    get:
+      operationId: getImpactMetrics
+      tags: [impact]
+      summary: Get platform impact metrics
+      responses:
+        "200":
+          description: Impact metrics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImpactMetrics"
+
+  /impact/stories:
+    get:
+      operationId: listSuccessStories
+      tags: [impact]
+      summary: List success stories
+      responses:
+        "200":
+          description: Success stories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SuccessStory"
+
+  /market/verify-pin:
+    post:
+      operationId: verifyMarketPin
+      tags: [market]
+      summary: Verify PIN for Market Hub access
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PinVerification"
+      responses:
+        "200":
+          description: PIN verified
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PinResult"
+
+  /market/alerts:
+    get:
+      operationId: listMarketAlerts
+      tags: [market]
+      summary: List market alerts and predictions
+      responses:
+        "200":
+          description: Market alerts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MarketAlert"
+
+  /mentors:
+    get:
+      operationId: listMentors
+      tags: [community]
+      summary: List mentors
+      parameters:
+        - name: sector
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mentors list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Mentor"
+
+  /knowledge:
+    get:
+      operationId: listKnowledge
+      tags: [network]
+      summary: List knowledge sharing content
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Knowledge items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/KnowledgeItem"
+
 components:
   schemas:
     HealthStatus:
@@ -31,6 +509,670 @@ components:
       properties:
         status:
           type: string
-      required:
-        - status
+      required: [status]
 
+    Member:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        role:
+          type: string
+          enum: [agripreneur, investor, mentor, partner, company]
+        sector:
+          type: string
+        region:
+          type: string
+        country:
+          type: string
+        commodity:
+          type: string
+        businessType:
+          type: string
+        bio:
+          type: string
+        avatarUrl:
+          type: string
+        isVerified:
+          type: boolean
+        isConnected:
+          type: boolean
+        joinedAt:
+          type: string
+          format: date-time
+        metrics:
+          $ref: "#/components/schemas/MemberMetrics"
+      required: [id, name, role, sector, region, country, isVerified, isConnected, joinedAt]
+
+    MemberMetrics:
+      type: object
+      properties:
+        revenue:
+          type: number
+        jobsCreated:
+          type: integer
+        yieldTons:
+          type: number
+        growthPercent:
+          type: number
+      required: [revenue, jobsCreated]
+
+    CreateMember:
+      type: object
+      properties:
+        name:
+          type: string
+        role:
+          type: string
+        sector:
+          type: string
+        region:
+          type: string
+        country:
+          type: string
+        commodity:
+          type: string
+        businessType:
+          type: string
+        bio:
+          type: string
+      required: [name, role, sector, region, country]
+
+    ConnectionResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        memberId:
+          type: integer
+      required: [success, message, memberId]
+
+    Commodity:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        category:
+          type: string
+        avgPrice:
+          type: number
+        currency:
+          type: string
+        demandLevel:
+          type: string
+          enum: [Low, Medium, High, "Very High"]
+        marketSizeUsd:
+          type: number
+        topBuyers:
+          type: array
+          items:
+            type: string
+        trend:
+          type: string
+          enum: [up, down, stable]
+        marketHealth:
+          type: string
+          enum: [Green, Yellow, Red]
+        region:
+          type: string
+        isExport:
+          type: boolean
+        isOrganic:
+          type: boolean
+        priceChange7d:
+          type: number
+        priceChange30d:
+          type: number
+      required: [id, name, category, avgPrice, currency, demandLevel, marketSizeUsd, topBuyers, trend, marketHealth, region, isExport, isOrganic]
+
+    CommodityDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        category:
+          type: string
+        overview:
+          $ref: "#/components/schemas/MarketOverview"
+        buyers:
+          type: array
+          items:
+            $ref: "#/components/schemas/Buyer"
+        specifications:
+          $ref: "#/components/schemas/ProductSpec"
+        logistics:
+          $ref: "#/components/schemas/LogisticsData"
+        aiEngine:
+          $ref: "#/components/schemas/AiOpportunity"
+        alerts:
+          type: array
+          items:
+            $ref: "#/components/schemas/MarketAlert"
+        historicalPrices:
+          type: array
+          items:
+            $ref: "#/components/schemas/PricePoint"
+      required: [id, name, category, overview, buyers, specifications, logistics, aiEngine, alerts, historicalPrices]
+
+    MarketOverview:
+      type: object
+      properties:
+        globalPrice:
+          type: number
+        regionalPrice:
+          type: number
+        currency:
+          type: string
+        marketSizeUsd:
+          type: number
+        demandGrowthPercent:
+          type: number
+        importRegions:
+          type: array
+          items:
+            type: string
+        exportRegions:
+          type: array
+          items:
+            type: string
+      required: [globalPrice, regionalPrice, currency, marketSizeUsd, demandGrowthPercent, importRegions, exportRegions]
+
+    PricePoint:
+      type: object
+      properties:
+        date:
+          type: string
+        price:
+          type: number
+      required: [date, price]
+
+    Buyer:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        location:
+          type: string
+        type:
+          type: string
+          enum: [Retail, Exporter, Hotel, Platform, Processor, Distributor]
+        weeklyDemandTons:
+          type: number
+        monthlyDemandTons:
+          type: number
+        yearlyDemandTons:
+          type: number
+        sustainabilityScore:
+          type: integer
+        aiMatchScore:
+          type: integer
+        tradeReadiness:
+          type: string
+          enum: [Ready, Partial, Developing]
+        currency:
+          type: string
+        commodities:
+          type: array
+          items:
+            type: string
+        isAiRecommended:
+          type: boolean
+      required: [id, name, location, type, weeklyDemandTons, monthlyDemandTons, yearlyDemandTons, sustainabilityScore, aiMatchScore, tradeReadiness, currency, isAiRecommended]
+
+    ProductSpec:
+      type: object
+      properties:
+        variety:
+          type: string
+        qualityStandards:
+          type: array
+          items:
+            type: string
+        packaging:
+          type: array
+          items:
+            type: string
+        certifications:
+          type: array
+          items:
+            type: string
+        exportRequirements:
+          type: array
+          items:
+            type: string
+      required: [variety, qualityStandards, packaging, certifications, exportRequirements]
+
+    LogisticsData:
+      type: object
+      properties:
+        demandByRegion:
+          type: object
+          additionalProperties:
+            type: number
+        tonsPerYear:
+          type: number
+        exportRoutes:
+          type: array
+          items:
+            type: string
+        avgDeliveryDays:
+          type: integer
+        costPerTon:
+          type: number
+      required: [demandByRegion, tonsPerYear, exportRoutes, avgDeliveryDays, costPerTon]
+
+    AiOpportunity:
+      type: object
+      properties:
+        opportunityScore:
+          type: integer
+        suggestedAcreage:
+          type: number
+        yieldProjectionTons:
+          type: number
+        revenueProjectionUsd:
+          type: number
+        targetBuyers:
+          type: array
+          items:
+            type: string
+        bestPlantingMonths:
+          type: array
+          items:
+            type: string
+        cropRotationSuggestions:
+          type: array
+          items:
+            type: string
+      required: [opportunityScore, suggestedAcreage, yieldProjectionTons, revenueProjectionUsd, targetBuyers]
+
+    MarketAlert:
+      type: object
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+          enum: [price_spike, supply_gap, high_demand, shortage, forecast]
+        commodity:
+          type: string
+        message:
+          type: string
+        severity:
+          type: string
+          enum: [low, medium, high, critical]
+        region:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required: [id, type, commodity, message, severity, region, createdAt]
+
+    Opportunity:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+          enum: [investment, funding, value_chain, grant, accelerator, incubator]
+        sector:
+          type: string
+        roi:
+          type: string
+        fundingAmount:
+          type: number
+        currency:
+          type: string
+        deadline:
+          type: string
+          format: date
+        status:
+          type: string
+          enum: [open, closing_soon, closed]
+        tags:
+          type: array
+          items:
+            type: string
+      required: [id, title, description, type, sector, status]
+
+    CreateOpportunity:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+        sector:
+          type: string
+        roi:
+          type: string
+        fundingAmount:
+          type: number
+      required: [title, description, type, sector]
+
+    Project:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        leader:
+          type: string
+        leaderId:
+          type: integer
+        status:
+          type: string
+          enum: [planning, active, completed]
+        commodity:
+          type: string
+        region:
+          type: string
+        startDate:
+          type: string
+          format: date
+        memberCount:
+          type: integer
+        isJoined:
+          type: boolean
+        tags:
+          type: array
+          items:
+            type: string
+      required: [id, title, description, leader, leaderId, status, memberCount, isJoined]
+
+    CreateProject:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        commodity:
+          type: string
+        region:
+          type: string
+        startDate:
+          type: string
+          format: date
+        tags:
+          type: array
+          items:
+            type: string
+      required: [title, description]
+
+    ForumThread:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        content:
+          type: string
+        category:
+          type: string
+        author:
+          type: string
+        authorId:
+          type: integer
+        replies:
+          type: integer
+        views:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        tags:
+          type: array
+          items:
+            type: string
+      required: [id, title, content, category, author, authorId, replies, views, createdAt]
+
+    CreateForumThread:
+      type: object
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+        category:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+      required: [title, content, category]
+
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+          enum: [conference, exhibition, workshop, webinar, training]
+        location:
+          type: string
+        country:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        registrationDeadline:
+          type: string
+          format: date
+        attendees:
+          type: integer
+        maxAttendees:
+          type: integer
+        isRegistered:
+          type: boolean
+        isFeatured:
+          type: boolean
+        tags:
+          type: array
+          items:
+            type: string
+      required: [id, title, description, type, location, country, startDate, endDate, attendees, maxAttendees, isRegistered, isFeatured]
+
+    Resource:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+          enum: [research, best_practice, training, policy, regulation, market_report]
+        fileType:
+          type: string
+        fileSize:
+          type: string
+        author:
+          type: string
+        publishedAt:
+          type: string
+          format: date
+        downloads:
+          type: integer
+        tags:
+          type: array
+          items:
+            type: string
+      required: [id, title, description, category, fileType, author, publishedAt, downloads]
+
+    ImpactMetrics:
+      type: object
+      properties:
+        totalAgripreneurs:
+          type: integer
+        totalInvestors:
+          type: integer
+        totalMentors:
+          type: integer
+        totalPartners:
+          type: integer
+        marketValueUsd:
+          type: number
+        totalJobsCreated:
+          type: integer
+        countriesReached:
+          type: integer
+        commoditiesTracked:
+          type: integer
+        successStoriesCount:
+          type: integer
+        regionalImpact:
+          type: array
+          items:
+            $ref: "#/components/schemas/RegionalImpact"
+      required: [totalAgripreneurs, totalInvestors, totalMentors, totalPartners, marketValueUsd, totalJobsCreated, countriesReached, commoditiesTracked, successStoriesCount, regionalImpact]
+
+    RegionalImpact:
+      type: object
+      properties:
+        region:
+          type: string
+        country:
+          type: string
+        agripreneurs:
+          type: integer
+        marketValueUsd:
+          type: number
+        jobs:
+          type: integer
+      required: [region, country, agripreneurs, marketValueUsd, jobs]
+
+    SuccessStory:
+      type: object
+      properties:
+        id:
+          type: integer
+        agripreneurName:
+          type: string
+        title:
+          type: string
+        story:
+          type: string
+        sector:
+          type: string
+        region:
+          type: string
+        country:
+          type: string
+        revenueUsd:
+          type: number
+        jobsCreated:
+          type: integer
+        growthPercent:
+          type: number
+        commodities:
+          type: array
+          items:
+            type: string
+        publishedAt:
+          type: string
+          format: date
+        avatarUrl:
+          type: string
+      required: [id, agripreneurName, title, story, sector, region, country, revenueUsd, jobsCreated, growthPercent, publishedAt]
+
+    PinVerification:
+      type: object
+      properties:
+        pin:
+          type: string
+      required: [pin]
+
+    PinResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+        accessToken:
+          type: string
+        message:
+          type: string
+      required: [success, message]
+
+    Mentor:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        expertise:
+          type: array
+          items:
+            type: string
+        sector:
+          type: string
+        country:
+          type: string
+        bio:
+          type: string
+        menteeCount:
+          type: integer
+        rating:
+          type: number
+        isAvailable:
+          type: boolean
+        avatarUrl:
+          type: string
+      required: [id, name, expertise, sector, country, bio, menteeCount, rating, isAvailable]
+
+    KnowledgeItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+          enum: [agronomy, market_trends, technology, finance, policy]
+        tags:
+          type: array
+          items:
+            type: string
+        views:
+          type: integer
+        author:
+          type: string
+        publishedAt:
+          type: string
+          format: date
+      required: [id, title, description, category, tags, views, author, publishedAt]

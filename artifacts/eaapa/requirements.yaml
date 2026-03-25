@@ -1,0 +1,23 @@
+packages:
+  "framer-motion": "For smooth executive-level animations and transitions"
+  "recharts": "For premium data visualizations in the Market Hub data room"
+  "zustand": "For elegant, minimal global state management (Market Hub Auth)"
+  "clsx": "For conditional class merging in UI components"
+  "tailwind-merge": "For merging tailwind classes safely"
+  "date-fns": "For formatting dates nicely"
+
+images:
+  - path: "artifacts/eaapa/public/images/hero-bg.png"
+    description: "Abstract dark navy and emerald green glowing data network visualization, executive financial aesthetic, minimal, high-end, boardroom dashboard feel"
+    aspect_ratio: "16:9"
+  - path: "artifacts/eaapa/public/images/africa-network.png"
+    description: "Abstract glowing map of East Africa with data node connections, dark navy background, emerald green accents, high-tech, futuristic"
+    aspect_ratio: "16:9"
+  - path: "artifacts/eaapa/public/images/auth-bg.png"
+    description: "Subtle dark geometric patterns with deep green light leaks, secure vault aesthetic, premium"
+    aspect_ratio: "16:9"
+
+notes:
+  - Using zustand for simple local PIN state management
+  - Relying on @workspace/api-client-react for TanStack queries
+  - Creating a cohesive dark-navy/emerald theme for the financial intelligence platform
