@@ -5,11 +5,14 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppLayout } from "@/components/layout/AppLayout";
 
 import Home from "@/pages/Home";
+import About from "@/pages/About";
+import Programs from "@/pages/Programs";
 import Ecosystem from "@/pages/Ecosystem";
 import MarketHub from "@/pages/MarketHub";
 import DataRoom from "@/pages/DataRoom";
+import AILayer from "@/pages/AILayer";
 import Opportunities from "@/pages/Opportunities";
-import Projects from "@/pages/Projects";
+import Network from "@/pages/Network";
 import Community from "@/pages/Community";
 import Resources from "@/pages/Resources";
 import Events from "@/pages/Events";
@@ -23,11 +26,14 @@ function Router() {
     <AppLayout>
       <Switch>
         <Route path="/" component={Home} />
+        <Route path="/about" component={About} />
+        <Route path="/programs" component={Programs} />
         <Route path="/ecosystem" component={Ecosystem} />
         <Route path="/market-hub" component={MarketHub} />
+        <Route path="/market-hub/:id/ai" component={AILayer} />
         <Route path="/market-hub/:id" component={DataRoom} />
         <Route path="/opportunities" component={Opportunities} />
-        <Route path="/projects" component={Projects} />
+        <Route path="/network" component={Network} />
         <Route path="/community" component={Community} />
         <Route path="/resources" component={Resources} />
         <Route path="/events" component={Events} />

@@ -1,0 +1,383 @@
+ABOUT
+Dropdown:
+
+Vision & Mission
+Leadership & Governance
+Strategy
+Partners & Collaborators
+Contact
+Behavior:
+
+Vision & Mission
+
+Two-column layout
+Core values and guiding principles
+CTA: “Join EAAPA”
+
+Leadership
+
+Structured hierarchy:
+President
+Vice President
+CFO
+Cluster Leads
+Program Coordinators
+Profile cards (expandable)
+
+Contact
+
+Offices:
+Nairobi
+Nakuru
+Mombasa
+Embedded Google Maps for each
+2. PROGRAMS
+
+Dropdown:
+
+Accelerator
+Incubation
+Training & Capacity Building
+Mentorship Programs
+Youth Agripreneurs
+Features:
+Member listings
+Filters:
+Region
+Sector
+Business type
+Each member:
+Profile preview
+Connect button
+Messaging capability
+3. ECOSYSTEM
+
+Dropdown:
+
+Agripreneurs Directory
+Agribusinesses (Companies)
+Partners
+Investors
+Mentors
+Satellite Centers
+Behavior:
+Table/grid hybrid layout
+Advanced filters:
+Commodity
+Region
+Activity
+Each entry:
+Name
+Role
+Sector
+Location
+Connect button
+IMPORTANT:
+
+Clicking “Connect”:
+
+Saves to user’s network
+Unlocks deeper profile data
+Enables:
+Chat
+Email
+Call
+4. MARKET HUB (PIN-RESTRICTED CORE SYSTEM)
+
+Dropdown:
+
+Market Intelligence
+Commodity Prices
+Buyer Directory
+Export Opportunities
+Supply Chain
+ACCESS CONTROL:
+
+When user clicks any item:
+→ Prompt for PIN or verification
+
+Only approved users can enter.
+
+🏛️ MARKET HUB INTERFACE
+
+Design:
+
+Executive “boardroom” experience
+Slightly sunken main panel
+Thin, precise lines
+Minimal, premium, financial feel
+
+Left sidebar:
+
+Navigation between all market modules
+
+Main panel:
+
+Displays layered intelligence system
+🥇 LAYER 1 — MARKET SCAN DASHBOARD
+
+Purpose: Instant overview of all agricultural markets
+
+Table Columns:
+Commodity Name
+Average Price (local currency)
+Demand Level (Low / Medium / High / Very High)
+Market Size (USD + converted)
+Top Buyers
+Trend (↑ ↓ →)
+Market Health (Green / Yellow / Red)
+Button: “Data Room”
+Features:
+Super Filters:
+Category
+Region
+Export vs Local
+Organic vs Conventional
+Demand Level
+Price Range
+Trend
+Market Health
+Currency Conversion:
+KES, UGX, TZS, RWF, ETB, USD, EUR
+Visuals:
+Color-coded indicators
+Trend arrows
+Alerts for high demand or shortages
+🥈 LAYER 2 — CATEGORY DATA ROOM
+
+Purpose: Deep intelligence per commodity category
+
+Sections:
+
+Market Overview Global & regional prices Market size Demand growth trends Import/export regions Historical charts
+Buyer Directory
+Fields:
+
+Buyer Name
+Location
+Type (Retail, Exporter, Hotel, Platform)
+Demand trends (weekly, monthly, yearly)
+Sustainability Score (0–100)
+AI Match Score (0–100)
+Trade Readiness
+Currency
+
+Features:
+
+AI recommended buyers
+Messaging
+Pre-negotiation options
+3. Contract System
+
+Fields:
+
+Commodity
+Buyer
+Volume
+Price
+Contract Type (fixed/flexible/dynamic)
+Execution Mode (manual/semi-auto/auto)
+
+Behavior:
+
+Auto-filled contracts
+AI counter-offers
+Execution flow:
+Harvest → Packaging → Shipment → Payment
+4. Product Specifications
+Variety
+Quality standards
+Packaging
+Certifications
+Export requirements
+5. Logistics & Tonnage
+Demand per region
+Tons per year
+Export routes
+Delivery time
+Cost projections
+6. AI Opportunity Engine
+Opportunity score
+Suggested acreage
+Yield projections
+Revenue projections
+Target buyers
+7. Alerts & Predictions
+Price spikes
+Supply gaps
+High-demand regions
+Forecasts (3–12 months)
+Crop rotation recommendations
+
+→ Button: “Advanced Layer”
+
+🥉 LAYER 3 — AI AUTOMATION SYSTEM
+
+Purpose: Predictive and automated trading system
+
+Features:
+
+AI forecasting
+Smart contracts
+Auto negotiation
+Supply chain automation
+Scenario simulation:
+“If I plant X acres → produce Y tons → earn Z revenue”
+Global arbitrage analysis
+System Behavior:
+Feeds back data to Layer 1 & 2 in real time
+Exit Behavior:
+
+Prompt:
+“Are you sure you want to exit Market Hub?”
+
+💰 OPPORTUNITIES MODULE
+
+Dropdown:
+
+Investment Opportunities
+Funding Programs
+Value Chain Projects
+Submit Your Idea
+Investment Opportunities
+Listings with:
+Description
+ROI potential
+Sector
+Connect button
+Funding Programs
+Incubators
+Accelerators
+Grants
+Value Chain Projects
+Projects like:
+Avocado export
+Banana processing
+Users can join or invest
+Submit Idea
+Form submission system
+Internal review workflow
+🌐 NETWORK MODULE
+
+Dropdown:
+
+Collaboration Hub
+Connection Hub
+Project Rooms
+Knowledge Sharing
+Connection Hub
+
+Filters:
+
+Commodity (e.g., avocado, maize)
+Name
+Business type
+
+Sections:
+
+Agripreneurs
+Companies
+
+Each card:
+
+Profile preview
+Connect button
+Project Rooms
+Create / Join projects
+Status:
+Planning
+Active
+Completed
+
+Each project:
+
+Title
+Leader
+Date/time
+Join button
+Calendar option
+Chat + documents
+Knowledge Sharing
+
+Categories:
+
+Agronomy
+Market Trends
+Technology
+
+Cards:
+
+Title
+Description
+Tags
+Views
+Author
+Date
+👥 COMMUNITY MODULE
+
+Dropdown:
+
+Forum
+Mentor Network
+Agripreneur Challenge
+News & Updates
+Forum
+Discussion threads
+Categories (funding, marketing, dairy, etc.)
+Replies and views
+Mentor Network
+Mentor listings
+Expandable profiles
+Request mentorship
+Agripreneur Challenge
+Innovation challenges
+Group initiatives
+News & Updates
+Market updates
+Ecosystem news
+📚 RESOURCES MODULE
+
+Dropdown:
+
+Research & Reports
+Knowledge Center
+Best Practices
+Training Materials
+Policy & Regulations
+
+Features:
+
+Filters
+Document previews
+Downloads
+📅 EVENTS MODULE
+
+Dropdown:
+
+Upcoming Events
+Exhibitions
+Workshops
+All Events
+
+Features:
+
+Calendar view
+Registration system
+📊 IMPACT MODULE
+
+Dropdown:
+
+Success Stories
+Case Studies
+Impact Metrics
+Success Stories
+Agripreneur profile
+Story + metrics:
+Revenue
+Jobs created
+Growth
+Impact Metrics
+Total agripreneurs
+Market value created
+Jobs created
+Regional impact
