@@ -1,0 +1,211 @@
+1. IDENTITY & ACCESS CONTROL
+Core Users
+UserProfiles
+UserRoles
+UserPermissions
+RolePermissions
+AccessCodes
+
+Role Extensions
+Agripreneurs
+Investors
+Buyers
+Mentors
+StaffMembers
+Admins
+
+🏢 2. ORGANIZATIONS & BUSINESS STRUCTURE
+Companies
+BusinessProfiles
+CompanyUsers (junction: users ↔ companies)
+Partnerships
+Clusters
+SatelliteCentres
+Locations
+
+🌾 3. AGRICULTURE CORE SYSTEM
+Commodities
+CommodityCategories
+Varieties
+Specifications
+ProductionRecords
+FarmPlots
+InputUsage (seeds, fertilizer, etc.)
+SeasonalCycles
+
+🛒 4. MARKETPLACE & TRADE SYSTEM
+TradeListings
+ListingMedia
+Orders
+OrderItems
+Transactions
+Contracts
+PricingModels
+BulkRequests
+BuyerRequests
+
+🚚 5. LOGISTICS & SUPPLY CHAIN
+Shipments
+ShipmentItems
+Warehouses
+Stores
+Inventory
+InventoryMovements
+LogisticsProviders
+DeliveryTracking
+
+💰 6. FINANCE & FUNDING SYSTEM
+FundingOpportunities
+FundingApplications
+FundingRounds
+Investments
+InvestmentParticipants
+Grants
+Loans
+Disbursements
+Repayments
+FundingTracking
+
+📚 7. KNOWLEDGE & CONTENT SYSTEM
+Announcements
+FAQs
+News
+BlogArticles
+KnowledgeArticles
+Resources
+ResearchDocuments
+MediaGallery
+CaseStudies
+SuccessStories
+Testimonials
+
+🎓 8. TRAINING & CAPACITY BUILDING
+TrainingPrograms
+TrainingModules
+TrainingSessions
+ProgramEnrollments
+MentorshipSessions
+MentorshipMatches
+Certifications
+UserCertifications
+
+🌐 9. COMMUNITY & ENGAGEMENT
+ForumTopics
+ForumPosts
+ForumComments
+EventCategories
+Events
+EventRegistrations
+Feedback
+Surveys
+SurveyResponses
+Ratings
+Reviews
+
+📊 10. DATA, ANALYTICS & INTELLIGENCE
+Dashboards
+DashboardWidgets
+MarketData
+MarketPrices
+DemandSignals
+SupplySignals
+PriceTrends
+ImpactMetrics
+KPIs
+Reports
+
+🤖 11. AI & SMART SYSTEMS
+AIOpportunities
+AIRecommendations
+UserBehaviorLogs
+PredictionModels
+Alerts
+Signals
+
+🔔 12. NOTIFICATIONS & COMMUNICATION
+Notifications
+NotificationPreferences
+Messages
+Conversations
+EmailLogs
+SMSLogs
+PushNotifications
+
+📍 13. GEOGRAPHY & LOCATION INTELLIGENCE
+Countries
+Regions
+Counties
+SubCounties
+Wards
+GeoCoordinates
+LocationMappings
+
+📢 14. MARKETING & GROWTH
+Campaigns
+Leads
+LeadSources
+Conversions
+Promotions
+AdPerformance
+ReferralPrograms
+
+⚖️ 15. LEGAL & GOVERNANCE
+LegalDocuments
+Contracts
+ComplianceRecords
+Licenses
+IntellectualProperty
+Disputes
+Resolutions
+
+⚙️ 16. SYSTEM MANAGEMENT
+SystemSettings
+AuditLogs
+ErrorLogs
+FeatureFlags
+Integrations
+APIKeys
+Webhooks
+
+🔗 CRITICAL JUNCTION TABLES (VERY IMPORTANT)
+
+These ensure proper many-to-many relationships:
+
+UserRolesMapping (if multi-role users allowed)
+CompanyUsers
+InvestmentParticipants
+MentorshipMatches
+ProgramEnrollments
+EventRegistrations
+SurveyResponses
+
+🧠 HOW EVERYTHING CONNECTS (SIMPLIFIED)
+Core Backbone:
+UserProfiles
+   ↓
+(Role-based extension tables)
+   ↓
+Companies / Activities / Transactions
+
+Example Flow:
+Agripreneur (UserProfiles → Agripreneurs)
+→ creates ProductionRecords
+→ lists TradeListings
+→ receives Orders
+→ gets Funding
+Investor Flow:
+UserProfiles → Investors
+→ Investments
+→ FundingRounds
+→ Returns tracked
+📊 DASHBOARD LOGIC
+Dashboards
+DashboardWidgets
+KPIs
+Reports
+
+
+Each dashboard is:
+
+Role-based
+Data-driven (aggregated from all modules)
