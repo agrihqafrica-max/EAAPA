@@ -4,25 +4,25 @@ import { Globe, Users, Target, Shield, Zap, TrendingUp, Award, MapPin, Mail, Pho
 
 export default function About() {
   const leadership = [
-    { name: "Dr. Akinwumi Adesina", title: "President & Chair", role: "president", bio: "Leading the vision for agricultural transformation across the region." },
-    { name: "Sarah Njoroge", title: "Vice President", role: "vp", bio: "Former policy director overseeing ecosystem growth." },
-    { name: "David Ochieng", title: "CFO", role: "cfo", bio: "Managing capital allocation and investment strategy." },
+    { name: "Cosmas Mwangi", title: "Program & Team LEAD", role: "Program Architect", bio: "Leading the vision for agricultural transformation across the region." },
+    { name: "Tabitha Ng'ang'a", title: "Ass. Program Lead", role: "Ass. Team Lead", bio: "Former policy director overseeing ecosystem growth." },
+    { name: "Jedidah Mugane", title: "CFO", role: "cfo", bio: "Managing capital allocation and investment strategy." },
   ];
 
   const clusterLeads = [
-    { name: "Jane Kamau", title: "Tech Innovation Lead", bio: "Driving agritech integration." },
-    { name: "Paul Bekele", title: "Trade & Export Lead", bio: "Expanding international markets." },
-    { name: "Amina Yusuf", title: "Capital Lead", bio: "Connecting agripreneurs with funding." }
+    { name: "Peter Kamau", title: "Tech Innovation Lead", bio: "Driving agritech integration." },
+    { name: "Carol Ndegwa", title: "Trade & Export Lead", bio: "Expanding international markets." },
+    { name: "Leany Kariuki", title: "Capital Lead", bio: "Connecting agripreneurs with funding." }
   ];
 
   const programCoords = [
-    { name: "Michael Omondi", title: "Accelerator Director" },
-    { name: "Grace Wanjiku", title: "Mentorship Head" },
-    { name: "Peter Kagwe", title: "Youth Initiatives" },
-    { name: "Alice Mumbi", title: "Incubation Manager" }
+    { name: "Helena Githaiga", title: "Accelerator Director" },
+    { name: "Winnie Kamau", title: "Mentorship Head" },
+    { name: "Chritopher Mwangi", title: "Youth Initiatives" },
+    { name: "Lucy Mumbi", title: "Incubation Manager" }
   ];
 
-  const partners = ["USAID", "World Bank", "AfDB", "IFAD", "FAO", "CGIAR", "KCB Bank", "Safaricom"];
+  const partners = ["KENAFF", "Nyandarua County", "AfDB", "KARLO", "Equity", "CGIAR", "KCB Bank", "Strathmore", "Safaricom"];
 
   return (
     <div className="w-full">
