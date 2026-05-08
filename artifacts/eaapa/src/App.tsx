@@ -17,6 +17,7 @@ import Community from "@/pages/Community";
 import Resources from "@/pages/Resources";
 import Events from "@/pages/Events";
 import Impact from "@/pages/Impact";
+import BuyerNetwork from "@/pages/BuyerNetwork";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -38,6 +39,7 @@ function Router() {
         <Route path="/resources" component={Resources} />
         <Route path="/events" component={Events} />
         <Route path="/impact" component={Impact} />
+        <Route path="/buyer-network" component={BuyerNetwork} />
         <Route component={NotFound} />
       </Switch>
     </AppLayout>

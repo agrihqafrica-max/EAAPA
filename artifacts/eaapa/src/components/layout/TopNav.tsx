@@ -74,6 +74,7 @@ const NAV_ITEMS = [
       { label: "Connection Hub", href: "/network" },
       { label: "Project Rooms", href: "/network" },
       { label: "Knowledge Sharing", href: "/network" },
+      { label: "Buyer Network", href: "/buyer-network" },
     ]
   },
   {
