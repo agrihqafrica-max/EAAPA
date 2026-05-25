@@ -1,7 +1,7 @@
 import { useParams, Link } from "wouter";
 import { useGetCommodity } from "@workspace/api-client-react";
 import { LoadingScreen } from "@/components/ui/Loading";
-import { ArrowLeft, TrendingUp, Zap, Target, Box, FileText, CheckCircle2, ShieldAlert, ArrowRight, ShieldCheck, Truck, BarChart3, AlertTriangle, Calendar } from "lucide-react";
+import { ArrowLeft, TrendingUp, Zap, Target, Box, FileText, CheckCircle2, ShieldAlert, ArrowRight, ShieldCheck, Truck, BarChart3, AlertTriangle, Calendar, DollarSign } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useState } from "react";
 import { clsx } from "clsx";
@@ -66,8 +66,11 @@ export default function DataRoom() {
             <span className="px-3 py-1 rounded-lg bg-white/10 border border-white/20 text-white text-xs font-bold uppercase">{commodity.category}</span>
             <div className={clsx(
               "w-2.5 h-2.5 rounded-full",
-              commodity.marketHealth === 'Green' ? "bg-primary shadow-[0_0_8px_rgba(16,185,129,0.8)]" :
-              commodity.marketHealth === 'Yellow' ? "bg-secondary shadow-[0_0_8px_rgba(217,119,6,0.8)]" : "bg-destructive shadow-[0_0_8px_rgba(239,68,68,0.8)]"
+              commodity.alerts.filter(a => a.severity === 'critical').length === 0
+                ? "bg-primary shadow-[0_0_8px_rgba(16,185,129,0.8)]"
+                : commodity.alerts.filter(a => a.severity === 'high').length > 0
+                ? "bg-secondary shadow-[0_0_8px_rgba(217,119,6,0.8)]"
+                : "bg-destructive shadow-[0_0_8px_rgba(239,68,68,0.8)]"
             )} />
           </div>
           <p className="text-muted-foreground text-lg">{activeTab}</p>
@@ -315,17 +318,20 @@ export default function DataRoom() {
               <div className="glass-panel p-6 rounded-3xl">
                 <h3 className="font-bold text-white mb-6">Regional Demand</h3>
                 <div className="space-y-4">
-                  {Object.entries(commodity.logistics.demandByRegion).map(([region, demand]) => (
-                    <div key={region}>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span className="text-white/80">{region}</span>
-                        <span className="font-mono text-white">{demand} T</span>
+                  {Object.entries(commodity.logistics.demandByRegion).map(([region, demand]) => {
+                    const demandNum = demand as number;
+                    return (
+                      <div key={region}>
+                        <div className="flex justify-between text-sm mb-1">
+                          <span className="text-white/80">{region}</span>
+                          <span className="font-mono text-white">{demandNum} T</span>
+                        </div>
+                        <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                          <div className="h-full bg-primary" style={{ width: `${(demandNum / commodity.logistics.tonsPerYear) * 100}%` }} />
+                        </div>
                       </div>
-                      <div className="h-2 bg-white/5 rounded-full overflow-hidden">
-                        <div className="h-full bg-primary" style={{ width: `${(demand / commodity.logistics.tonsPerYear) * 100}%` }} />
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
               <div className="glass-panel p-6 rounded-3xl">

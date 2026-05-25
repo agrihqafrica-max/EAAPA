@@ -16,8 +16,9 @@ export default function AILayer() {
   if (isLoading) return <LoadingScreen />;
   if (!commodity) return <div className="p-10 text-white">Commodity not found</div>;
 
+  const basePrice = commodity.overview.globalPrice;
   const yieldPerAcre = 4; // tons
-  const basePricePerTon = commodity.avgPrice;
+  const basePricePerTon = basePrice;
   const estimatedYield = acreage * yieldPerAcre;
   const multiplier = targetMarket === "export" ? 1.4 : 1;
   const revenue = estimatedYield * basePricePerTon * multiplier;
@@ -25,15 +26,15 @@ export default function AILayer() {
   // Mock forecast data
   const forecastData = Array.from({ length: 12 }).map((_, i) => ({
     month: `M${i+1}`,
-    price: commodity.avgPrice * (1 + (Math.sin(i) * 0.15) + (i * 0.02))
+    price: basePrice * (1 + (Math.sin(i) * 0.15) + (i * 0.02))
   }));
 
   const arbitrageMarkets = [
-    { name: "Dubai", price: commodity.avgPrice * 1.8, score: 92, rec: "Strong Buy" },
-    { name: "Rotterdam", price: commodity.avgPrice * 2.1, score: 88, rec: "Strong Buy" },
-    { name: "Shanghai", price: commodity.avgPrice * 1.5, score: 75, rec: "Hold" },
-    { name: "London", price: commodity.avgPrice * 1.9, score: 82, rec: "Buy" },
-    { name: "Nairobi", price: commodity.avgPrice, score: 40, rec: "Local Supply" }
+    { name: "Dubai", price: basePrice * 1.8, score: 92, rec: "Strong Buy" },
+    { name: "Rotterdam", price: basePrice * 2.1, score: 88, rec: "Strong Buy" },
+    { name: "Shanghai", price: basePrice * 1.5, score: 75, rec: "Hold" },
+    { name: "London", price: basePrice * 1.9, score: 82, rec: "Buy" },
+    { name: "Nairobi", price: basePrice, score: 40, rec: "Local Supply" }
   ];
 
   return (

@@ -227,7 +227,7 @@ export default function MarketHub() {
                         <td className="p-5">
                           <span className={clsx(
                             "px-3 py-1.5 rounded-lg text-xs font-bold uppercase",
-                            item.demandLevel === 'Very_High' || item.demandLevel === 'High' ? "bg-primary/10 text-primary border border-primary/20" :
+                            item.demandLevel === 'Very High' || item.demandLevel === 'High' ? "bg-primary/10 text-primary border border-primary/20" :
                             item.demandLevel === 'Medium' ? "bg-secondary/10 text-secondary border border-secondary/20" : "bg-white/5 text-white/60 border border-white/10"
                           )}>
                             {item.demandLevel.replace('_', ' ')}

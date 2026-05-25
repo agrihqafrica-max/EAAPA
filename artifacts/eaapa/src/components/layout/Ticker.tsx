@@ -25,7 +25,7 @@ export function Ticker() {
             ) : (
               <Activity className="w-3 h-3 text-blue-400" />
             )}
-            <span>{(item as any).message || item.text}</span>
+            <span>{(item as any).message ?? (item as any).text ?? ""}</span>
           </div>
         ))}
       </div>
