@@ -17,6 +17,7 @@ import aiRouter from "./ai_routes";
 import notificationsRouter from "./notifications_routes";
 import geographyRouter from "./geography";
 import systemRouter from "./system";
+import documentsRouter from "./documents";
 
 const router: IRouter = Router();
 
@@ -42,5 +43,6 @@ router.use("/", aiRouter);
 router.use("/", notificationsRouter);
 router.use("/", geographyRouter);
 router.use("/", systemRouter);
+router.use("/", documentsRouter);
 
 export default router;

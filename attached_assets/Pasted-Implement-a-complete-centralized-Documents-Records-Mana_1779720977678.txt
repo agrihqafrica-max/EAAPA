@@ -1,0 +1,119 @@
+Implement a complete centralized Documents & Records Management System across the entire platform.
+
+Main Objective:
+Every report, contract, agreement, licence, requirement, exhibit, generated file, notification, and system document must be properly stored, traceable, downloadable, secure, and accessible from one unified location.
+
+Create a new main navigation item:
+- Documents
+
+Inside Documents create categorized dropdown sections:
+- Licences
+- Contracts
+- Agreements
+- Sales Requirements
+- Reports
+- Certificates
+- Exhibits
+- Notifications
+- Messages
+- User Documents
+- System Generated Files
+- Marketing Documents
+- Financial Documents
+- Legal Documents
+
+Core Requirements:
+1. System-wide document audit
+- Scan the entire application
+- Detect every module that generates:
+  - reports
+  - contracts
+  - PDFs
+  - agreements
+  - exports
+  - licences
+  - forms
+  - notifications
+  - messages
+  - compliance records
+- Automatically connect those outputs into the Documents system
+
+2. Unified document storage
+- Every generated file must:
+  - save automatically
+  - be categorized
+  - have owner/user reference
+  - have timestamps
+  - support download
+  - support preview
+  - support search/filter
+
+3. User profile integration
+- Each user profile must contain:
+  - personal documents
+  - agreements
+  - submitted forms
+  - licences
+  - activity records
+  - notifications
+  - communication history
+
+4. Authentication stability
+- Ensure:
+  - Join EAAPA works perfectly
+  - Sign in works perfectly
+  - Session handling stable
+  - Role permissions secure
+  - Protected routes enforced
+
+5. Notifications & messaging traceability
+- Every notification sent or received must be stored
+- Create message history/thread system
+- Track:
+  - sender
+  - receiver
+  - timestamps
+  - status
+  - related module/action
+- Make all communication searchable and auditable
+
+6. Security requirements
+- Secure document access by role/ownership
+- Prevent unauthorized downloads
+- Add audit logging
+- Add secure file handling
+- Validate uploads/downloads
+- Protect sensitive reports/contracts
+
+7. Functional requirements
+- Preview documents online
+- Download/export documents
+- Search by category/user/date/module
+- Pagination and filters
+- Empty/loading/error states
+- Mobile responsive
+
+8. Stability requirements
+- No broken links
+- No orphan records
+- No failed uploads/downloads
+- No missing references
+- No console/runtime errors
+
+9. If missing:
+- Create the full infrastructure
+- Database tables
+- Storage logic
+- Relationships
+- APIs
+- UI
+- Permissions
+- Notification tracking
+- Document indexing
+
+Important:
+- Do not redesign unrelated areas
+- Integrate into existing architecture cleanly
+- Preserve current UI style
+- Focus on enterprise-grade functionality, traceability, and reliability
+- Final result must feel like a real operating system document center

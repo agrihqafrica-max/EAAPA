@@ -19,3 +19,4 @@ export * from "./notifications";
 export * from "./marketing";
 export * from "./legal";
 export * from "./system_management";
+export * from "./documents";

@@ -125,6 +125,27 @@ const NAV_ITEMS: NavItem[] = [
       { label: "Impact Metrics", href: "/impact" },
     ],
   },
+  {
+    label: "Documents",
+    href: "/documents",
+    dropdown: [
+      { label: "All Documents",        href: "/documents" },
+      { label: "Licences",             href: "/documents" },
+      { label: "Contracts",            href: "/documents" },
+      { label: "Agreements",           href: "/documents" },
+      { label: "Sales Requirements",   href: "/documents" },
+      { label: "Reports",              href: "/documents" },
+      { label: "Certificates",         href: "/documents" },
+      { label: "Exhibits",             href: "/documents" },
+      { label: "Notifications",        href: "/documents" },
+      { label: "Messages",             href: "/documents" },
+      { label: "User Documents",       href: "/documents" },
+      { label: "System Generated",     href: "/documents" },
+      { label: "Marketing Documents",  href: "/documents" },
+      { label: "Financial Documents",  href: "/documents" },
+      { label: "Legal Documents",      href: "/documents" },
+    ],
+  },
 ];
 
 function DesktopNavItem({
