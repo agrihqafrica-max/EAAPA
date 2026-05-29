@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useLocation, useSearch } from "wouter";
 import {
   useDocuments, useDocumentStats, useDeleteDocument,
   type Document, type DocumentCategory, type DocumentFilters
@@ -313,7 +314,13 @@ function DocumentCard({ doc, onPreview, onDelete }: {
 
 // ── Main page ─────────────────────────────────────────────
 export default function Documents() {
-  const [activeCategory, setActiveCategory] = useState<DocumentCategory | "all">("all");
+  const [, setLocation] = useLocation();
+  const rawSearch = useSearch();
+
+  // Derive active category from URL ?category= param — keeps nav links, sidebar, and state in sync
+  const urlParams = new URLSearchParams(rawSearch);
+  const activeCategory = (urlParams.get("category") as DocumentCategory) || "all";
+
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [typeFilter, setTypeFilter] = useState<string>("all");
@@ -345,9 +352,9 @@ export default function Documents() {
   }, [data?.documents, typeFilter]);
 
   const handleCategoryChange = (cat: DocumentCategory | "all") => {
-    setActiveCategory(cat);
     setPage(1);
     setSidebarOpen(false);
+    setLocation(cat === "all" ? "/documents" : `/documents?category=${cat}`);
   };
 
   const handleDelete = (id: number) => {
