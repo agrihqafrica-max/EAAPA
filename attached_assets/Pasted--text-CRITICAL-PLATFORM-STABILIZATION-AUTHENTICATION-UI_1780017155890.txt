@@ -1,0 +1,263 @@
+```text
+CRITICAL PLATFORM STABILIZATION + AUTHENTICATION + UI/UX EXECUTION TASK
+
+This is an enterprise-grade agricultural ecosystem platform.
+The final result must feel like a world-class institutional operating system for agriculture, trade, finance, cooperatives, logistics, governments, exporters, buyers, and enterprises.
+
+Execute ALL instructions completely.
+Do not skip.
+Do not simplify.
+Do not hallucinate.
+Do not partially implement.
+
+==================================================
+1. FIX JOIN EAAPA + SIGN IN SYSTEM
+==================================================
+
+Current issue:
+- Join EAAPA is not functioning correctly
+- Sign In flow is broken or incomplete
+
+Required implementation:
+
+A. JOIN EAAPA
+- Fully functional registration flow
+- Validate all fields properly
+- Prevent duplicate accounts
+- Proper success/error handling
+- Save user correctly to database
+- Create profile automatically after signup
+- Handle loading states correctly 
+
+B. SIGN IN
+- Clicking Sign In must immediately open a working authentication flow
+- Authentication must be production-ready
+- Add secure session handling
+- Protected routes must work properly
+
+C. DUAL AUTHENTICATION SYSTEM
+
+Implement TWO authentication methods:
+
+1. National ID / Business Registration Authentication
+- ID Number input
+- Validate properly
+- Link to account/profile
+
+2. Phone OTP Authentication
+- Phone number login
+- OTP generation
+- OTP verification
+- Session persistence
+- Retry/resend handling
+- Expiration handling
+
+D. ACCOUNT TYPES
+
+Create separate profile systems:
+
+1. Individual User Profile
+- personal details
+- documents
+- licences
+- agreements
+- activity history
+- notifications
+- messages
+
+2. Business/Organization Profile
+- company details
+- registration info
+- legal documents
+- trade licences
+- contracts
+- team/users
+- operational records
+
+==================================================
+2. FIX MARKET HUB UI + SCROLLING
+==================================================
+
+Current issue:
+- Market Hub scrolling strip at the bottom is scrolling well but is truncating content
+- Some information is hidden or inaccessible
+
+Required fixes:
+- No clipping
+- No hidden cards
+- No overflow outside viewport
+
+Apply:
+- overflow-y-auto
+- overflow-x-auto where needed
+- min-h-screen
+- max-h-screen
+- responsive flex/grid layouts
+
+==================================================
+3. TOP STRIP / HEADER ANIMATION FIX
+==================================================
+
+Current issue:
+- Top strip movement is too fast and unstable
+
+Required:
+- Make top strip slow, smooth, elegant, and premium
+- Match the smooth behavior of the lower Market Hub strip
+- Use subtle enterprise-grade animation
+- No jittering
+- No aggressive movement
+- Smooth transitions only
+
+==================================================
+4. COMPLETE VISUAL REBRAND
+==================================================
+
+Current issue:
+- Platform feels too dark
+- Does not reflect premium agricultural business ecosystem
+
+Required:
+Transform the entire visual system into a:
+- world-class agricultural operating system
+- institutional African trade ecosystem
+- premium enterprise SaaS platform
+
+The design must feel:
+- professional
+- global
+- trusted
+- institutional
+- high-end
+- modern
+- agricultural yet corporate
+- investment-grade
+
+==================================================
+5. NEW COLOR SYSTEM
+==================================================
+
+Replace dark-heavy appearance with balanced premium palette.
+
+Design direction:
+- clean light backgrounds
+- soft natural tones
+- premium agriculture-inspired palette
+- modern enterprise gradients
+- subtle depth
+- refined shadows
+- elegant typography
+
+Primary inspiration:
+- global trade platforms
+- financial systems
+- agricultural exchanges
+- logistics ecosystems
+- institutional dashboards
+
+Suggested palette direction:
+- soft live green
+- earth tones
+- ivory/off-white
+- soft gold accents
+- muted organic gradients
+- professional neutral surfaces
+
+Avoid:
+- gamer UI
+- neon colors
+- harsh black backgrounds
+- overly dark interfaces
+- childish gradients
+
+==================================================
+6. LOGO SYSTEM
+==================================================
+
+Implement:
+- proper logo image handling
+- responsive logo rendering
+- fallback logo support
+- scalable header branding
+- favicon/app icon support
+
+Ensure:
+- logo displays correctly everywhere
+- responsive sizing
+- no distortion
+- professional placement
+
+==================================================
+7. ENTERPRISE UI/UX QUALITY
+==================================================
+
+The platform must feel like:
+- Bloomberg for agriculture
+- enterprise ERP
+- institutional marketplace
+- global commodity exchange
+- trade and compliance ecosystem
+
+Improve:
+- spacing
+- hierarchy
+- typography
+- component consistency
+- transitions
+- card layouts
+- responsive behavior
+- navigation polish
+- dashboard clarity
+
+==================================================
+8. SYSTEM STABILITY
+==================================================
+
+Fix ALL instability related to:
+- rendering
+- auth
+- navigation
+- scrolling
+- layout
+- state management
+- async handling
+- routing
+- loading states
+- null/undefined crashes
+
+Requirements:
+- zero console errors
+- zero runtime crashes
+- production-ready build passes
+- all routes functional
+- all forms functional
+- all auth flows stable
+
+==================================================
+9. DO NOT BREAK EXISTING SYSTEM
+==================================================
+
+Important:
+- Preserve existing architecture where possible
+- Do not randomly remove modules
+- Do not redesign business logic unnecessarily
+- Refactor only where required
+- Maintain scalability
+
+==================================================
+10. FINAL QUALITY STANDARD
+==================================================
+
+The finished product must feel like:
+A premium African agricultural civilization operating system built for governments, enterprises, cooperatives, exporters, traders, financial institutions, logistics operators, and global buyers.
+
+Everything must be:
+- stable
+- elegant
+- responsive
+- premium
+- secure
+- professional
+- scalable
+- production-ready
+```

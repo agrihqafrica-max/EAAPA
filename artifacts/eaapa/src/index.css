@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Outfit:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Outfit:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 @theme inline {
   --font-sans: 'DM Sans', sans-serif;
   --font-display: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
@@ -21,42 +22,46 @@
   --color-ring: hsl(var(--ring));
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
-  
-  --animate-ticker: ticker 80s linear infinite;
-  --animate-fade-in: fadeIn 0.5s ease-out;
-  --animate-slide-up: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-ticker: ticker 120s linear infinite;
+  --animate-fade-in: fadeIn 0.4s ease-out;
+  --animate-slide-up: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 :root {
-  /* Executive Dark Navy & Emerald Green Theme */
-  --background: 221 57% 6%; /* Very dark navy */
-  --foreground: 210 40% 98%;
-  
-  --card: 221 47% 10%;
-  --card-foreground: 210 40% 98%;
-  
-  --popover: 221 47% 10%;
-  --popover-foreground: 210 40% 98%;
-  
-  --primary: 152 93% 30%; /* Emerald Green */
-  --primary-foreground: 0 0% 100%;
-  
-  --secondary: 32 95% 44%; /* Gold/Brass */
-  --secondary-foreground: 0 0% 100%;
-  
-  --muted: 215 32% 17%;
-  --muted-foreground: 215 20% 65%;
-  
-  --accent: 152 93% 20%;
-  --accent-foreground: 210 40% 98%;
-  
-  --destructive: 0 84% 60%;
-  --destructive-foreground: 210 40% 98%;
-  
-  --border: 215 32% 17%;
-  --ring: 152 93% 30%;
+  /* ── Premium Institutional Dark Palette ─────────────────
+     Inspired by Bloomberg Terminal + African agricultural exchanges.
+     Deep slate foundation with forest green + warm gold accents.
+  ─────────────────────────────────────────────────────── */
 
-  --radius: 0.5rem;
+  --background: 222 32% 7%;        /* Deep neutral slate — not harsh navy */
+  --foreground: 210 30% 95%;
+
+  --card: 220 28% 11%;              /* Warm slate card surface */
+  --card-foreground: 210 25% 94%;
+
+  --popover: 220 30% 10%;
+  --popover-foreground: 210 25% 94%;
+
+  --primary: 152 55% 36%;           /* Rich forest green — less neon, more institutional */
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 38 80% 52%;          /* Warm harvest gold */
+  --secondary-foreground: 0 0% 100%;
+
+  --muted: 220 22% 16%;             /* Elevated muted surface */
+  --muted-foreground: 215 18% 68%;  /* Lighter, more readable muted text */
+
+  --accent: 152 45% 22%;
+  --accent-foreground: 210 30% 95%;
+
+  --destructive: 4 80% 58%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 220 22% 18%;            /* More visible borders */
+  --ring: 152 55% 36%;
+
+  --radius: 0.625rem;
 }
 
 @layer base {
@@ -64,8 +69,10 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground antialiased selection:bg-primary/30;
+    @apply bg-background text-foreground antialiased selection:bg-primary/25;
     font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
@@ -73,38 +80,66 @@
   }
 }
 
+/* ── Ticker animation ────────────────────────────────── */
 @keyframes ticker {
-  0% { transform: translateX(0); }
+  0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
 @keyframes fadeIn {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to   { opacity: 1; }
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Glassmorphism utilities */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 hsl(152 55% 36% / 0.3); }
+  50%       { box-shadow: 0 0 0 8px hsl(152 55% 36% / 0); }
+}
+
+/* ── Glass panel ─────────────────────────────────────── */
 .glass-panel {
-  @apply bg-card/60 backdrop-blur-xl border border-white/10 shadow-xl;
+  background: hsl(220 28% 11% / 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid hsl(220 22% 18% / 0.8);
+  box-shadow: 0 4px 24px hsl(222 32% 4% / 0.4), inset 0 1px 0 hsl(220 30% 100% / 0.04);
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* ── Premium card hover ───────────────────────────────── */
+.card-hover {
+  @apply transition-all duration-200;
 }
-::-webkit-scrollbar-track {
-  background: hsl(var(--background));
+.card-hover:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 32px hsl(222 32% 4% / 0.5);
 }
-::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted));
-  border-radius: 4px;
+
+/* ── Scrollbars ──────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: hsl(220 22% 24%); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(152 55% 36%); }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Input base ──────────────────────────────────────── */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="password"] {
+  outline: none;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--primary));
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus {
+  border-color: hsl(var(--primary));
 }

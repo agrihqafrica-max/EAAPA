@@ -459,20 +459,25 @@ export default function MarketHub() {
 
         {/* Market Alerts Footer Bar */}
         {alerts && alerts.length > 0 && (
-          <div className="h-12 border-t border-white/10 bg-card flex items-center px-4 overflow-hidden relative z-20 flex-shrink-0">
-            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mr-4 flex-shrink-0">LIVE</span>
-            <div className="flex items-center gap-6 animate-ticker whitespace-nowrap overflow-hidden">
-              {[...alerts, ...alerts].map((alert, i) => (
-                <div key={i} className={clsx(
-                  "flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold flex-shrink-0",
-                  alert.severity === 'critical' ? "bg-destructive/20 text-destructive" :
-                  alert.severity === 'high' ? "bg-secondary/20 text-secondary" :
-                  "bg-blue-500/20 text-blue-400"
-                )}>
-                  <div className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
-                  {alert.commodity}: {alert.message}
-                </div>
-              ))}
+          <div className="h-12 border-t border-white/10 bg-card flex items-center overflow-hidden relative z-20 flex-shrink-0">
+            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest px-4 flex-shrink-0 border-r border-white/10 h-full flex items-center">LIVE</span>
+            <div className="flex-1 overflow-hidden relative">
+              <div
+                className="flex items-center gap-8 whitespace-nowrap pl-6"
+                style={{ animation: "ticker 90s linear infinite", willChange: "transform" }}
+              >
+                {[...alerts, ...alerts, ...alerts].map((alert, i) => (
+                  <span key={i} className={clsx(
+                    "inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold flex-shrink-0",
+                    alert.severity === 'critical' ? "bg-destructive/20 text-destructive" :
+                    alert.severity === 'high' ? "bg-secondary/20 text-secondary" :
+                    "bg-blue-500/20 text-blue-400"
+                  )}>
+                    <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse inline-block" />
+                    {alert.commodity}: {alert.message}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         )}
