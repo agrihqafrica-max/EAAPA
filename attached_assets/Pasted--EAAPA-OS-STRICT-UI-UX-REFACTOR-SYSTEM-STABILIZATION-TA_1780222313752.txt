@@ -1,0 +1,420 @@
+# EAAPA OS - STRICT UI/UX REFACTOR & SYSTEM STABILIZATION TASK
+
+IMPORTANT INSTRUCTIONS
+
+You are performing a controlled production refactor.
+
+DO NOT SKIP ANY TASK.
+
+DO NOT COMBINE TASKS.
+
+DO NOT PROCEED TO THE NEXT TASK UNTIL THE CURRENT TASK IS FULLY COMPLETED, VERIFIED, AND FREE OF ERRORS.
+
+After each task:
+
+1. Implement changes.
+2. Verify visually.
+3. Verify responsiveness.
+4. Verify no console errors.
+5. Verify no TypeScript errors.
+6. Verify no build errors.
+7. Only then move to the next task.
+
+At the end, perform a complete system-wide error audit and fix all discovered issues.
+
+---
+
+## TASK 1 — REPLACE COLOR SYSTEM
+
+Current dark-heavy color palette does not reflect the EAAPA ecosystem vision.
+
+Replace it with a professional ecosystem-focused design system.
+
+Design characteristics:
+
+* Trustworthy
+* Agricultural
+* Institutional
+* Modern African
+* Clean
+* Premium
+* Accessible
+
+Primary Colors:
+
+* Deep Forest Green
+* Rich Earth Brown
+* Natural Gold Accent
+* Soft Ivory Background
+* Clean White Surfaces
+
+Supporting Colors:
+
+* Success Green
+* Warning Amber
+* Information Blue
+* Neutral Gray Scale
+
+Requirements:
+
+* Remove excessive dark backgrounds.
+* Remove black-heavy sections.
+* Improve readability.
+* Improve contrast ratios.
+* Preserve professional appearance.
+* Ensure consistency across all pages.
+
+Deliverable:
+Entire application uses the new design system consistently.
+
+---
+
+## TASK 2 — FIX ECOSYSTEM ANNOUNCEMENT STRIP
+
+Current scrolling strip is moving too fast.
+
+Users cannot read content.
+
+Requirements:
+
+* Reduce animation speed dramatically.
+* Content should be comfortably readable.
+* User must be able to pause scrolling by hovering.
+* User must be able to pause scrolling by placing cursor on the strip.
+* Mobile users should be able to pause by touching the strip.
+* Scrolling must resume smoothly.
+
+Each announcement item must become clickable.
+
+When clicked:
+
+* Open a dedicated detail page.
+* Display complete information.
+* Include title.
+* Include description.
+* Include related ecosystem entity.
+* Include contact information if available.
+* Include related links.
+* Include date.
+
+The strip must function as an ecosystem communication channel.
+
+---
+
+## TASK 3 — REDESIGN ECOSYSTEM DIRECTORY SYSTEM
+
+Current implementation incorrectly uses identical panels/cards in some case for ecosystem entities. 
+
+This is architecturally wrong depending on purpose
+
+Different ecosystem entities have different data structures.
+
+Create dynamic entity-specific cards and detail pages globally where necessary 
+
+---
+
+### AGRIPRENEURS DIRECTORY
+
+Entity Type:
+People
+
+Required Fields:
+
+* Full Name
+* Profile Photo
+* County
+* Subcounty
+* Value Chain
+* Enterprise Stage
+* Experience
+* Skills
+* Certifications
+* Contact
+* Social Links
+* Membership Status
+
+Design must prioritize human profile information.
+
+---
+
+### eg below are few examples  AGRIBUSINESSES DIRECTORY
+
+Entity Type:
+Companies
+
+Required Fields:
+
+* Business Name
+* Logo
+* Sector
+* Products
+* Services
+* Capacity
+* Certifications
+* Physical Address
+* Counties Served
+* Website
+* Contacts
+* Team Size
+* Year Founded
+
+Design must prioritize company information.
+
+---
+
+### PARTNERS DIRECTORY
+
+Entity Type:
+Organizations
+
+Can include:
+
+* NGOs
+* Development Partners
+* Universities
+* Research Institutions
+* Government Agencies
+* Private Sector Organizations
+
+Required Fields:
+
+* Organization Name
+* Organization Type
+* Focus Areas
+* Geographic Coverage
+* Programs
+* Website
+* Contact Information
+
+---
+
+### INVESTORS DIRECTORY
+
+Entity Type:
+People or Institutions
+
+Required Fields:
+
+* Investor Name
+* Investor Type
+* Ticket Size
+* Preferred Sectors
+* Geography
+* Investment Stage
+* Contact Information
+
+Layout should focus on investment capability.
+
+---
+
+### MENTORS DIRECTORY
+
+Entity Type:
+People
+
+Required Fields:
+
+* Name
+* Expertise
+* Years Experience
+* Industries
+* Availability
+* Languages
+* Contact Method
+
+Layout should emphasize mentorship expertise.
+
+---
+
+### SATELLITE CENTERS DIRECTORY
+
+Entity Type:
+Physical Facilities
+
+Examples:
+
+* Aggregation Centers
+* Collection Centers
+* Processing Hubs
+* Innovation Hubs
+* Training Centers
+
+Required Fields:
+
+* Center Name
+* Center Type
+* Location
+* Services Offered
+* Capacity
+* Operating Hours
+* Contact Information
+* GPS Coordinates
+
+Layout should emphasize facility information.
+
+---
+
+### UNIVERSAL RULE
+
+Create a dynamic entity system.
+
+Shared information should use reusable components.
+
+Entity-specific information must use specialized layouts.
+
+Do NOT force all entity types into identical cards. review this globally
+
+---
+
+## TASK 4 — REVIEW ENTIRE ECOSYSTEM NAVIGATION
+
+Review every navigation item.
+
+Determine:
+
+* Purpose
+* Audience
+* Data Type
+* User Journey
+
+Reconfigure navigation structure where necessary.
+
+Ensure each menu leads to the correct information architecture.
+
+Remove ambiguity.
+
+Improve discoverability.
+
+Improve usability.
+
+---
+
+## TASK 5 — remove cta button on about us landing top page . fro the rest of CTA BUTTONS
+
+Requirements:
+
+* Identify all CTA buttons.
+* Verify routes.
+* Verify actions.
+* Verify links.
+* Fix broken navigation.
+* Fix broken event handlers.
+
+Every CTA must perform its intended action.
+
+No dead buttons.
+
+No placeholder behavior.
+
+---
+
+## TASK 6 — LANDING PAGE RESTRUCTURE
+
+Current logo redirects incorrectly.
+
+Create a dedicated navigation item:
+
+HOME
+
+Place HOME before ABOUT in the navigation menu.
+
+Navigation order should begin:
+
+HOME
+ABOUT
+...
+
+Requirements:
+
+* Home becomes the primary landing page.
+* Logo should route correctly.
+* Navigation structure should remain intuitive.
+
+---
+
+## TASK 7 — IMPROVE NAVIGATION DROPDOWNS
+
+Current dropdowns are visually weak because they are transparent.
+
+Requirements:
+
+* Add professional dropdown backgrounds.
+* Add subtle shadows.
+* Improve contrast.
+* Improve readability.
+* Improve hover states.
+* Improve active states.
+
+Dropdowns must feel:
+
+* Professional
+* Enterprise-grade
+* Modern
+* Easy to read
+
+No transparent dropdown menus.
+
+---
+
+## TASK 8 — RESPONSIVE DESIGN AUDIT
+
+Review:
+
+* Desktop
+* Tablet
+* Mobile
+
+Verify:
+
+* Layout consistency
+* Spacing
+* Typography
+* Navigation
+* Card behavior
+* Tables
+* Forms
+
+Fix all responsive issues discovered.
+
+---
+
+## TASK 9 — SYSTEM-WIDE ERROR ELIMINATION
+
+Perform a full project audit.
+
+Fix:
+
+* TypeScript errors
+* React errors
+* Routing issues
+* Build failures
+* State management issues
+* Console warnings
+* Performance issues
+* Accessibility issues
+
+Requirements:
+
+* Zero build errors
+* Zero runtime errors
+* Zero console errors
+* Zero broken routes
+
+---
+
+## TASK 10 — FINAL QUALITY ASSURANCE
+
+Before completion verify:
+
+✓ New ecosystem color system applied
+✓ Announcement strip readable and clickable
+✓ Dynamic entity panels implemented
+✓ Ecosystem navigation optimized
+✓ Home CTA buttons working
+✓ Home menu added before About
+✓ Dropdown visibility improved
+✓ Responsive issues fixed
+✓ Build passes successfully
+✓ Application runs without errors
+
+Do not mark task complete until every item above is verified.

@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { ChevronDown, ChevronRight, Menu, Globe, Shield, Lock, X, LogOut, UserCircle, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronRight, Menu, Shield, Lock, X, LogOut, UserCircle, ChevronUp, Sprout } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useAuth, type AuthUser } from "@/contexts/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
@@ -11,14 +11,10 @@ function cn(...inputs: ClassValue[]) {
 }
 
 type DropdownItem = { label: string; href: string };
-type NavItem = {
-  label: string;
-  href: string;
-  isRestricted?: boolean;
-  dropdown?: DropdownItem[];
-};
+type NavItem = { label: string; href: string; isRestricted?: boolean; dropdown?: DropdownItem[] };
 
 const NAV_ITEMS: NavItem[] = [
+  { label: "Home", href: "/" },
   {
     label: "About",
     href: "/about",
@@ -27,14 +23,14 @@ const NAV_ITEMS: NavItem[] = [
       { label: "Leadership & Governance", href: "/about#leadership" },
       { label: "Strategy", href: "/about#strategy" },
       { label: "Partners & Collaborators", href: "/about#partners" },
-      { label: "Contact", href: "/about#contact" },
+      { label: "Contact Us", href: "/about#contact" },
     ],
   },
   {
     label: "Programs",
     href: "/programs",
     dropdown: [
-      { label: "Accelerator", href: "/programs#accelerator" },
+      { label: "Accelerator Program", href: "/programs#accelerator" },
       { label: "Incubation", href: "/programs#incubation" },
       { label: "Training & Capacity Building", href: "/programs#training" },
       { label: "Mentorship Programs", href: "/programs#mentorship" },
@@ -45,12 +41,12 @@ const NAV_ITEMS: NavItem[] = [
     label: "Ecosystem",
     href: "/ecosystem",
     dropdown: [
-      { label: "Agripreneurs Directory", href: "/ecosystem" },
-      { label: "Agribusinesses", href: "/ecosystem" },
-      { label: "Partners", href: "/ecosystem" },
-      { label: "Investors", href: "/ecosystem" },
-      { label: "Mentors", href: "/ecosystem" },
-      { label: "Satellite Centers", href: "/ecosystem" },
+      { label: "Agripreneurs Directory", href: "/ecosystem?type=agripreneur" },
+      { label: "Agribusinesses", href: "/ecosystem?type=company" },
+      { label: "Partners & NGOs", href: "/ecosystem?type=partner" },
+      { label: "Investors", href: "/ecosystem?type=investor" },
+      { label: "Mentors", href: "/ecosystem?type=mentor" },
+      { label: "Satellite Centers", href: "/ecosystem?type=satellite" },
     ],
   },
   {
@@ -70,7 +66,7 @@ const NAV_ITEMS: NavItem[] = [
     href: "/opportunities",
     dropdown: [
       { label: "Investment Opportunities", href: "/opportunities" },
-      { label: "Funding Programs", href: "/opportunities" },
+      { label: "Grants & Funding", href: "/opportunities" },
       { label: "Value Chain Projects", href: "/opportunities" },
       { label: "Submit Your Idea", href: "/opportunities" },
     ],
@@ -80,7 +76,6 @@ const NAV_ITEMS: NavItem[] = [
     href: "/network",
     dropdown: [
       { label: "Collaboration Hub", href: "/network" },
-      { label: "Connection Hub", href: "/network" },
       { label: "Project Rooms", href: "/network" },
       { label: "Knowledge Sharing", href: "/network" },
       { label: "Buyer Network", href: "/buyer-network" },
@@ -112,9 +107,9 @@ const NAV_ITEMS: NavItem[] = [
     href: "/events",
     dropdown: [
       { label: "Upcoming Events", href: "/events" },
-      { label: "Exhibitions", href: "/events" },
+      { label: "Exhibitions & Trade Fairs", href: "/events" },
       { label: "Workshops", href: "/events" },
-      { label: "All Events", href: "/events" },
+      { label: "Webinars", href: "/events" },
     ],
   },
   {
@@ -130,67 +125,42 @@ const NAV_ITEMS: NavItem[] = [
     label: "Documents",
     href: "/documents",
     dropdown: [
-      { label: "All Documents",        href: "/documents" },
-      { label: "Licences",             href: "/documents?category=licences" },
-      { label: "Contracts",            href: "/documents?category=contracts" },
-      { label: "Agreements",           href: "/documents?category=agreements" },
-      { label: "Sales Requirements",   href: "/documents?category=sales_requirements" },
-      { label: "Reports",              href: "/documents?category=reports" },
-      { label: "Certificates",         href: "/documents?category=certificates" },
-      { label: "Exhibits",             href: "/documents?category=exhibits" },
-      { label: "Notifications",        href: "/documents?category=notifications" },
-      { label: "Messages",             href: "/documents?category=messages" },
-      { label: "User Documents",       href: "/documents?category=user_documents" },
-      { label: "System Generated",     href: "/documents?category=system_generated" },
-      { label: "Marketing Documents",  href: "/documents?category=marketing" },
-      { label: "Financial Documents",  href: "/documents?category=financial" },
-      { label: "Legal Documents",      href: "/documents?category=legal" },
+      { label: "All Documents", href: "/documents" },
+      { label: "Licences", href: "/documents?category=licences" },
+      { label: "Contracts", href: "/documents?category=contracts" },
+      { label: "Agreements", href: "/documents?category=agreements" },
+      { label: "Certificates", href: "/documents?category=certificates" },
+      { label: "Reports", href: "/documents?category=reports" },
+      { label: "Legal Documents", href: "/documents?category=legal" },
+      { label: "Financial Documents", href: "/documents?category=financial" },
     ],
   },
 ];
 
-function DesktopNavItem({
-  item,
-  isActive,
-  alignRight,
-}: {
-  item: NavItem;
-  isActive: boolean;
-  alignRight: boolean;
-}) {
+// ── Dropdown panel ────────────────────────────────────────
+const DROPDOWN_STYLE = {
+  background: "#ffffff",
+  border: "1px solid hsl(42 18% 85%)",
+  boxShadow: "0 8px 30px hsl(24 22% 10% / 0.12), 0 2px 8px hsl(24 22% 10% / 0.06)",
+};
+
+function DesktopNavItem({ item, isActive, alignRight }: { item: NavItem; isActive: boolean; alignRight: boolean }) {
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  const handleMouseEnter = () => setOpen(true);
-  const handleMouseLeave = () => setOpen(false);
-
   return (
-    <div
-      ref={ref}
-      className="relative"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+    <div className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
       <Link
         href={item.href}
         className={cn(
-          "flex items-center gap-1 px-2.5 py-2 rounded-lg text-[13px] font-medium transition-all duration-150 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50",
+          "flex items-center gap-1 px-2.5 py-2 rounded-lg text-[13px] font-medium transition-all duration-150 whitespace-nowrap",
           isActive
-            ? "text-white bg-white/10"
-            : "text-muted-foreground hover:text-white hover:bg-white/5"
+            ? "text-primary bg-primary/8 font-semibold"
+            : "text-foreground/60 hover:text-foreground hover:bg-foreground/5"
         )}
-        aria-haspopup={item.dropdown ? "true" : undefined}
-        aria-expanded={item.dropdown ? open : undefined}
       >
         {item.isRestricted && <Shield className="w-3 h-3 text-secondary flex-shrink-0" />}
         {item.label}
         {item.dropdown && (
-          <ChevronDown
-            className={cn(
-              "w-3 h-3 opacity-50 transition-transform duration-150 flex-shrink-0",
-              open && "rotate-180 opacity-100"
-            )}
-          />
+          <ChevronDown className={cn("w-3 h-3 opacity-40 transition-transform duration-150 flex-shrink-0", open && "rotate-180 opacity-70")} />
         )}
       </Link>
 
@@ -198,14 +168,12 @@ function DesktopNavItem({
         <AnimatePresence>
           {open && (
             <motion.div
-              initial={{ opacity: 0, y: 6, scale: 0.97 }}
+              initial={{ opacity: 0, y: 5, scale: 0.97 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 4, scale: 0.97 }}
+              exit={{ opacity: 0, y: 3, scale: 0.97 }}
               transition={{ duration: 0.13, ease: "easeOut" }}
-              className={cn(
-                "absolute top-full mt-1 w-60 rounded-xl glass-panel p-1.5 shadow-2xl border border-white/10 z-[200]",
-                alignRight ? "right-0" : "left-0"
-              )}
+              className={cn("absolute top-full mt-1.5 w-60 rounded-2xl p-1.5 z-[200]", alignRight ? "right-0" : "left-0")}
+              style={DROPDOWN_STYLE}
               role="menu"
             >
               {item.dropdown.map((drop) => (
@@ -213,11 +181,9 @@ function DesktopNavItem({
                   key={drop.label}
                   href={drop.href}
                   role="menuitem"
-                  className="flex items-center gap-2 px-3.5 py-2.5 text-sm text-muted-foreground hover:text-white hover:bg-white/5 rounded-lg transition-colors focus-visible:outline-none focus-visible:bg-white/5"
+                  className="flex items-center gap-2 px-3.5 py-2.5 text-sm text-foreground/60 hover:text-foreground hover:bg-muted rounded-xl transition-colors"
                 >
-                  {item.isRestricted && (
-                    <Lock className="w-3.5 h-3.5 text-secondary flex-shrink-0" />
-                  )}
+                  {item.isRestricted && <Lock className="w-3.5 h-3.5 text-secondary flex-shrink-0" />}
                   {drop.label}
                 </Link>
               ))}
@@ -229,26 +195,17 @@ function DesktopNavItem({
   );
 }
 
-function MobileAccordionItem({
-  item,
-  isActive,
-  onNavigate,
-}: {
-  item: NavItem;
-  isActive: boolean;
-  onNavigate: () => void;
-}) {
+function MobileAccordionItem({ item, isActive, onNavigate }: { item: NavItem; isActive: boolean; onNavigate: () => void }) {
   const [expanded, setExpanded] = useState(false);
-
   return (
-    <div className="border-b border-white/[0.06] last:border-0">
+    <div className="border-b border-border last:border-0">
       <div className="flex items-center">
         <Link
           href={item.href}
           onClick={onNavigate}
           className={cn(
-            "flex-1 flex items-center gap-2.5 px-4 py-3.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:bg-white/5 rounded-l-lg",
-            isActive ? "text-white" : "text-white/70 hover:text-white"
+            "flex-1 flex items-center gap-2.5 px-4 py-3.5 text-sm font-medium transition-colors rounded-l-lg",
+            isActive ? "text-primary font-semibold" : "text-foreground/65 hover:text-foreground"
           )}
         >
           {item.isRestricted && <Shield className="w-4 h-4 text-secondary flex-shrink-0" />}
@@ -258,27 +215,20 @@ function MobileAccordionItem({
         {item.dropdown && (
           <button
             onClick={() => setExpanded((p) => !p)}
-            className="px-3 py-3.5 text-white/40 hover:text-white transition-colors focus-visible:outline-none"
+            className="px-3 py-3.5 text-foreground/35 hover:text-foreground transition-colors"
             aria-label={expanded ? "Collapse" : "Expand"}
-            aria-expanded={expanded}
           >
-            <ChevronRight
-              className={cn(
-                "w-4 h-4 transition-transform duration-200",
-                expanded && "rotate-90"
-              )}
-            />
+            <ChevronRight className={cn("w-4 h-4 transition-transform duration-200", expanded && "rotate-90")} />
           </button>
         )}
       </div>
-
       <AnimatePresence>
         {expanded && item.dropdown && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}
+            transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
             <div className="pb-2 pl-4 pr-2 space-y-0.5">
@@ -287,11 +237,9 @@ function MobileAccordionItem({
                   key={drop.label}
                   href={drop.href}
                   onClick={onNavigate}
-                  className="flex items-center gap-2 px-4 py-2.5 text-sm text-white/50 hover:text-white hover:bg-white/5 rounded-lg transition-colors focus-visible:outline-none focus-visible:bg-white/5"
+                  className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground/50 hover:text-foreground hover:bg-muted rounded-xl transition-colors"
                 >
-                  {item.isRestricted && (
-                    <Lock className="w-3.5 h-3.5 text-secondary flex-shrink-0" />
-                  )}
+                  {item.isRestricted && <Lock className="w-3.5 h-3.5 text-secondary flex-shrink-0" />}
                   {drop.label}
                 </Link>
               ))}
@@ -308,11 +256,9 @@ function UserMenu({ user, logout }: { user: AuthUser; logout: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    function handler(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
-    }
-    if (open) document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
+    function h(e: MouseEvent) { if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false); }
+    if (open) document.addEventListener("mousedown", h);
+    return () => document.removeEventListener("mousedown", h);
   }, [open]);
 
   const initials = (user.firstName?.[0] ?? "") + (user.lastName?.[0] ?? "");
@@ -323,53 +269,109 @@ function UserMenu({ user, logout }: { user: AuthUser; logout: () => void }) {
         onClick={() => setOpen(p => !p)}
         className={cn(
           "flex items-center gap-2.5 px-3 py-1.5 rounded-xl border transition-all",
-          open ? "bg-white/10 border-white/15" : "bg-white/5 hover:bg-white/10 border-white/10"
+          open ? "bg-muted border-border" : "bg-background border-border hover:bg-muted"
         )}
       >
-        <div className="w-7 h-7 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center text-[11px] font-bold text-primary flex-shrink-0">
+        <div className="w-7 h-7 rounded-full bg-primary/15 border border-primary/25 flex items-center justify-center text-[11px] font-bold text-primary flex-shrink-0">
           {initials || <UserCircle className="w-4 h-4" />}
         </div>
-        <span className="text-sm font-medium text-white/80 max-w-[80px] truncate">{user.firstName}</span>
-        {open
-          ? <ChevronUp className="w-3 h-3 text-white/40 flex-shrink-0" />
-          : <ChevronDown className="w-3 h-3 text-white/40 flex-shrink-0" />
-        }
+        <span className="text-sm font-medium text-foreground/80 max-w-[80px] truncate">{user.firstName}</span>
+        {open ? <ChevronUp className="w-3 h-3 text-foreground/35 flex-shrink-0" /> : <ChevronDown className="w-3 h-3 text-foreground/35 flex-shrink-0" />}
       </button>
 
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: 6, scale: 0.97 }}
+            initial={{ opacity: 0, y: 5, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 4, scale: 0.97 }}
-            transition={{ duration: 0.13, ease: "easeOut" }}
-            className="absolute top-full right-0 mt-2 w-60 rounded-2xl p-2 shadow-2xl border border-white/10 z-[200]"
-            style={{ background: "rgba(12,16,28,0.98)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)" }}
+            exit={{ opacity: 0, y: 3, scale: 0.97 }}
+            transition={{ duration: 0.13 }}
+            className="absolute top-full right-0 mt-2 w-60 rounded-2xl p-2 z-[200]"
+            style={DROPDOWN_STYLE}
           >
-            <div className="px-3 py-3 mb-1" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+            <div className="px-3 py-3 mb-1" style={{ borderBottom: "1px solid hsl(42 18% 90%)" }}>
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center text-sm font-bold text-primary flex-shrink-0">
+                <div className="w-9 h-9 rounded-full bg-primary/15 border border-primary/25 flex items-center justify-center text-sm font-bold text-primary flex-shrink-0">
                   {initials || <UserCircle className="w-5 h-5" />}
                 </div>
                 <div className="min-w-0">
-                  <div className="text-sm font-semibold text-white truncate">{user.firstName} {user.lastName}</div>
-                  <div className="text-xs text-white/35 truncate">{user.email}</div>
+                  <div className="text-sm font-semibold text-foreground truncate">{user.firstName} {user.lastName}</div>
+                  <div className="text-xs text-muted-foreground truncate">{user.email}</div>
                 </div>
               </div>
             </div>
-            <Link
-              href="/documents"
-              onClick={() => setOpen(false)}
-              className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-white/60 hover:text-white hover:bg-white/5 transition-colors"
-            >
+            <Link href="/documents" onClick={() => setOpen(false)} className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-foreground/60 hover:text-foreground hover:bg-muted transition-colors">
               <UserCircle className="w-4 h-4 flex-shrink-0" /> My Documents
             </Link>
             <button
               onClick={() => { logout(); setOpen(false); }}
-              className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-destructive/70 hover:text-destructive hover:bg-destructive/10 transition-colors mt-0.5"
+              className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-destructive/70 hover:text-destructive hover:bg-destructive/8 transition-colors mt-0.5"
             >
               <LogOut className="w-4 h-4 flex-shrink-0" /> Sign Out
             </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function MoreMenu({ items, location }: { items: NavItem[]; location: string }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function h(e: MouseEvent) { if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false); }
+    if (open) document.addEventListener("mousedown", h);
+    return () => document.removeEventListener("mousedown", h);
+  }, [open]);
+
+  const hasActive = items.some(i => location === i.href || location.startsWith(i.href + "/"));
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen(p => !p)}
+        className={cn(
+          "flex items-center gap-1 px-2.5 py-2 rounded-lg text-[13px] font-medium transition-all whitespace-nowrap",
+          hasActive || open ? "text-primary bg-primary/8 font-semibold" : "text-foreground/60 hover:text-foreground hover:bg-foreground/5"
+        )}
+      >
+        More
+        <ChevronDown className={cn("w-3 h-3 opacity-40 transition-transform duration-150", open && "rotate-180 opacity-70")} />
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: 5, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 3, scale: 0.97 }}
+            transition={{ duration: 0.13 }}
+            className="absolute top-full right-0 mt-1.5 w-64 rounded-2xl p-1.5 z-[200] max-h-[70vh] overflow-y-auto"
+            style={DROPDOWN_STYLE}
+            role="menu"
+          >
+            {items.map((item) => {
+              const active = location === item.href || location.startsWith(item.href + "/");
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  role="menuitem"
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "flex items-center justify-between gap-2 px-3.5 py-2.5 text-sm rounded-xl transition-colors",
+                    active ? "text-primary bg-primary/8 font-semibold" : "text-foreground/60 hover:text-foreground hover:bg-muted"
+                  )}
+                >
+                  <span className="flex items-center gap-2">
+                    {item.isRestricted && <Shield className="w-3.5 h-3.5 text-secondary flex-shrink-0" />}
+                    {item.label}
+                  </span>
+                  {active && <span className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0" />}
+                </Link>
+              );
+            })}
           </motion.div>
         )}
       </AnimatePresence>
@@ -389,14 +391,8 @@ export function TopNav() {
   }, [location, closeMobile]);
 
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
   const TOTAL = NAV_ITEMS.length;
@@ -404,58 +400,44 @@ export function TopNav() {
   return (
     <>
       <nav
-        className="sticky top-0 z-[100] w-full border-b border-white/[0.06]"
-        style={{ background: "rgba(10,14,23,0.92)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}
+        className="sticky top-0 z-[100] w-full border-b border-border"
+        style={{ background: "rgba(255,255,255,0.96)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}
       >
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16 lg:h-[68px]">
+
             {/* Logo */}
-            <div className="flex-shrink-0 flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-emerald-700 flex items-center justify-center shadow-lg shadow-primary/20 flex-shrink-0">
-                <Globe className="w-5 h-5 text-white" />
+            <Link href="/" className="flex-shrink-0 flex items-center gap-2.5 focus-visible:outline-none group">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-emerald-600 flex items-center justify-center shadow-md shadow-primary/20 flex-shrink-0">
+                <Sprout className="w-5 h-5 text-white" />
               </div>
-              <Link
-                href="/"
-                className="font-display font-bold text-xl tracking-wide text-white focus-visible:outline-none"
-              >
+              <span className="font-display font-bold text-xl tracking-wide text-foreground group-hover:text-primary transition-colors">
                 EAAPA<span className="text-primary">.</span>
-              </Link>
-            </div>
+              </span>
+            </Link>
 
-            {/* Desktop nav — hidden below 2xl, shown from 2xl up as full row */}
+            {/* Desktop nav — 2xl: full row */}
             <div className="hidden 2xl:flex items-center gap-0.5 flex-1 justify-center px-4">
-              {NAV_ITEMS.map((item, idx) => {
-                const isActive =
-                  location === item.href ||
-                  location.startsWith(item.href + "/");
-                const alignRight = idx >= TOTAL - 3;
-                return (
-                  <DesktopNavItem
-                    key={item.label}
-                    item={item}
-                    isActive={isActive}
-                    alignRight={alignRight}
-                  />
-                );
-              })}
+              {NAV_ITEMS.map((item, idx) => (
+                <DesktopNavItem
+                  key={item.label}
+                  item={item}
+                  isActive={location === item.href || (item.href !== "/" && location.startsWith(item.href + "/"))}
+                  alignRight={idx >= TOTAL - 3}
+                />
+              ))}
             </div>
 
-            {/* Desktop nav — xl to 2xl: split into two rows using a mega-bar */}
+            {/* Desktop nav — xl to 2xl: first 7 + More */}
             <div className="hidden xl:flex 2xl:hidden items-center gap-0.5 flex-1 justify-center px-2">
-              {NAV_ITEMS.slice(0, 7).map((item, idx) => {
-                const isActive =
-                  location === item.href ||
-                  location.startsWith(item.href + "/");
-                return (
-                  <DesktopNavItem
-                    key={item.label}
-                    item={item}
-                    isActive={isActive}
-                    alignRight={idx >= 5}
-                  />
-                );
-              })}
-              {/* More menu for remaining items */}
+              {NAV_ITEMS.slice(0, 7).map((item, idx) => (
+                <DesktopNavItem
+                  key={item.label}
+                  item={item}
+                  isActive={location === item.href || (item.href !== "/" && location.startsWith(item.href + "/"))}
+                  alignRight={idx >= 5}
+                />
+              ))}
               <MoreMenu items={NAV_ITEMS.slice(7)} location={location} />
             </div>
 
@@ -467,13 +449,13 @@ export function TopNav() {
                 <>
                   <button
                     onClick={() => openAuth("signin")}
-                    className="px-4 py-2 text-sm font-semibold rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20"
+                    className="px-4 py-2 text-sm font-semibold rounded-lg border border-border text-foreground hover:bg-muted transition-all"
                   >
                     Sign In
                   </button>
                   <button
                     onClick={() => openAuth("register")}
-                    className="px-4 py-2 text-sm font-semibold rounded-lg bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+                    className="px-4 py-2 text-sm font-semibold rounded-lg bg-primary text-white hover:bg-primary/90 shadow-md shadow-primary/20 transition-all hover:-translate-y-0.5"
                   >
                     Join EAAPA
                   </button>
@@ -483,11 +465,9 @@ export function TopNav() {
 
             {/* Hamburger — below xl */}
             <button
-              className="xl:hidden flex items-center justify-center w-10 h-10 rounded-lg text-white hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20"
-              onClick={() => setMobileOpen((p) => !p)}
+              className="xl:hidden flex items-center justify-center w-10 h-10 rounded-lg text-foreground/70 hover:bg-muted hover:text-foreground transition-colors"
+              onClick={() => setMobileOpen(p => !p)}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
-              aria-expanded={mobileOpen}
-              aria-controls="mobile-drawer"
             >
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -499,89 +479,70 @@ export function TopNav() {
       <AnimatePresence>
         {mobileOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               key="backdrop"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-[98] bg-black/60 backdrop-blur-sm xl:hidden"
+              className="fixed inset-0 z-[98] bg-foreground/20 backdrop-blur-sm xl:hidden"
               onClick={closeMobile}
-              aria-hidden="true"
             />
-
-            {/* Drawer */}
             <motion.aside
               key="drawer"
-              id="mobile-drawer"
-              role="dialog"
-              aria-modal="true"
-              aria-label="Navigation menu"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 320, damping: 32 }}
-              className="fixed top-0 right-0 bottom-0 z-[99] w-full max-w-[320px] flex flex-col xl:hidden"
-              style={{
-                background: "rgba(10,14,23,0.98)",
-                backdropFilter: "blur(20px)",
-                WebkitBackdropFilter: "blur(20px)",
-                borderLeft: "1px solid rgba(255,255,255,0.08)",
-              }}
+              className="fixed top-0 right-0 bottom-0 z-[99] w-full max-w-[320px] flex flex-col xl:hidden bg-white"
+              style={{ borderLeft: "1px solid hsl(42 18% 85%)" }}
             >
               {/* Drawer header */}
-              <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.06] flex-shrink-0">
+              <div className="flex items-center justify-between px-5 py-4 border-b border-border flex-shrink-0">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-emerald-700 flex items-center justify-center">
-                    <Globe className="w-4 h-4 text-white" />
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-emerald-600 flex items-center justify-center">
+                    <Sprout className="w-4 h-4 text-white" />
                   </div>
-                  <span className="font-display font-bold text-lg text-white">
+                  <span className="font-display font-bold text-lg text-foreground">
                     EAAPA<span className="text-primary">.</span>
                   </span>
                 </div>
                 <button
                   onClick={closeMobile}
-                  className="w-8 h-8 flex items-center justify-center rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20"
-                  aria-label="Close navigation"
+                  className="w-8 h-8 flex items-center justify-center rounded-lg text-foreground/40 hover:text-foreground hover:bg-muted transition-colors"
                 >
                   <X className="w-4 h-4" />
                 </button>
               </div>
 
-              {/* Scrollable nav items */}
+              {/* Nav items */}
               <div className="flex-1 overflow-y-auto overscroll-contain px-2 py-2">
-                {NAV_ITEMS.map((item) => {
-                  const isActive =
-                    location === item.href ||
-                    location.startsWith(item.href + "/");
-                  return (
-                    <MobileAccordionItem
-                      key={item.label}
-                      item={item}
-                      isActive={isActive}
-                      onNavigate={closeMobile}
-                    />
-                  );
-                })}
+                {NAV_ITEMS.map((item) => (
+                  <MobileAccordionItem
+                    key={item.label}
+                    item={item}
+                    isActive={location === item.href || (item.href !== "/" && location.startsWith(item.href + "/"))}
+                    onNavigate={closeMobile}
+                  />
+                ))}
               </div>
 
-              {/* Drawer footer CTA */}
-              <div className="flex-shrink-0 px-4 py-5 border-t border-white/[0.06] flex flex-col gap-3">
+              {/* Footer CTA */}
+              <div className="flex-shrink-0 px-4 py-5 border-t border-border flex flex-col gap-3">
                 {user ? (
                   <div className="space-y-3">
                     <div className="flex items-center gap-3 px-2">
-                      <div className="w-10 h-10 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center text-sm font-bold text-primary flex-shrink-0">
+                      <div className="w-10 h-10 rounded-full bg-primary/15 border border-primary/25 flex items-center justify-center text-sm font-bold text-primary flex-shrink-0">
                         {(user.firstName?.[0] ?? "") + (user.lastName?.[0] ?? "")}
                       </div>
                       <div className="min-w-0">
-                        <div className="text-sm font-semibold text-white truncate">{user.firstName} {user.lastName}</div>
-                        <div className="text-xs text-white/35 truncate">{user.email}</div>
+                        <div className="text-sm font-semibold text-foreground truncate">{user.firstName} {user.lastName}</div>
+                        <div className="text-xs text-muted-foreground truncate">{user.email}</div>
                       </div>
                     </div>
                     <button
                       onClick={() => { logout(); closeMobile(); }}
-                      className="w-full py-3 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive font-semibold text-sm hover:bg-destructive/20 transition-all flex items-center justify-center gap-2"
+                      className="w-full py-3 rounded-xl bg-destructive/8 border border-destructive/20 text-destructive font-semibold text-sm hover:bg-destructive/15 transition-all flex items-center justify-center gap-2"
                     >
                       <LogOut className="w-4 h-4" /> Sign Out
                     </button>
@@ -590,13 +551,13 @@ export function TopNav() {
                   <>
                     <button
                       onClick={() => { openAuth("signin"); closeMobile(); }}
-                      className="w-full py-3 rounded-xl bg-white/5 border border-white/10 text-white font-semibold text-sm hover:bg-white/10 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20"
+                      className="w-full py-3 rounded-xl border border-border text-foreground font-semibold text-sm hover:bg-muted transition-all"
                     >
                       Sign In
                     </button>
                     <button
                       onClick={() => { openAuth("register"); closeMobile(); }}
-                      className="w-full py-3 rounded-xl bg-primary text-white font-semibold text-sm hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+                      className="w-full py-3 rounded-xl bg-primary text-white font-semibold text-sm hover:bg-primary/90 shadow-md shadow-primary/20 transition-all"
                     >
                       Join EAAPA
                     </button>
@@ -608,95 +569,5 @@ export function TopNav() {
         )}
       </AnimatePresence>
     </>
-  );
-}
-
-function MoreMenu({ items, location }: { items: NavItem[]; location: string }) {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handler(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    }
-    if (open) document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [open]);
-
-  const hasActive = items.some(
-    (item) => location === item.href || location.startsWith(item.href + "/")
-  );
-
-  return (
-    <div ref={ref} className="relative">
-      <button
-        onClick={() => setOpen((p) => !p)}
-        className={cn(
-          "flex items-center gap-1 px-2.5 py-2 rounded-lg text-[13px] font-medium transition-all duration-150 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50",
-          hasActive || open
-            ? "text-white bg-white/10"
-            : "text-muted-foreground hover:text-white hover:bg-white/5"
-        )}
-        aria-haspopup="true"
-        aria-expanded={open}
-      >
-        More
-        <ChevronDown
-          className={cn(
-            "w-3 h-3 opacity-50 transition-transform duration-150",
-            open && "rotate-180 opacity-100"
-          )}
-        />
-      </button>
-
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: 6, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 4, scale: 0.97 }}
-            transition={{ duration: 0.13, ease: "easeOut" }}
-            className="absolute top-full right-0 mt-1 w-64 rounded-xl p-1.5 shadow-2xl border border-white/10 z-[200] max-h-[70vh] overflow-y-auto"
-            style={{
-              background: "rgba(10,14,23,0.97)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-            }}
-            role="menu"
-          >
-            {items.map((item) => {
-              const isActive =
-                location === item.href || location.startsWith(item.href + "/");
-              return (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  role="menuitem"
-                  onClick={() => setOpen(false)}
-                  className={cn(
-                    "flex items-center justify-between gap-2 px-3.5 py-2.5 text-sm rounded-lg transition-colors focus-visible:outline-none focus-visible:bg-white/5",
-                    isActive
-                      ? "text-white bg-white/10"
-                      : "text-muted-foreground hover:text-white hover:bg-white/5"
-                  )}
-                >
-                  <span className="flex items-center gap-2">
-                    {item.isRestricted && (
-                      <Shield className="w-3.5 h-3.5 text-secondary flex-shrink-0" />
-                    )}
-                    {item.label}
-                  </span>
-                  {isActive && (
-                    <span className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0" />
-                  )}
-                </Link>
-              );
-            })}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
   );
 }

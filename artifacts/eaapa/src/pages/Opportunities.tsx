@@ -67,17 +67,17 @@ export default function Opportunities() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="mb-10 text-center max-w-3xl mx-auto">
-        <h1 className="text-4xl font-display font-bold text-white mb-4">Capital & Opportunities</h1>
+        <h1 className="text-4xl font-display font-bold text-foreground mb-4">Capital & Opportunities</h1>
         <p className="text-xl text-muted-foreground">Discover high-yield agribusiness projects, grants, and value chain gaps requiring immediate attention.</p>
       </div>
 
-      <div className="flex justify-center border-b border-white/10 mb-8 overflow-x-auto no-scrollbar">
+      <div className="flex justify-center border-b border-border mb-8 overflow-x-auto no-scrollbar">
         {TABS.map(tab => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
             className={`flex items-center gap-2 px-6 py-4 font-semibold whitespace-nowrap border-b-2 transition-all ${
-              activeTab === tab.id ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-white"
+              activeTab === tab.id ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"
             }`}
           >
             <tab.icon className="w-5 h-5" /> {tab.label}
@@ -87,20 +87,20 @@ export default function Opportunities() {
 
       {activeTab === "submit" ? (
         <div className="max-w-2xl mx-auto glass-panel p-8 md:p-12 rounded-3xl border-primary/20 shadow-2xl shadow-primary/5">
-          <h2 className="text-2xl font-bold text-white mb-6">Pitch Your Agribusiness Idea</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-6">Pitch Your Agribusiness Idea</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="text-sm font-bold text-muted-foreground uppercase mb-2 block">Opportunity Title</label>
-              <input required className="w-full bg-background border border-white/10 rounded-xl py-3 px-4 text-white focus:border-primary outline-none" value={form.title} onChange={e => setForm({...form, title: e.target.value})} placeholder="e.g. Solar-powered Cold Storage in Nakuru" />
+              <input required className="w-full bg-background border border-border rounded-xl py-3 px-4 text-white focus:border-primary outline-none" value={form.title} onChange={e => setForm({...form, title: e.target.value})} placeholder="e.g. Solar-powered Cold Storage in Nakuru" />
             </div>
             <div className="grid grid-cols-2 gap-6">
               <div>
                 <label className="text-sm font-bold text-muted-foreground uppercase mb-2 block">Sector</label>
-                <input required className="w-full bg-background border border-white/10 rounded-xl py-3 px-4 text-white focus:border-primary outline-none" value={form.sector} onChange={e => setForm({...form, sector: e.target.value})} placeholder="e.g. Logistics" />
+                <input required className="w-full bg-background border border-border rounded-xl py-3 px-4 text-white focus:border-primary outline-none" value={form.sector} onChange={e => setForm({...form, sector: e.target.value})} placeholder="e.g. Logistics" />
               </div>
               <div>
                 <label className="text-sm font-bold text-muted-foreground uppercase mb-2 block">Type</label>
-                <select className="w-full bg-background border border-white/10 rounded-xl py-3 px-4 text-white focus:border-primary outline-none" value={form.type} onChange={e => setForm({...form, type: e.target.value})}>
+                <select className="w-full bg-background border border-border rounded-xl py-3 px-4 text-white focus:border-primary outline-none" value={form.type} onChange={e => setForm({...form, type: e.target.value})}>
                   <option value="investment">Investment Sought</option>
                   <option value="value_chain">Value Chain Partner</option>
                 </select>
@@ -108,17 +108,17 @@ export default function Opportunities() {
             </div>
             <div>
               <label className="text-sm font-bold text-muted-foreground uppercase mb-2 block">Description</label>
-              <textarea required rows={4} className="w-full bg-background border border-white/10 rounded-xl py-3 px-4 text-white focus:border-primary outline-none" value={form.description} onChange={e => setForm({...form, description: e.target.value})} placeholder="Detail the problem, solution, and market size..." />
+              <textarea required rows={4} className="w-full bg-background border border-border rounded-xl py-3 px-4 text-white focus:border-primary outline-none" value={form.description} onChange={e => setForm({...form, description: e.target.value})} placeholder="Detail the problem, solution, and market size..." />
             </div>
             {form.type === 'investment' && (
-              <div className="grid grid-cols-2 gap-6 p-4 rounded-2xl bg-white/5 border border-white/10">
+              <div className="grid grid-cols-2 gap-6 p-4 rounded-2xl bg-muted/50 border border-border">
                 <div>
                   <label className="text-xs font-bold text-muted-foreground uppercase mb-2 block">Funding Needed (USD)</label>
-                  <input type="number" required className="w-full bg-background border border-white/10 rounded-lg py-2.5 px-3 text-white focus:border-primary outline-none font-mono" value={form.fundingAmount} onChange={e => setForm({...form, fundingAmount: e.target.value})} />
+                  <input type="number" required className="w-full bg-background border border-border rounded-lg py-2.5 px-3 text-white focus:border-primary outline-none font-mono" value={form.fundingAmount} onChange={e => setForm({...form, fundingAmount: e.target.value})} />
                 </div>
                 <div>
                   <label className="text-xs font-bold text-muted-foreground uppercase mb-2 block">Expected ROI</label>
-                  <input className="w-full bg-background border border-white/10 rounded-lg py-2.5 px-3 text-white focus:border-primary outline-none" value={form.expectedRoi} onChange={e => setForm({...form, expectedRoi: e.target.value})} placeholder="e.g. 18% over 3 years" />
+                  <input className="w-full bg-background border border-border rounded-lg py-2.5 px-3 text-white focus:border-primary outline-none" value={form.expectedRoi} onChange={e => setForm({...form, expectedRoi: e.target.value})} placeholder="e.g. 18% over 3 years" />
                 </div>
               </div>
             )}
@@ -134,7 +134,7 @@ export default function Opportunities() {
               {["All", "Grant", "Accelerator", "Incubator"].map(f => (
                 <button 
                   key={f} onClick={() => setFundingFilter(f)} 
-                  className={clsx("px-4 py-2 rounded-full text-sm font-bold transition-all", fundingFilter === f ? "bg-white text-background" : "bg-white/5 text-white/70 hover:bg-white/10")}
+                  className={clsx("px-4 py-2 rounded-full text-sm font-bold transition-all", fundingFilter === f ? "bg-primary text-white" : "bg-muted/50 text-foreground/65 hover:bg-muted")}
                 >
                   {f}
                 </button>
@@ -156,20 +156,20 @@ export default function Opportunities() {
                     {opp.type.replace('_', ' ')}
                   </span>
                   {opp.status === 'open' ? (
-                    <span className="flex items-center gap-1.5 text-xs font-bold text-white/90"><span className="w-2 h-2 rounded-full bg-primary animate-pulse"/> Accepting</span>
+                    <span className="flex items-center gap-1.5 text-xs font-bold text-foreground/90"><span className="w-2 h-2 rounded-full bg-primary animate-pulse"/> Accepting</span>
                   ) : (
                     <span className="text-xs font-bold text-destructive flex items-center gap-1.5"><Clock className="w-3.5 h-3.5"/> Closing Soon</span>
                   )}
                 </div>
                 
-                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors leading-tight">{opp.title}</h3>
+                <h3 className="text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors leading-tight">{opp.title}</h3>
                 <p className="text-sm text-muted-foreground flex-1 mb-8 line-clamp-3">{opp.description}</p>
                 
-                <div className="space-y-4 mb-8 bg-background/50 rounded-2xl p-5 border border-white/5 mt-auto">
+                <div className="space-y-4 mb-8 bg-background/50 rounded-2xl p-5 border border-border mt-auto">
                   {opp.fundingAmount && (
                     <div className="flex items-center justify-between">
                       <span className="text-xs text-muted-foreground font-bold uppercase">Funding Value</span>
-                      <span className="font-mono font-bold text-lg text-white">${opp.fundingAmount.toLocaleString()}</span>
+                      <span className="font-mono font-bold text-lg text-foreground">${opp.fundingAmount.toLocaleString()}</span>
                     </div>
                   )}
                   {opp.roi && (
@@ -186,7 +186,7 @@ export default function Opportunities() {
                   )}
                 </div>
 
-                <button className="w-full py-3.5 rounded-xl border-2 border-white/10 text-white font-bold hover:bg-white/5 hover:border-white/20 transition-all flex items-center justify-center gap-2">
+                <button className="w-full py-3.5 rounded-xl border-2 border-border text-white font-bold hover:bg-muted/50 hover:border-white/20 transition-all flex items-center justify-center gap-2">
                   {opp.type === 'investment' ? 'Request Data Room' : opp.type === 'value_chain' ? 'Contact Partner' : 'Apply Now'} <Plus className="w-4 h-4"/>
                 </button>
               </div>

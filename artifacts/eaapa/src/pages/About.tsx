@@ -1,101 +1,111 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { Globe, Users, Target, Shield, Zap, TrendingUp, Award, MapPin, Mail, Phone } from "lucide-react";
+import { Globe, Users, Target, Shield, Zap, TrendingUp, Award, MapPin, Mail, Phone, CheckCircle } from "lucide-react";
 
 export default function About() {
   const leadership = [
-    { name: "Cosmas Mwangi", title: "Program & Team LEAD", role: "Program Architect", bio: "Leading the vision for agricultural transformation across the region." },
-    { name: "Tabitha Ng'ang'a", title: "Ass. Program Lead", role: "Ass. Team Lead", bio: "Former policy director overseeing ecosystem growth." },
-    { name: "Jedidah Mugane", title: "CFO", role: "cfo", bio: "Managing capital allocation and investment strategy." },
+    { name: "Cosmas Mwangi", title: "Program & Team Lead", role: "Program Architect", bio: "Leading the vision for agricultural transformation across the region." },
+    { name: "Tabitha Ng'ang'a", title: "Asst. Program Lead", role: "Team Lead", bio: "Former policy director overseeing ecosystem growth and partnerships." },
+    { name: "Jedidah Mugane", title: "Chief Finance Officer", role: "CFO", bio: "Managing capital allocation, investment strategy, and financial compliance." },
   ];
 
   const clusterLeads = [
-    { name: "Peter Kamau", title: "Tech Innovation Lead", bio: "Driving agritech integration." },
-    { name: "Carol Ndegwa", title: "Trade & Export Lead", bio: "Expanding international markets." },
-    { name: "Leany Kariuki", title: "Capital Lead", bio: "Connecting agripreneurs with funding." }
+    { name: "Peter Kamau", title: "Tech Innovation Lead", bio: "Driving agritech integration across the platform." },
+    { name: "Carol Ndegwa", title: "Trade & Export Lead", bio: "Expanding international market access for members." },
+    { name: "Leany Kariuki", title: "Capital Lead", bio: "Connecting agripreneurs with funding and investors." },
   ];
 
   const programCoords = [
     { name: "Helena Githaiga", title: "Accelerator Director" },
     { name: "Winnie Kamau", title: "Mentorship Head" },
-    { name: "Chritopher Mwangi", title: "Youth Initiatives" },
-    { name: "Lucy Mumbi", title: "Incubation Manager" }
+    { name: "Christopher Mwangi", title: "Youth Initiatives" },
+    { name: "Lucy Mumbi", title: "Incubation Manager" },
   ];
 
-  const partners = ["KENAFF", "Nyandarua County", "AfDB", "KARLO", "Equity", "CGIAR", "KCB Bank", "Strathmore", "Safaricom"];
+  const partners = ["KENAFF", "Nyandarua County", "AfDB", "KARLO", "Equity Bank", "CGIAR", "KCB Bank", "Strathmore University", "Safaricom"];
+
+  const values = [
+    { icon: Shield, label: "Integrity & Transparency" },
+    { icon: Zap, label: "Innovation First" },
+    { icon: Users, label: "Inclusive Growth" },
+    { icon: Globe, label: "Global Standards" },
+    { icon: TrendingUp, label: "Sustainable Impact" },
+  ];
 
   return (
     <div className="w-full">
-      {/* Hero */}
-      <section className="relative min-h-[60vh] flex items-center justify-center py-20">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-background z-0" />
+      {/* Hero — deep forest green gradient */}
+      <section className="relative min-h-[55vh] flex items-center justify-center py-20 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-emerald-700 to-emerald-900 z-0" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_hsl(38_74_50_/_0.15),_transparent_60%)] z-0" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-          <motion.h1 
+          <motion.div
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-7xl font-display font-bold text-white mb-6"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 text-white/80 text-xs font-medium mb-6 uppercase tracking-widest"
           >
-            Empowering the Future of <br/><span className="text-primary">African Agriculture</span>
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-            className="text-xl text-muted-foreground mb-8"
-          >
-            EAAPA is the premier intelligence and collaboration ecosystem for agribusinesses, investors, and policymakers in East Africa.
-          </motion.p>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-            <button className="px-8 py-4 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all">
-              Join EAAPA Today
-            </button>
+            <Award className="w-3.5 h-3.5" /> East Africa Agripreneurs Alliance
           </motion.div>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+            className="text-5xl md:text-7xl font-display font-bold text-white mb-6 leading-tight"
+          >
+            Empowering the Future of <br />
+            <span className="text-yellow-300">African Agriculture</span>
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
+            className="text-xl text-white/75 max-w-2xl mx-auto"
+          >
+            EAAPA is the premier intelligence and collaboration ecosystem for agribusinesses, investors, and policymakers across East Africa.
+          </motion.p>
         </div>
       </section>
 
       {/* Vision & Mission */}
-      <section id="vision" className="py-24 bg-card border-y border-white/5">
+      <section id="vision" className="py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-            <div className="glass-panel p-10 rounded-3xl">
-              <div className="w-14 h-14 bg-primary/20 rounded-2xl flex items-center justify-center mb-6">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/8 text-primary text-xs font-bold uppercase tracking-widest mb-4">
+              <Target className="w-3.5 h-3.5" /> Our Foundation
+            </div>
+            <h2 className="text-4xl font-display font-bold text-foreground">Vision & Mission</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-card rounded-3xl p-10 border border-border shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
                 <Target className="w-7 h-7 text-primary" />
               </div>
-              <h2 className="text-3xl font-display font-bold text-white mb-4">Our Vision</h2>
-              <p className="text-lg text-muted-foreground mb-8">
+              <h3 className="text-2xl font-display font-bold text-foreground mb-4">Our Vision</h3>
+              <p className="text-muted-foreground leading-relaxed mb-8">
                 To build a resilient, data-driven, and hyper-connected agricultural ecosystem that eradicates poverty and ensures food security across East Africa by 2035.
               </p>
-              <h3 className="text-xl font-bold text-white mb-4">Core Values</h3>
-              <ul className="space-y-4">
-                {[
-                  { icon: Shield, text: "Integrity & Transparency" },
-                  { icon: Zap, text: "Innovation First" },
-                  { icon: Users, text: "Inclusive Growth" },
-                  { icon: Globe, text: "Global Standards" },
-                  { icon: TrendingUp, text: "Sustainable Impact" }
-                ].map((val, i) => (
-                  <li key={i} className="flex items-center gap-3 text-white/80">
-                    <val.icon className="w-5 h-5 text-primary" /> {val.text}
+              <h4 className="text-base font-bold text-foreground mb-5">Core Values</h4>
+              <ul className="space-y-3.5">
+                {values.map((val, i) => (
+                  <li key={i} className="flex items-center gap-3 text-foreground/75">
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <val.icon className="w-4 h-4 text-primary" />
+                    </div>
+                    {val.label}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="glass-panel p-10 rounded-3xl border-secondary/20">
-              <div className="w-14 h-14 bg-secondary/20 rounded-2xl flex items-center justify-center mb-6">
+
+            <div className="bg-card rounded-3xl p-10 border border-border shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-14 h-14 bg-secondary/10 rounded-2xl flex items-center justify-center mb-6">
                 <Globe className="w-7 h-7 text-secondary" />
               </div>
-              <h2 className="text-3xl font-display font-bold text-white mb-4">Our Mission</h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                To equip agripreneurs with elite intelligence, seamless capital access, and unparalleled market routes to scale their agribusinesses exponentially.
+              <h3 className="text-2xl font-display font-bold text-foreground mb-4">Our Mission</h3>
+              <p className="text-muted-foreground leading-relaxed mb-8">
+                To connect, empower, and scale agripreneurs across East Africa through market intelligence, strategic capital, and institutional networks — creating a world-class agricultural civilization.
               </p>
-              <h3 className="text-xl font-bold text-white mb-4">Guiding Principles</h3>
-              <ul className="space-y-4">
-                {[
-                  "Data Over Guesswork",
-                  "Farmer-Centric Policies",
-                  "Cross-Border Collaboration",
-                  "Market-Driven Production",
-                  "Youth & Women Empowerment"
-                ].map((text, i) => (
-                  <li key={i} className="flex items-center gap-3 text-white/80">
-                    <div className="w-2 h-2 rounded-full bg-secondary" /> {text}
+              <h4 className="text-base font-bold text-foreground mb-5">Strategic Pillars</h4>
+              <ul className="space-y-3.5">
+                {["Market Intelligence & Trade Analytics", "Capital Access & Impact Finance", "Ecosystem Building & Network Effects", "Capacity Building & Knowledge Transfer", "Policy Advocacy & Regulatory Alignment"].map((p, i) => (
+                  <li key={i} className="flex items-center gap-3 text-foreground/75">
+                    <CheckCircle className="w-4.5 h-4.5 text-primary flex-shrink-0" />
+                    {p}
                   </li>
                 ))}
               </ul>
@@ -105,74 +115,61 @@ export default function About() {
       </section>
 
       {/* Leadership */}
-      <section id="leadership" className="py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-display font-bold text-white mb-4">Leadership & Governance</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-16">Guided by industry veterans and visionary leaders.</p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            {leadership.map((leader, i) => (
-              <div key={i} className={`glass-panel p-8 rounded-3xl ${leader.role === 'president' ? 'border-secondary/50 shadow-[0_0_30px_rgba(217,119,6,0.1)]' : ''}`}>
-                <div className={`w-24 h-24 mx-auto rounded-full flex items-center justify-center text-3xl font-bold mb-4 ${leader.role === 'president' ? 'bg-secondary/20 text-secondary' : 'bg-primary/20 text-primary'}`}>
-                  {leader.name.charAt(0)}
-                </div>
-                {leader.role === 'president' && <Award className="w-6 h-6 text-secondary mx-auto mb-2" />}
-                <h3 className="text-xl font-bold text-white">{leader.name}</h3>
-                <p className="text-sm font-medium text-muted-foreground mb-4">{leader.title}</p>
-                <p className="text-sm text-white/70">{leader.bio}</p>
-              </div>
-            ))}
-          </div>
-
-          <h3 className="text-2xl font-bold text-white mb-8">Cluster Leads</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            {clusterLeads.map((leader, i) => (
-              <div key={i} className="bg-card border border-white/10 p-6 rounded-2xl">
-                <div className="w-16 h-16 mx-auto rounded-full bg-white/5 flex items-center justify-center text-xl font-bold text-white mb-4">
-                  {leader.name.charAt(0)}
-                </div>
-                <h4 className="font-bold text-white">{leader.name}</h4>
-                <p className="text-xs text-primary mb-2">{leader.title}</p>
-                <p className="text-xs text-muted-foreground">{leader.bio}</p>
-              </div>
-            ))}
-          </div>
-
-          <h3 className="text-2xl font-bold text-white mb-8">Program Coordinators</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {programCoords.map((coord, i) => (
-              <div key={i} className="bg-background border border-white/5 p-4 rounded-xl text-center">
-                <h4 className="font-bold text-white text-sm">{coord.name}</h4>
-                <p className="text-xs text-muted-foreground">{coord.title}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Strategy */}
-      <section id="strategy" className="py-24 bg-card border-y border-white/5">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="leadership" className="py-24 bg-muted/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-display font-bold text-white mb-4">Strategic Roadmap (2024-2030)</h2>
-            <p className="text-muted-foreground">Our 3 pillar strategy for regional transformation.</p>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/8 text-primary text-xs font-bold uppercase tracking-widest mb-4">
+              <Users className="w-3.5 h-3.5" /> Our Team
+            </div>
+            <h2 className="text-4xl font-display font-bold text-foreground">Leadership & Governance</h2>
+            <p className="text-muted-foreground mt-3 max-w-xl mx-auto">Experienced leaders driving agricultural transformation across East Africa.</p>
           </div>
-          
-          <div className="space-y-12">
-            {[
-              { year: "Phase 1: Digital Foundation", title: "Data & Intelligence Infrastructure", desc: "Deploying Market Hub across 5 countries to gather live yield and pricing data." },
-              { year: "Phase 2: Capital Engine", title: "Automated Investment Routing", desc: "Connecting 10,000+ agripreneurs to $500M in smart capital." },
-              { year: "Phase 3: Global Trade", title: "Export Corridor Optimization", desc: "Establishing seamless logistics and smart contracts for international trade." }
-            ].map((phase, i) => (
-              <div key={i} className="flex flex-col md:flex-row gap-6 items-start">
-                <div className="w-full md:w-1/3 pt-2">
-                  <span className="px-4 py-2 rounded-lg bg-primary/20 text-primary font-bold text-sm block md:inline-block w-full text-center md:w-auto">{phase.year}</span>
+
+          {/* Core Leadership */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            {leadership.map((person, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} viewport={{ once: true }}
+                className="bg-card rounded-2xl p-8 text-center border border-border shadow-sm hover:shadow-md hover:-translate-y-1 transition-all"
+              >
+                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20 flex items-center justify-center mx-auto mb-5">
+                  <span className="text-3xl font-display font-bold text-primary">{person.name.charAt(0)}</span>
                 </div>
-                <div className="w-full md:w-2/3 glass-panel p-8 rounded-3xl relative overflow-hidden">
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary" />
-                  <h3 className="text-2xl font-bold text-white mb-2">{phase.title}</h3>
-                  <p className="text-muted-foreground">{phase.desc}</p>
+                <h3 className="text-lg font-display font-bold text-foreground">{person.name}</h3>
+                <p className="text-sm font-semibold text-primary mt-1">{person.title}</p>
+                <p className="text-sm text-muted-foreground mt-3 leading-relaxed">{person.bio}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Cluster Leads */}
+          <h3 className="text-xl font-display font-bold text-foreground mb-6 text-center">Cluster Leads</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+            {clusterLeads.map((person, i) => (
+              <div key={i} className="bg-card rounded-xl p-6 border border-border flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center flex-shrink-0">
+                  <span className="text-lg font-bold text-secondary">{person.name.charAt(0)}</span>
                 </div>
+                <div>
+                  <div className="font-semibold text-foreground text-sm">{person.name}</div>
+                  <div className="text-xs text-primary font-medium">{person.title}</div>
+                  <div className="text-xs text-muted-foreground mt-1">{person.bio}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Program Coordinators */}
+          <h3 className="text-xl font-display font-bold text-foreground mb-6 text-center">Program Coordinators</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {programCoords.map((p, i) => (
+              <div key={i} className="bg-card rounded-xl p-5 text-center border border-border">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                  <span className="text-sm font-bold text-primary">{p.name.charAt(0)}</span>
+                </div>
+                <div className="text-sm font-semibold text-foreground">{p.name}</div>
+                <div className="text-xs text-muted-foreground mt-1">{p.title}</div>
               </div>
             ))}
           </div>
@@ -180,56 +177,54 @@ export default function About() {
       </section>
 
       {/* Partners */}
-      <section id="partners" className="py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-display font-bold text-white mb-4">Partners & Collaborators</h2>
-          <p className="text-muted-foreground mb-12">Backed by global institutions and regional leaders.</p>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {partners.map((partner, i) => (
-              <div key={i} className="h-24 glass-panel rounded-xl flex items-center justify-center hover:bg-white/5 transition-colors">
-                <span className="font-display font-bold text-xl text-white/50 uppercase tracking-widest">{partner}</span>
+      <section id="partners" className="py-24 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/8 text-primary text-xs font-bold uppercase tracking-widest mb-4">
+              <Shield className="w-3.5 h-3.5" /> Collaborators
+            </div>
+            <h2 className="text-4xl font-display font-bold text-foreground">Partners & Collaborators</h2>
+            <p className="text-muted-foreground mt-3 max-w-xl mx-auto">World-class institutions and organizations supporting the EAAPA ecosystem.</p>
+          </div>
+          <div className="flex flex-wrap justify-center gap-4">
+            {partners.map((name, i) => (
+              <div key={i} className="px-6 py-3 bg-card border border-border rounded-2xl text-foreground/70 font-semibold text-sm hover:border-primary/30 hover:text-primary hover:bg-primary/5 transition-all cursor-pointer">
+                {name}
               </div>
             ))}
+          </div>
+          <div className="mt-12 text-center">
+            <Link
+              href="/opportunities"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-primary text-white font-bold hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5"
+            >
+              <Globe className="w-5 h-5" /> Become a Partner
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Contact */}
-      <section id="contact" className="py-24 bg-card border-t border-white/5">
+      <section id="contact" className="py-24 bg-muted/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-display font-bold text-white mb-12 text-center">Regional Offices</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/8 text-primary text-xs font-bold uppercase tracking-widest mb-4">
+              <Mail className="w-3.5 h-3.5" /> Get in Touch
+            </div>
+            <h2 className="text-4xl font-display font-bold text-foreground">Contact Us</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { city: "Nairobi", title: "EAAPA Headquarters", addr: "Karen Business Park, Karen", phone: "+254 20 123 4567", email: "nairobi@eaapa.org" },
-              { city: "Nakuru", title: "Rift Valley Hub", addr: "Westside Mall, Nakuru", phone: "+254 51 234 5678", email: "nakuru@eaapa.org" },
-              { city: "Mombasa", title: "Coastal Trade Desk", addr: "Nyali Centre, Mombasa", phone: "+254 41 345 6789", email: "mombasa@eaapa.org" }
-            ].map((office, i) => (
-              <div key={i} className="glass-panel rounded-3xl overflow-hidden flex flex-col">
-                <div className="h-48 w-full bg-background relative">
-                  <iframe 
-                    src={`https://maps.google.com/maps?q=${office.city}&output=embed`}
-                    className="w-full h-full border-0 opacity-70 filter grayscale contrast-125"
-                    loading="lazy"
-                  />
+              { icon: MapPin, title: "Headquarters", lines: ["Karen Business Park, Karen Road", "Nairobi, Kenya"] },
+              { icon: Mail, title: "Email", lines: ["info@eaapa.org", "partnerships@eaapa.org"] },
+              { icon: Phone, title: "Phone", lines: ["+254 20 200 0001", "+254 722 000 001"] },
+            ].map(({ icon: Icon, title, lines }, i) => (
+              <div key={i} className="bg-card rounded-2xl p-8 text-center border border-border shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-5">
+                  <Icon className="w-6 h-6 text-primary" />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-1">{office.title}</h3>
-                  <p className="text-sm text-primary mb-6">{office.city}, Kenya</p>
-                  
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3 text-sm text-muted-foreground">
-                      <MapPin className="w-4 h-4 mt-0.5" /> <span>{office.addr}</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                      <Phone className="w-4 h-4" /> <span>{office.phone}</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                      <Mail className="w-4 h-4" /> <span>{office.email}</span>
-                    </div>
-                  </div>
-                </div>
+                <h3 className="font-display font-bold text-foreground text-lg mb-3">{title}</h3>
+                {lines.map((l, j) => <p key={j} className="text-muted-foreground text-sm">{l}</p>)}
               </div>
             ))}
           </div>

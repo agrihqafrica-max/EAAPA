@@ -42,7 +42,7 @@ function ScoreRing({ score, size = 56 }: { score: number; size?: number }) {
         <circle cx={size / 2} cy={size / 2} r={r} stroke={color} strokeWidth={6} fill="none"
           strokeDasharray={`${fill} ${circ}`} strokeLinecap="round" style={{ transition: "stroke-dasharray 1s ease" }} />
       </svg>
-      <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white">{score}</span>
+      <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-foreground">{score}</span>
     </div>
   );
 }
@@ -51,10 +51,10 @@ function SustainabilityBar({ score }: { score: number }) {
   const color = score >= 90 ? "bg-emerald-400" : score >= 75 ? "bg-amber-400" : "bg-blue-400";
   return (
     <div className="flex items-center gap-2">
-      <div className="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
+      <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
         <div className={`h-full rounded-full ${color} transition-all duration-700`} style={{ width: `${score}%` }} />
       </div>
-      <span className="text-xs text-white/60 w-6">{score}</span>
+      <span className="text-xs text-muted-foreground w-6">{score}</span>
     </div>
   );
 }
@@ -86,15 +86,15 @@ function InquiryModal({ buyer, onClose }: { buyer: any; onClose: () => void }) {
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.92, opacity: 0, y: 20 }}
         transition={{ type: "spring", stiffness: 300, damping: 28 }}
-        className="glass-panel rounded-3xl w-full max-w-lg p-8 border border-white/10 shadow-2xl"
+        className="glass-panel rounded-3xl w-full max-w-lg p-8 border border-border shadow-2xl"
         onClick={e => e.stopPropagation()}
       >
         <div className="flex justify-between items-start mb-6">
           <div>
-            <h3 className="text-xl font-bold text-white mb-1">Trade Inquiry</h3>
+            <h3 className="text-xl font-bold text-foreground mb-1">Trade Inquiry</h3>
             <p className="text-sm text-muted-foreground">Sending to <span className="text-primary">{buyer.name}</span></p>
           </div>
-          <button onClick={onClose} className="p-2 rounded-xl hover:bg-white/10 text-muted-foreground hover:text-white transition-all">
+          <button onClick={onClose} className="p-2 rounded-xl hover:bg-muted text-muted-foreground hover:text-foreground transition-all">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -110,36 +110,36 @@ function InquiryModal({ buyer, onClose }: { buyer: any; onClose: () => void }) {
           <form onSubmit={handleSend} className="space-y-4">
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-xs text-white/60 mb-1 block">Your Name</label>
+                <label className="text-xs text-muted-foreground mb-1 block">Your Name</label>
                 <input required value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/30 transition-all"
+                  className="w-full bg-muted/50 border border-border rounded-xl px-4 py-2.5 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/30 transition-all"
                   placeholder="e.g. Amara Nkosi" />
               </div>
               <div>
-                <label className="text-xs text-white/60 mb-1 block">Email</label>
+                <label className="text-xs text-muted-foreground mb-1 block">Email</label>
                 <input required type="email" value={form.email} onChange={e => setForm(p => ({ ...p, email: e.target.value }))}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/30 transition-all"
+                  className="w-full bg-muted/50 border border-border rounded-xl px-4 py-2.5 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/30 transition-all"
                   placeholder="you@farm.com" />
               </div>
             </div>
             <div>
-              <label className="text-xs text-white/60 mb-1 block">Commodity</label>
+              <label className="text-xs text-muted-foreground mb-1 block">Commodity</label>
               <select value={form.commodity} onChange={e => setForm(p => ({ ...p, commodity: e.target.value }))}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:border-primary focus:outline-none transition-all">
+                className="w-full bg-muted/50 border border-border rounded-xl px-4 py-2.5 text-sm text-foreground focus:border-primary focus:outline-none transition-all">
                 {buyer.commodities?.map((c: string) => <option key={c} value={c} className="bg-background">{c}</option>)}
               </select>
             </div>
             <div>
-              <label className="text-xs text-white/60 mb-1 block">Volume Available (tons/month)</label>
+              <label className="text-xs text-muted-foreground mb-1 block">Volume Available (tons/month)</label>
               <input required value={form.volume} onChange={e => setForm(p => ({ ...p, volume: e.target.value }))}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/30 transition-all"
+                className="w-full bg-muted/50 border border-border rounded-xl px-4 py-2.5 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/30 transition-all"
                 placeholder="e.g. 25 tons/month" />
             </div>
             <div>
-              <label className="text-xs text-white/60 mb-1 block">Message</label>
+              <label className="text-xs text-muted-foreground mb-1 block">Message</label>
               <textarea required value={form.message} onChange={e => setForm(p => ({ ...p, message: e.target.value }))}
                 rows={3}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/30 transition-all resize-none"
+                className="w-full bg-muted/50 border border-border rounded-xl px-4 py-2.5 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/30 transition-all resize-none"
                 placeholder="Describe your product, quality certifications, and availability..." />
             </div>
             <button type="submit"
@@ -175,14 +175,14 @@ function BuyerCard({ buyer, index, onInquire }: { buyer: any; index: number; onI
 
       {/* Header Row */}
       <div className="flex items-start gap-3">
-        <div className="w-12 h-12 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center flex-shrink-0 text-lg font-bold text-white shadow-inner">
+        <div className="w-12 h-12 rounded-xl bg-muted border border-border flex items-center justify-center flex-shrink-0 text-lg font-bold text-foreground shadow-inner">
           {buyer.name?.charAt(0)}
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="font-bold text-white text-base leading-tight truncate pr-14">{buyer.name}</h3>
+          <h3 className="font-bold text-foreground text-base leading-tight truncate pr-14">{buyer.name}</h3>
           <div className="flex items-center gap-1.5 mt-0.5">
-            <MapPin className="w-3 h-3 text-white/40 flex-shrink-0" />
-            <span className="text-xs text-white/50 truncate">{buyer.location}</span>
+            <MapPin className="w-3 h-3 text-foreground/40 flex-shrink-0" />
+            <span className="text-xs text-muted-foreground truncate">{buyer.location}</span>
           </div>
         </div>
         <ScoreRing score={buyer.aiMatchScore || 80} size={48} />
@@ -190,7 +190,7 @@ function BuyerCard({ buyer, index, onInquire }: { buyer: any; index: number; onI
 
       {/* Type Badge + Readiness */}
       <div className="flex items-center gap-2 flex-wrap">
-        <span className="px-2.5 py-1 rounded-lg bg-white/10 text-white text-xs font-semibold border border-white/10">
+        <span className="px-2.5 py-1 rounded-lg bg-muted text-foreground text-xs font-semibold border border-border">
           {buyer.type}
         </span>
         <span className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold border ${readiness.bg} ${readiness.color}`}>
@@ -202,25 +202,25 @@ function BuyerCard({ buyer, index, onInquire }: { buyer: any; index: number; onI
       {/* Commodities */}
       <div className="flex flex-wrap gap-1.5">
         {buyer.commodities?.slice(0, 4).map((c: string) => (
-          <span key={c} className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-black/20 text-white/70 text-xs border border-white/5">
+          <span key={c} className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-black/20 text-foreground/65 text-xs border border-border">
             <Tag className="w-2.5 h-2.5" /> {c}
           </span>
         ))}
         {(buyer.commodities?.length || 0) > 4 && (
-          <span className="px-2 py-0.5 rounded-md bg-black/20 text-white/40 text-xs">+{buyer.commodities.length - 4}</span>
+          <span className="px-2 py-0.5 rounded-md bg-black/20 text-foreground/40 text-xs">+{buyer.commodities.length - 4}</span>
         )}
       </div>
 
       {/* Demand Stats */}
-      <div className="grid grid-cols-3 gap-2 bg-black/20 rounded-xl p-3 border border-white/5">
+      <div className="grid grid-cols-3 gap-2 bg-black/20 rounded-xl p-3 border border-border">
         {[
           { label: "Weekly", value: buyer.weeklyDemandTons, suffix: "T" },
           { label: "Monthly", value: buyer.monthlyDemandTons, suffix: "T" },
           { label: "Yearly", value: buyer.yearlyDemandTons ? (parseFloat(buyer.yearlyDemandTons) / 1000).toFixed(1) + "K" : "—", suffix: "T" },
         ].map(stat => (
           <div key={stat.label} className="text-center">
-            <div className="text-base font-bold text-white">{stat.value || "—"}<span className="text-xs text-white/40">{stat.value ? stat.suffix : ""}</span></div>
-            <div className="text-[10px] text-white/40 uppercase tracking-wide">{stat.label}</div>
+            <div className="text-base font-bold text-foreground">{stat.value || "—"}<span className="text-xs text-foreground/40">{stat.value ? stat.suffix : ""}</span></div>
+            <div className="text-[10px] text-foreground/40 uppercase tracking-wide">{stat.label}</div>
           </div>
         ))}
       </div>
@@ -228,8 +228,8 @@ function BuyerCard({ buyer, index, onInquire }: { buyer: any; index: number; onI
       {/* Sustainability */}
       <div>
         <div className="flex justify-between text-xs mb-1">
-          <span className="text-white/40">Sustainability Score</span>
-          <span className="text-white/60 font-semibold">{buyer.sustainabilityScore}/100</span>
+          <span className="text-foreground/40">Sustainability Score</span>
+          <span className="text-muted-foreground font-semibold">{buyer.sustainabilityScore}/100</span>
         </div>
         <SustainabilityBar score={buyer.sustainabilityScore || 70} />
       </div>
@@ -241,19 +241,19 @@ function BuyerCard({ buyer, index, onInquire }: { buyer: any; index: number; onI
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="border-t border-white/10 pt-3 space-y-2 overflow-hidden"
+            className="border-t border-border pt-3 space-y-2 overflow-hidden"
           >
-            <div className="flex items-center gap-2 text-xs text-white/50">
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <Package className="w-3.5 h-3.5" />
-              <span>Currency: <span className="text-white/80">{buyer.currency || "USD"}</span></span>
+              <span>Currency: <span className="text-foreground/70">{buyer.currency || "USD"}</span></span>
             </div>
-            <div className="flex items-center gap-2 text-xs text-white/50">
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <BarChart3 className="w-3.5 h-3.5" />
-              <span>Annual Demand: <span className="text-white/80">{buyer.yearlyDemandTons} tons/year</span></span>
+              <span>Annual Demand: <span className="text-foreground/70">{buyer.yearlyDemandTons} tons/year</span></span>
             </div>
-            <div className="text-xs text-white/50 flex items-center gap-2">
+            <div className="text-xs text-muted-foreground flex items-center gap-2">
               <Truck className="w-3.5 h-3.5" />
-              <span>Avg Lead Time: <span className="text-white/80">3–7 days</span></span>
+              <span>Avg Lead Time: <span className="text-foreground/70">3–7 days</span></span>
             </div>
           </motion.div>
         )}
@@ -269,7 +269,7 @@ function BuyerCard({ buyer, index, onInquire }: { buyer: any; index: number; onI
         </button>
         <button
           onClick={() => setExpanded(p => !p)}
-          className="px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-all"
+          className="px-3 py-2.5 rounded-xl bg-muted/50 border border-border hover:bg-muted text-foreground transition-all"
         >
           <ChevronDown className={`w-4 h-4 transition-transform ${expanded ? "rotate-180" : ""}`} />
         </button>
@@ -280,14 +280,14 @@ function BuyerCard({ buyer, index, onInquire }: { buyer: any; index: number; onI
 
 function StatCard({ icon: Icon, label, value, sub, color = "text-primary" }: any) {
   return (
-    <div className="glass-panel rounded-2xl p-5 flex items-center gap-4 border border-white/5">
-      <div className={`w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center flex-shrink-0 border border-white/5`}>
+    <div className="glass-panel rounded-2xl p-5 flex items-center gap-4 border border-border">
+      <div className={`w-12 h-12 rounded-xl bg-muted/50 flex items-center justify-center flex-shrink-0 border border-border`}>
         <Icon className={`w-6 h-6 ${color}`} />
       </div>
       <div>
-        <div className="text-2xl font-bold text-white">{value}</div>
+        <div className="text-2xl font-bold text-foreground">{value}</div>
         <div className="text-sm text-muted-foreground">{label}</div>
-        {sub && <div className="text-xs text-white/40 mt-0.5">{sub}</div>}
+        {sub && <div className="text-xs text-foreground/40 mt-0.5">{sub}</div>}
       </div>
     </div>
   );
@@ -313,7 +313,7 @@ function BulkRequestsTab() {
     <div className="space-y-4">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-white">Open Bulk Requests</h2>
+          <h2 className="text-2xl font-bold text-foreground">Open Bulk Requests</h2>
           <p className="text-sm text-muted-foreground mt-1">Active purchase orders from verified international buyers</p>
         </div>
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20">
@@ -331,19 +331,19 @@ function BulkRequestsTab() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.06 }}
-              className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:border-primary/30 transition-all group"
+              className="bg-muted border border-border rounded-2xl p-6 hover:border-primary/30 transition-all group"
             >
               <div className="flex flex-col md:flex-row md:items-start gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 flex-wrap mb-2">
                     <span className={`px-2.5 py-0.5 rounded-lg text-[10px] font-bold border ${urg.bg} ${urg.color}`}>{urg.label}</span>
-                    <h3 className="text-lg font-bold text-white">{req.commodity}</h3>
+                    <h3 className="text-lg font-bold text-foreground">{req.commodity}</h3>
                     <span className="text-muted-foreground text-sm">from <span className="text-white font-medium">{req.buyer}</span></span>
                   </div>
-                  <p className="text-sm text-white/60 mb-3">{req.description}</p>
+                  <p className="text-sm text-muted-foreground mb-3">{req.description}</p>
                   <div className="flex flex-wrap gap-2">
                     {req.requirements.map(r => (
-                      <span key={r} className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-xs text-white/60">
+                      <span key={r} className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-muted/50 border border-border text-xs text-muted-foreground">
                         <CheckCircle2 className="w-3 h-3 text-primary" /> {r}
                       </span>
                     ))}
@@ -351,14 +351,14 @@ function BulkRequestsTab() {
                 </div>
                 <div className="flex flex-col items-end gap-3 min-w-[200px]">
                   <div className="text-right">
-                    <div className="text-2xl font-bold text-white">{req.volumeTons}<span className="text-sm text-white/40">T</span></div>
-                    <div className="text-xs text-white/40">Volume Required</div>
+                    <div className="text-2xl font-bold text-foreground">{req.volumeTons}<span className="text-sm text-foreground/40">T</span></div>
+                    <div className="text-xs text-foreground/40">Volume Required</div>
                   </div>
                   <div className="text-right">
                     <div className="text-primary font-bold">{req.priceRange}</div>
-                    <div className="text-xs text-white/40">Price Range</div>
+                    <div className="text-xs text-foreground/40">Price Range</div>
                   </div>
-                  <div className="flex items-center gap-1.5 text-xs text-white/50">
+                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                     <Clock className="w-3.5 h-3.5" />
                     <span>Deadline: {req.deadline}</span>
                   </div>
@@ -389,7 +389,7 @@ function TradeListingsTab() {
     <div className="space-y-4">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-white">Active Trade Listings</h2>
+          <h2 className="text-2xl font-bold text-foreground">Active Trade Listings</h2>
           <p className="text-sm text-muted-foreground mt-1">Verified seller listings ready for buyer matching</p>
         </div>
         <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary hover:bg-primary/90 text-white text-sm font-bold transition-all shadow-lg shadow-primary/20">
@@ -403,7 +403,7 @@ function TradeListingsTab() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.06 }}
-            className="bg-white/[0.03] border border-white/10 rounded-2xl p-5 hover:border-primary/30 transition-all group"
+            className="bg-muted border border-border rounded-2xl p-5 hover:border-primary/30 transition-all group"
           >
             <div className="flex justify-between items-start mb-3">
               <div className="flex-1">
@@ -411,31 +411,31 @@ function TradeListingsTab() {
                   {item.isOrganic && <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-green-500/10 text-green-400 border border-green-500/20">ORGANIC</span>}
                   {item.isExport && <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20">EXPORT</span>}
                 </div>
-                <h3 className="font-bold text-white text-base leading-tight">{item.commodity}</h3>
-                <p className="text-xs text-white/50 mt-1">by <span className="text-white/70">{item.seller}</span> · {item.location}</p>
+                <h3 className="font-bold text-foreground text-base leading-tight">{item.commodity}</h3>
+                <p className="text-xs text-muted-foreground mt-1">by <span className="text-foreground/65">{item.seller}</span> · {item.location}</p>
               </div>
               <div className="text-right ml-4">
                 <div className="text-lg font-bold text-primary">{item.price}</div>
-                <div className="text-xs text-white/40">per unit</div>
+                <div className="text-xs text-foreground/40">per unit</div>
               </div>
             </div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-xs text-white">
-                <span className="text-white/40">Vol: </span>{item.qty}
+              <div className="px-3 py-1.5 rounded-lg bg-muted/50 border border-border text-xs text-white">
+                <span className="text-foreground/40">Vol: </span>{item.qty}
               </div>
               {item.certs.map(c => (
-                <span key={c} className="flex items-center gap-1 text-xs text-white/50">
+                <span key={c} className="flex items-center gap-1 text-xs text-muted-foreground">
                   <Shield className="w-3 h-3 text-primary" /> {c}
                 </span>
               ))}
             </div>
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3 text-xs text-white/40">
+              <div className="flex items-center gap-3 text-xs text-foreground/40">
                 <span>{item.views} views</span>
                 <span>·</span>
                 <span>{item.inquiries} inquiries</span>
               </div>
-              <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 hover:bg-primary/10 border border-white/10 hover:border-primary/30 text-white text-xs font-semibold transition-all">
+              <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-muted/50 hover:bg-primary/10 border border-border hover:border-primary/30 text-white text-xs font-semibold transition-all">
                 <MessageSquare className="w-3 h-3" /> Inquire
               </button>
             </div>
@@ -498,7 +498,7 @@ export default function BuyerNetwork() {
             <span className="text-xs font-bold text-primary tracking-wide">LIVE BUYER NETWORK</span>
           </div>
         </div>
-        <h1 className="text-4xl lg:text-5xl font-display font-bold text-white mb-3 leading-tight">
+        <h1 className="text-4xl lg:text-5xl font-display font-bold text-foreground mb-3 leading-tight">
           Global Buyer Network
         </h1>
         <p className="text-lg text-muted-foreground max-w-2xl">
@@ -519,7 +519,7 @@ export default function BuyerNetwork() {
           </div>
 
           {/* Tabs */}
-          <div className="flex border-b border-white/10 mb-8 overflow-x-auto no-scrollbar gap-1">
+          <div className="flex border-b border-border mb-8 overflow-x-auto no-scrollbar gap-1">
             {TABS.map(tab => (
               <button
                 key={tab.id}
@@ -527,14 +527,14 @@ export default function BuyerNetwork() {
                 className={`flex items-center gap-2 px-5 py-4 font-semibold whitespace-nowrap border-b-2 transition-all text-sm ${
                   activeTab === tab.id
                     ? "border-primary text-primary"
-                    : "border-transparent text-muted-foreground hover:text-white"
+                    : "border-transparent text-muted-foreground hover:text-foreground"
                 }`}
               >
                 <tab.icon className="w-4 h-4" />
                 {tab.label}
                 {tab.count !== undefined && (
                   <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${
-                    activeTab === tab.id ? "bg-primary/20 text-primary" : "bg-white/5 text-white/40"
+                    activeTab === tab.id ? "bg-primary/20 text-primary" : "bg-muted/50 text-foreground/40"
                   }`}>{tab.count}</span>
                 )}
               </button>
@@ -553,10 +553,10 @@ export default function BuyerNetwork() {
                       value={search}
                       onChange={e => setSearch(e.target.value)}
                       placeholder="Search buyers by name or location..."
-                      className="w-full bg-white/5 border border-white/10 rounded-xl pl-11 pr-4 py-3 text-sm text-white placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/30 transition-all"
+                      className="w-full bg-muted/50 border border-border rounded-xl pl-11 pr-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/30 transition-all"
                     />
                     {search && (
-                      <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-white">
+                      <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
                         <X className="w-4 h-4" />
                       </button>
                     )}
@@ -564,7 +564,7 @@ export default function BuyerNetwork() {
                   <button
                     onClick={() => setShowFilters(p => !p)}
                     className={`flex items-center gap-2 px-4 py-3 rounded-xl border text-sm font-semibold transition-all ${
-                      showFilters ? "bg-primary/10 border-primary/30 text-primary" : "bg-white/5 border-white/10 text-white hover:bg-white/10"
+                      showFilters ? "bg-primary/10 border-primary/30 text-primary" : "bg-muted/50 border-border text-white hover:bg-muted"
                     }`}
                   >
                     <SlidersHorizontal className="w-4 h-4" />
@@ -576,7 +576,7 @@ export default function BuyerNetwork() {
                   <select
                     value={sortBy}
                     onChange={e => setSortBy(e.target.value as any)}
-                    className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-primary focus:outline-none cursor-pointer"
+                    className="bg-muted/50 border border-border rounded-xl px-4 py-3 text-sm text-foreground focus:border-primary focus:outline-none cursor-pointer"
                   >
                     <option value="aiMatchScore" className="bg-background">Sort: AI Match</option>
                     <option value="weeklyDemandTons" className="bg-background">Sort: Weekly Demand</option>
@@ -592,36 +592,36 @@ export default function BuyerNetwork() {
                       exit={{ opacity: 0, height: 0 }}
                       className="overflow-hidden"
                     >
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 bg-white/[0.02] border border-white/10 rounded-2xl">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 bg-muted border border-border rounded-2xl">
                         <div>
-                          <label className="text-xs text-white/40 mb-2 block uppercase tracking-wide">Buyer Type</label>
+                          <label className="text-xs text-foreground/40 mb-2 block uppercase tracking-wide">Buyer Type</label>
                           <div className="flex flex-wrap gap-1.5">
                             {BUYER_TYPES.map(t => (
                               <button key={t} onClick={() => setTypeFilter(t)}
                                 className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
-                                  typeFilter === t ? "bg-primary text-white" : "bg-white/5 text-white/50 hover:bg-white/10 hover:text-white"
+                                  typeFilter === t ? "bg-primary text-white" : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
                                 }`}>{t}</button>
                             ))}
                           </div>
                         </div>
                         <div>
-                          <label className="text-xs text-white/40 mb-2 block uppercase tracking-wide">Commodity</label>
+                          <label className="text-xs text-foreground/40 mb-2 block uppercase tracking-wide">Commodity</label>
                           <div className="flex flex-wrap gap-1.5">
                             {COMMODITIES.map(c => (
                               <button key={c} onClick={() => setCommodityFilter(c)}
                                 className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
-                                  commodityFilter === c ? "bg-primary text-white" : "bg-white/5 text-white/50 hover:bg-white/10 hover:text-white"
+                                  commodityFilter === c ? "bg-primary text-white" : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
                                 }`}>{c}</button>
                             ))}
                           </div>
                         </div>
                         <div>
-                          <label className="text-xs text-white/40 mb-2 block uppercase tracking-wide">Trade Readiness</label>
+                          <label className="text-xs text-foreground/40 mb-2 block uppercase tracking-wide">Trade Readiness</label>
                           <div className="flex flex-wrap gap-1.5">
                             {TRADE_READINESS.map(r => (
                               <button key={r} onClick={() => setReadinessFilter(r)}
                                 className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
-                                  readinessFilter === r ? "bg-primary text-white" : "bg-white/5 text-white/50 hover:bg-white/10 hover:text-white"
+                                  readinessFilter === r ? "bg-primary text-white" : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
                                 }`}>{r}</button>
                             ))}
                           </div>
@@ -641,7 +641,7 @@ export default function BuyerNetwork() {
                 {(typeFilter !== "All" || commodityFilter !== "All" || readinessFilter !== "All" || search) && (
                   <button
                     onClick={() => { setSearch(""); setTypeFilter("All"); setCommodityFilter("All"); setReadinessFilter("All"); }}
-                    className="text-xs text-primary hover:text-white flex items-center gap-1 transition-colors"
+                    className="text-xs text-primary hover:text-foreground flex items-center gap-1 transition-colors"
                   >
                     <X className="w-3 h-3" /> Clear all filters
                   </button>
@@ -652,7 +652,7 @@ export default function BuyerNetwork() {
               {filtered.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-24 gap-4 text-center">
                   <AlertTriangle className="w-12 h-12 text-white/20" />
-                  <p className="text-white/40 text-lg">No buyers match your filters</p>
+                  <p className="text-foreground/40 text-lg">No buyers match your filters</p>
                   <button onClick={() => { setSearch(""); setTypeFilter("All"); setCommodityFilter("All"); setReadinessFilter("All"); }}
                     className="text-primary text-sm hover:underline">Clear filters</button>
                 </div>
@@ -675,8 +675,8 @@ export default function BuyerNetwork() {
                   <Sparkles className="w-7 h-7 text-violet-400" />
                 </div>
                 <div className="flex-1 text-center sm:text-left">
-                  <h3 className="text-lg font-bold text-white mb-1">AI Buyer Matching Engine</h3>
-                  <p className="text-sm text-white/50">Upload your production profile and let our AI match you with the highest-value buyers across 45 countries. Average match score: <span className="text-primary font-bold">{avgMatch}%</span></p>
+                  <h3 className="text-lg font-bold text-foreground mb-1">AI Buyer Matching Engine</h3>
+                  <p className="text-sm text-muted-foreground">Upload your production profile and let our AI match you with the highest-value buyers across 45 countries. Average match score: <span className="text-primary font-bold">{avgMatch}%</span></p>
                 </div>
                 <button className="flex items-center gap-2 px-5 py-3 rounded-xl bg-violet-500/20 hover:bg-violet-500/30 border border-violet-500/30 text-violet-300 font-semibold text-sm transition-all hover:-translate-y-0.5 whitespace-nowrap">
                   <Zap className="w-4 h-4" /> Run AI Match

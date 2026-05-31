@@ -46,11 +46,11 @@ export default function Community() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="mb-10 text-center">
-        <h1 className="text-4xl font-display font-bold text-white mb-4">Agripreneur Community</h1>
+        <h1 className="text-4xl font-display font-bold text-foreground mb-4">Agripreneur Community</h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">Engage with peers, find expert mentors, and participate in ecosystem challenges.</p>
       </div>
 
-      <div className="flex justify-center border-b border-white/10 mb-10 overflow-x-auto no-scrollbar">
+      <div className="flex justify-center border-b border-border mb-10 overflow-x-auto no-scrollbar">
         {[
           { id: "forum", label: "Discussions Forum" },
           { id: "mentors", label: "Mentor Network" },
@@ -60,7 +60,7 @@ export default function Community() {
             key={tab.id}
             onClick={() => setActiveTab(tab.id as any)}
             className={`px-8 py-4 font-bold whitespace-nowrap border-b-2 transition-all ${
-              activeTab === tab.id ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-white"
+              activeTab === tab.id ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"
             }`}
           >
             {tab.label}
@@ -76,7 +76,7 @@ export default function Community() {
                 <button 
                   key={cat} 
                   onClick={() => setForumFilter(cat)}
-                  className={clsx("px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition-all", forumFilter === cat ? "bg-white text-background" : "bg-white/5 text-muted-foreground hover:bg-white/10")}
+                  className={clsx("px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition-all", forumFilter === cat ? "bg-primary text-white" : "bg-muted/50 text-muted-foreground hover:bg-muted")}
                 >
                   {cat}
                 </button>
@@ -89,22 +89,22 @@ export default function Community() {
                   <Plus className="w-4 h-4"/> New Topic
                 </button>
               </DialogTrigger>
-              <DialogContent className="bg-card border-white/10 text-white sm:max-w-lg rounded-3xl p-8">
+              <DialogContent className="bg-card border-border text-white sm:max-w-lg rounded-3xl p-8">
                 <DialogHeader><DialogTitle className="text-2xl font-display">Start a Discussion</DialogTitle></DialogHeader>
                 <form onSubmit={handleCreate} className="space-y-5 mt-4">
                   <div>
                     <label className="text-xs font-bold text-muted-foreground uppercase mb-2 block">Topic Title</label>
-                    <input required className="w-full bg-background border border-white/10 rounded-xl p-3 text-white outline-none focus:border-primary" value={form.title} onChange={e=>setForm({...form, title:e.target.value})} />
+                    <input required className="w-full bg-background border border-border rounded-xl p-3 text-white outline-none focus:border-primary" value={form.title} onChange={e=>setForm({...form, title:e.target.value})} />
                   </div>
                   <div>
                     <label className="text-xs font-bold text-muted-foreground uppercase mb-2 block">Category</label>
-                    <select className="w-full bg-background border border-white/10 rounded-xl p-3 text-white outline-none focus:border-primary" value={form.category} onChange={e=>setForm({...form, category:e.target.value})}>
+                    <select className="w-full bg-background border border-border rounded-xl p-3 text-white outline-none focus:border-primary" value={form.category} onChange={e=>setForm({...form, category:e.target.value})}>
                       {FORUM_CATEGORIES.filter(c=>c!=='ALL').map(c => <option key={c}>{c}</option>)}
                     </select>
                   </div>
                   <div>
                     <label className="text-xs font-bold text-muted-foreground uppercase mb-2 block">Content</label>
-                    <textarea required rows={5} className="w-full bg-background border border-white/10 rounded-xl p-3 text-white outline-none focus:border-primary" value={form.content} onChange={e=>setForm({...form, content:e.target.value})} />
+                    <textarea required rows={5} className="w-full bg-background border border-border rounded-xl p-3 text-white outline-none focus:border-primary" value={form.content} onChange={e=>setForm({...form, content:e.target.value})} />
                   </div>
                   <button disabled={isPending} className="w-full py-4 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
                     {isPending ? "Posting..." : "Post Topic"}
@@ -114,27 +114,27 @@ export default function Community() {
             </Dialog>
           </div>
 
-          <div className="glass-panel rounded-3xl overflow-hidden divide-y divide-white/5 border-white/10">
+          <div className="glass-panel rounded-3xl overflow-hidden divide-y divide-white/5 border-border">
             {filteredThreads.length === 0 ? <div className="p-8 text-center text-muted-foreground">No discussions in this category yet.</div> : null}
             {filteredThreads.map((thread) => (
-              <div key={thread.id} className="p-6 hover:bg-white/[0.02] transition-colors flex flex-col md:flex-row gap-4 justify-between items-start md:items-center group">
+              <div key={thread.id} className="p-6 hover:bg-muted transition-colors flex flex-col md:flex-row gap-4 justify-between items-start md:items-center group">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
-                    <span className="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-white/10 text-white/80">{thread.category}</span>
+                    <span className="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-muted text-foreground/70">{thread.category}</span>
                     <span className="text-xs text-muted-foreground flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> {formatDistanceToNow(new Date(thread.createdAt))} ago</span>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-primary cursor-pointer transition-colors leading-tight">{thread.title}</h3>
-                  <p className="text-sm text-muted-foreground">Posted by <span className="text-white/80 font-medium">{thread.author}</span></p>
+                  <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary cursor-pointer transition-colors leading-tight">{thread.title}</h3>
+                  <p className="text-sm text-muted-foreground">Posted by <span className="text-foreground/70 font-medium">{thread.author}</span></p>
                 </div>
                 
-                <div className="flex items-center gap-6 bg-background/50 px-5 py-3 rounded-2xl border border-white/5">
+                <div className="flex items-center gap-6 bg-background/50 px-5 py-3 rounded-2xl border border-border">
                   <div className="flex flex-col items-center">
-                    <span className="font-mono font-bold text-white">{thread.replies}</span>
+                    <span className="font-mono font-bold text-foreground">{thread.replies}</span>
                     <span className="text-[10px] text-muted-foreground uppercase font-bold">Replies</span>
                   </div>
                   <div className="w-px h-8 bg-white/10" />
                   <div className="flex flex-col items-center">
-                    <span className="font-mono font-bold text-white">{thread.views}</span>
+                    <span className="font-mono font-bold text-foreground">{thread.views}</span>
                     <span className="text-[10px] text-muted-foreground uppercase font-bold">Views</span>
                   </div>
                 </div>
@@ -147,8 +147,8 @@ export default function Community() {
       {activeTab === "mentors" && (
         <div>
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl font-bold text-white">Executive Mentor Network</h2>
-            <select className="bg-card border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:ring-2 focus:ring-primary outline-none">
+            <h2 className="text-2xl font-bold text-foreground">Executive Mentor Network</h2>
+            <select className="bg-card border border-border rounded-xl px-4 py-2.5 text-sm text-foreground focus:ring-2 focus:ring-primary outline-none">
               <option>All Sectors</option>
               <option>Agri-Finance</option>
               <option>Export Logistics</option>
@@ -166,19 +166,19 @@ export default function Community() {
                   )}
                 </div>
                 
-                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-card to-background border-2 border-white/10 flex items-center justify-center mb-5 shadow-xl group-hover:border-primary/50 transition-colors">
-                  <span className="text-3xl font-display font-bold text-white">{mentor.name.charAt(0)}</span>
+                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-card to-background border-2 border-border flex items-center justify-center mb-5 shadow-xl group-hover:border-primary/50 transition-colors">
+                  <span className="text-3xl font-display font-bold text-foreground">{mentor.name.charAt(0)}</span>
                 </div>
                 
-                <h3 className="text-xl font-bold text-white mb-1">{mentor.name}</h3>
+                <h3 className="text-xl font-bold text-foreground mb-1">{mentor.name}</h3>
                 <p className="text-primary text-sm font-medium mb-4">{mentor.sector}</p>
                 <div className="flex items-center gap-1.5 text-secondary mb-6">
                   {[...Array(5)].map((_,i) => <Star key={i} className={`w-4 h-4 ${i < Math.floor(mentor.rating/2) ? 'fill-secondary' : 'opacity-30'}`}/>)}
-                  <span className="text-xs font-bold ml-1 text-white/80">{mentor.rating/2}/5.0</span>
+                  <span className="text-xs font-bold ml-1 text-foreground/70">{mentor.rating/2}/5.0</span>
                 </div>
 
                 <div className="flex flex-wrap justify-center gap-2 mb-8">
-                  {mentor.expertise.map((exp,i) => <span key={i} className="px-3 py-1 rounded-full bg-white/5 text-xs text-white/70">{exp}</span>)}
+                  {mentor.expertise.map((exp,i) => <span key={i} className="px-3 py-1 rounded-full bg-muted/50 text-xs text-foreground/65">{exp}</span>)}
                 </div>
 
                 <div className="flex items-center gap-4 text-sm text-muted-foreground mb-8">
@@ -186,7 +186,7 @@ export default function Community() {
                   <span className="flex items-center gap-1.5"><Users className="w-4 h-4"/> {mentor.menteeCount} Mentees</span>
                 </div>
 
-                <button disabled={!mentor.isAvailable} className="w-full py-3.5 rounded-xl font-bold transition-all disabled:opacity-50 border-2 border-white/10 hover:border-primary hover:bg-primary/10 text-white mt-auto">
+                <button disabled={!mentor.isAvailable} className="w-full py-3.5 rounded-xl font-bold transition-all disabled:opacity-50 border-2 border-border hover:border-primary hover:bg-primary/10 text-white mt-auto">
                   Request Mentorship
                 </button>
               </div>
@@ -198,7 +198,7 @@ export default function Community() {
       {activeTab === "challenges" && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-white mb-6">Active Competitions</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-6">Active Competitions</h2>
             {[
               { title: "Precision Farming Innovation Challenge", prize: "$50,000", dl: "Ends in 12 days", org: "World Bank" },
               { title: "Youth Agripreneur Pitch 2024", prize: "$25,000", dl: "Ends in 28 days", org: "Mastercard Foundation" },
@@ -207,13 +207,13 @@ export default function Community() {
               <div key={i} className="glass-panel p-8 rounded-3xl border-l-4 border-l-primary flex flex-col md:flex-row md:items-center justify-between gap-6 hover:shadow-xl hover:shadow-primary/10 transition-all">
                 <div>
                   <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Powered by {c.org}</div>
-                  <h3 className="text-xl font-bold text-white mb-3">{c.title}</h3>
+                  <h3 className="text-xl font-bold text-foreground mb-3">{c.title}</h3>
                   <div className="flex items-center gap-4">
                     <span className="px-3 py-1 rounded bg-secondary/10 text-secondary text-sm font-bold flex items-center gap-1"><Award className="w-4 h-4"/> {c.prize}</span>
                     <span className="text-sm text-destructive font-medium flex items-center gap-1.5"><Clock className="w-4 h-4"/> {c.dl}</span>
                   </div>
                 </div>
-                <button className="px-6 py-3 rounded-xl bg-white text-background font-bold hover:bg-white/90 transition-all whitespace-nowrap">
+                <button className="px-6 py-3 rounded-xl bg-primary text-white font-bold hover:bg-white/90 transition-all whitespace-nowrap">
                   Apply Now
                 </button>
               </div>
@@ -221,11 +221,11 @@ export default function Community() {
           </div>
 
           <div>
-            <div className="glass-panel p-10 rounded-[2.5rem] border-white/10 bg-gradient-to-br from-card to-background h-full">
+            <div className="glass-panel p-10 rounded-[2.5rem] border-border bg-gradient-to-br from-card to-background h-full">
               <div className="w-16 h-16 rounded-2xl bg-blue-500/20 flex items-center justify-center mb-6">
                 <Users className="w-8 h-8 text-blue-400" />
               </div>
-              <h2 className="text-3xl font-bold text-white mb-4">Group Initiatives</h2>
+              <h2 className="text-3xl font-bold text-foreground mb-4">Group Initiatives</h2>
               <p className="text-muted-foreground mb-10">Join forces with other agripreneurs to tackle large-scale ecosystem problems and unlock massive funding pools.</p>
               
               <div className="space-y-4">
@@ -234,9 +234,9 @@ export default function Community() {
                   "Organic Certification Cooperative",
                   "Solar Irrigation Syndicate"
                 ].map((init, i) => (
-                  <div key={i} className="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between group cursor-pointer hover:bg-white/10 transition-all">
-                    <span className="font-bold text-white">{init}</span>
-                    <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-white transition-colors" />
+                  <div key={i} className="p-4 rounded-2xl bg-muted/50 border border-border flex items-center justify-between group cursor-pointer hover:bg-muted transition-all">
+                    <span className="font-bold text-foreground">{init}</span>
+                    <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
                   </div>
                 ))}
               </div>

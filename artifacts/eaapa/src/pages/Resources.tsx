@@ -21,7 +21,7 @@ export default function Resources() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div className="text-center max-w-3xl mx-auto mb-16">
-        <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">Ecosystem Knowledge Center</h1>
+        <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-6">Ecosystem Knowledge Center</h1>
         <p className="text-xl text-muted-foreground">Access institutional-grade research, validated best practices, and regional policy documents.</p>
       </div>
 
@@ -34,7 +34,7 @@ export default function Resources() {
               "px-6 py-3 rounded-full text-sm font-bold transition-all shadow-sm",
               activeCat === cat 
                 ? "bg-primary text-white shadow-primary/20" 
-                : "bg-card border border-white/10 text-muted-foreground hover:bg-white/10 hover:text-white"
+                : "bg-card border border-border text-muted-foreground hover:bg-muted hover:text-foreground"
             )}
           >
             {cat}
@@ -44,7 +44,7 @@ export default function Resources() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
         {filtered.map((res) => (
-          <div key={res.id} className="glass-panel p-8 rounded-[2rem] flex flex-col group hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300 border-white/10">
+          <div key={res.id} className="glass-panel p-8 rounded-[2rem] flex flex-col group hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300 border-border">
             <div className="flex justify-between items-start mb-6">
               <div className={clsx(
                 "w-14 h-14 rounded-2xl flex items-center justify-center",
@@ -54,21 +54,21 @@ export default function Resources() {
                 {res.fileType === 'pdf' ? <FileText className="w-7 h-7" /> :
                  res.fileType === 'video' ? <FileVideo className="w-7 h-7" /> : <FileSpreadsheet className="w-7 h-7" />}
               </div>
-              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-wider text-white/60">
+              <span className="px-3 py-1 rounded-full bg-muted/50 border border-border text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
                 {res.category.replace('_', ' ')}
               </span>
             </div>
             
-            <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors leading-snug">{res.title}</h3>
+            <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors leading-snug">{res.title}</h3>
             <p className="text-sm text-muted-foreground mb-8 flex-1 leading-relaxed">{res.description}</p>
             
             <div className="space-y-4">
-              <div className="flex items-center justify-between text-xs font-medium text-white/50 border-t border-white/10 pt-4">
+              <div className="flex items-center justify-between text-xs font-medium text-muted-foreground border-t border-border pt-4">
                 <span>{res.author}</span>
                 <span>{format(new Date(res.publishedAt), 'MMM yyyy')}</span>
               </div>
               
-              <button className="w-full py-4 rounded-xl bg-white/5 hover:bg-primary border border-white/10 hover:border-primary text-white font-bold transition-all flex items-center justify-center gap-3 group/btn">
+              <button className="w-full py-4 rounded-xl bg-muted/50 hover:bg-primary border border-border hover:border-primary text-white font-bold transition-all flex items-center justify-center gap-3 group/btn">
                 <Download className="w-5 h-5 text-muted-foreground group-hover/btn:text-white transition-colors" /> 
                 Download {res.fileType.toUpperCase()} ({res.fileSize})
               </button>
@@ -80,7 +80,7 @@ export default function Resources() {
       {filtered.length === 0 && (
         <div className="text-center py-20 glass-panel rounded-3xl border-dashed">
           <Lock className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-white mb-2">No Resources Found</h3>
+          <h3 className="text-xl font-bold text-foreground mb-2">No Resources Found</h3>
           <p className="text-muted-foreground">Try adjusting your category filter.</p>
         </div>
       )}

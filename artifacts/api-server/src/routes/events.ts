@@ -70,8 +70,6 @@ router.get("/resources", async (req, res) => {
 
 router.get("/impact/metrics", async (req, res) => {
   try {
-    const { default: pg } = await import("pg");
-    const Pool = pg.Pool;
     res.json({
       totalAgripreneurs: 4287,
       totalInvestors: 342,

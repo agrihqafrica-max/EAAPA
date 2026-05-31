@@ -23,56 +23,53 @@
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
 
-  --animate-ticker: ticker 120s linear infinite;
+  --animate-ticker: ticker 220s linear infinite;
   --animate-fade-in: fadeIn 0.4s ease-out;
   --animate-slide-up: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 :root {
-  /* ── Premium Institutional Dark Palette ─────────────────
-     Inspired by Bloomberg Terminal + African agricultural exchanges.
-     Deep slate foundation with forest green + warm gold accents.
-  ─────────────────────────────────────────────────────── */
+  /* ─── Premium Light Agricultural Palette ───────────────────────
+     Inspired by East Africa: deep forest, earth tones, ivory,
+     harvest gold. Institutional yet warm and modern.
+  ──────────────────────────────────────────────────────────────── */
 
-  --background: 222 32% 7%;        /* Deep neutral slate — not harsh navy */
-  --foreground: 210 30% 95%;
+  --background: 42 25% 96%;         /* Warm ivory — primary surface */
+  --foreground: 24 22% 10%;         /* Deep earth brown — body text */
 
-  --card: 220 28% 11%;              /* Warm slate card surface */
-  --card-foreground: 210 25% 94%;
+  --card: 0 0% 100%;                /* Pure white cards */
+  --card-foreground: 24 22% 10%;
 
-  --popover: 220 30% 10%;
-  --popover-foreground: 210 25% 94%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 24 22% 10%;
 
-  --primary: 152 55% 36%;           /* Rich forest green — less neon, more institutional */
+  --primary: 152 52% 26%;           /* Deep forest green */
   --primary-foreground: 0 0% 100%;
 
-  --secondary: 38 80% 52%;          /* Warm harvest gold */
+  --secondary: 30 52% 42%;          /* Rich earth brown */
   --secondary-foreground: 0 0% 100%;
 
-  --muted: 220 22% 16%;             /* Elevated muted surface */
-  --muted-foreground: 215 18% 68%;  /* Lighter, more readable muted text */
+  --muted: 42 18% 91%;              /* Warm muted surface */
+  --muted-foreground: 24 10% 46%;   /* Warm readable gray */
 
-  --accent: 152 45% 22%;
-  --accent-foreground: 210 30% 95%;
+  --accent: 38 74% 50%;             /* Harvest gold */
+  --accent-foreground: 24 22% 10%;
 
-  --destructive: 4 80% 58%;
+  --destructive: 4 80% 52%;
   --destructive-foreground: 0 0% 100%;
 
-  --border: 220 22% 18%;            /* More visible borders */
-  --ring: 152 55% 36%;
+  --border: 42 18% 85%;             /* Warm soft border */
+  --ring: 152 52% 26%;
 
   --radius: 0.625rem;
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
+  * { @apply border-border box-border; }
   body {
-    @apply bg-background text-foreground antialiased selection:bg-primary/25;
+    @apply bg-background text-foreground antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
@@ -80,11 +77,13 @@
   }
 }
 
-/* ── Ticker animation ────────────────────────────────── */
+/* ── Ticker ──────────────────────────────────────────────── */
 @keyframes ticker {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+
+.ticker-paused .ticker-track { animation-play-state: paused !important; }
 
 @keyframes fadeIn {
   from { opacity: 0; }
@@ -96,50 +95,41 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 hsl(152 55% 36% / 0.3); }
-  50%       { box-shadow: 0 0 0 8px hsl(152 55% 36% / 0); }
+/* ── Glass panel → now clean white card on light bg ─────── */
+.glass-panel {
+  background: #ffffff;
+  border: 1px solid hsl(var(--border));
+  box-shadow: 0 2px 12px hsl(24 22% 10% / 0.07), 0 1px 3px hsl(24 22% 10% / 0.04);
 }
 
-/* ── Glass panel ─────────────────────────────────────── */
-.glass-panel {
-  background: hsl(220 28% 11% / 0.72);
+/* ── Hero dark overlay panels (dark sections) ────────────── */
+.hero-panel {
+  background: hsl(24 22% 10% / 0.82);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid hsl(220 22% 18% / 0.8);
-  box-shadow: 0 4px 24px hsl(222 32% 4% / 0.4), inset 0 1px 0 hsl(220 30% 100% / 0.04);
+  border: 1px solid rgba(255,255,255,0.12);
 }
 
-/* ── Premium card hover ───────────────────────────────── */
+/* ── Card hover ──────────────────────────────────────────── */
 .card-hover {
   @apply transition-all duration-200;
 }
 .card-hover:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 32px hsl(222 32% 4% / 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px hsl(24 22% 10% / 0.10);
 }
 
-/* ── Scrollbars ──────────────────────────────────────── */
+/* ── Scrollbars ──────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: hsl(220 22% 24%); border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: hsl(152 55% 36%); }
+::-webkit-scrollbar-thumb { background: hsl(42 18% 80%); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(152 52% 35%); }
 
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* ── Input base ──────────────────────────────────────── */
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="number"],
-input[type="password"] {
-  outline: none;
-}
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="tel"]:focus,
-input[type="number"]:focus,
-input[type="password"]:focus {
-  border-color: hsl(var(--primary));
+/* ── Input focus ─────────────────────────────────────────── */
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid hsl(var(--primary) / 0.4);
+  outline-offset: 0;
 }

@@ -29,10 +29,10 @@ export default function Impact() {
 
   return (
     <div className="w-full">
-      <div className="bg-card border-b border-white/5 py-20 relative overflow-hidden">
+      <div className="bg-card border-b border-border py-20 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <h1 className="text-5xl md:text-6xl font-display font-bold text-white mb-6">Platform Impact</h1>
+          <h1 className="text-5xl md:text-6xl font-display font-bold text-foreground mb-6">Platform Impact</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">Measuring the transformation of the East African agricultural landscape through data, capital, and network effects.</p>
         </div>
       </div>
@@ -48,8 +48,8 @@ export default function Impact() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-24">
-              <div className="lg:col-span-2 glass-panel p-8 rounded-3xl border-white/10">
-                <h2 className="text-2xl font-bold text-white mb-8">Value Creation by Region</h2>
+              <div className="lg:col-span-2 glass-panel p-8 rounded-3xl border-border">
+                <h2 className="text-2xl font-bold text-foreground mb-8">Value Creation by Region</h2>
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={metrics.regionalImpact} layout="vertical" margin={{ left: 40 }}>
@@ -69,8 +69,8 @@ export default function Impact() {
                   </ResponsiveContainer>
                 </div>
               </div>
-              <div className="glass-panel p-8 rounded-3xl border-white/10 flex flex-col justify-center bg-gradient-to-br from-card to-background">
-                <h3 className="text-xl font-bold text-white mb-6">Regional Distribution</h3>
+              <div className="glass-panel p-8 rounded-3xl border-border flex flex-col justify-center bg-gradient-to-br from-card to-background">
+                <h3 className="text-xl font-bold text-foreground mb-6">Regional Distribution</h3>
                 <div className="space-y-6">
                   {metrics.regionalImpact.slice(0,4).map(r => (
                     <div key={r.region}>
@@ -78,7 +78,7 @@ export default function Impact() {
                         <span className="text-white font-medium">{r.region}, {r.country}</span>
                         <span className="text-muted-foreground">{r.agripreneurs.toLocaleString()} members</span>
                       </div>
-                      <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                      <div className="h-2 bg-muted/50 rounded-full overflow-hidden">
                         <div className="h-full bg-primary" style={{width: `${(r.agripreneurs/metrics.totalAgripreneurs)*100}%`}} />
                       </div>
                     </div>
@@ -90,40 +90,40 @@ export default function Impact() {
         )}
 
         <div className="mb-10 flex justify-between items-end">
-          <h2 className="text-4xl font-display font-bold text-white">Success Stories</h2>
-          <button className="text-primary font-bold flex items-center gap-1 hover:text-white transition-colors">View All <ChevronRight className="w-5 h-5"/></button>
+          <h2 className="text-4xl font-display font-bold text-foreground">Success Stories</h2>
+          <button className="text-primary font-bold flex items-center gap-1 hover:text-foreground transition-colors">View All <ChevronRight className="w-5 h-5"/></button>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {stories?.map((story) => (
-            <div key={story.id} className="glass-panel border-white/10 rounded-[2rem] overflow-hidden flex flex-col md:flex-row group hover:-translate-y-1 transition-transform duration-300 shadow-xl">
+            <div key={story.id} className="glass-panel border-border rounded-[2rem] overflow-hidden flex flex-col md:flex-row group hover:-translate-y-1 transition-transform duration-300 shadow-xl">
               <div className="p-8 md:w-3/5 flex flex-col justify-center">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-emerald-700 flex items-center justify-center text-2xl font-bold text-white shadow-lg">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-emerald-700 flex items-center justify-center text-2xl font-bold text-foreground shadow-lg">
                     {story.agripreneurName.charAt(0)}
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-white">{story.agripreneurName}</h3>
+                    <h3 className="text-xl font-bold text-foreground">{story.agripreneurName}</h3>
                     <p className="text-sm text-primary font-medium">{story.sector}</p>
                   </div>
                 </div>
-                <h4 className="text-lg font-bold text-white mb-3 leading-snug">{story.title}</h4>
+                <h4 className="text-lg font-bold text-foreground mb-3 leading-snug">{story.title}</h4>
                 <p className="text-sm text-muted-foreground line-clamp-3 mb-6">{story.story}</p>
                 <div className="flex flex-wrap gap-2 mt-auto">
-                  {story.commodities?.map(c => <span key={c} className="px-3 py-1 rounded-md bg-white/5 text-xs text-white/70">{c}</span>)}
+                  {story.commodities?.map(c => <span key={c} className="px-3 py-1 rounded-md bg-muted/50 text-xs text-foreground/65">{c}</span>)}
                 </div>
               </div>
-              <div className="bg-background/80 p-8 md:w-2/5 flex flex-col justify-center border-l border-white/5">
+              <div className="bg-background/80 p-8 md:w-2/5 flex flex-col justify-center border-l border-border">
                 <div className="space-y-6">
                   <div>
                     <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1">Annual Revenue</div>
-                    <div className="text-3xl font-mono font-bold text-white">${story.revenueUsd.toLocaleString()}</div>
+                    <div className="text-3xl font-mono font-bold text-foreground">${story.revenueUsd.toLocaleString()}</div>
                   </div>
                   <div>
                     <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1">Jobs Created</div>
-                    <div className="text-xl font-mono font-bold text-white">{story.jobsCreated}</div>
+                    <div className="text-xl font-mono font-bold text-foreground">{story.jobsCreated}</div>
                   </div>
-                  <div className="pt-6 border-t border-white/10">
+                  <div className="pt-6 border-t border-border">
                     <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1">Growth via EAAPA</div>
                     <div className="text-xl font-bold text-primary">+{story.growthPercent}%</div>
                   </div>
@@ -143,7 +143,7 @@ function StatCard({ title, value, icon: Icon, color, border, isText = false }: a
   return (
     <motion.div initial={{ scale: 0.95, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} className={`glass-panel p-8 rounded-[2rem] text-center border-t-4 ${border} hover:-translate-y-1 transition-transform`}>
       <Icon className={`w-8 h-8 ${color} mx-auto mb-6`} />
-      <div className="text-4xl md:text-5xl font-display font-bold text-white mb-3 font-mono">
+      <div className="text-4xl md:text-5xl font-display font-bold text-foreground mb-3 font-mono">
         {isText ? value : count.toLocaleString()}
       </div>
       <div className="text-sm text-muted-foreground font-bold uppercase tracking-widest">{title}</div>

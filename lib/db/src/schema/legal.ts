@@ -2,7 +2,7 @@ import { pgTable, serial, text, boolean, timestamp, integer, date, pgEnum } from
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
 
-export const documentStatusEnum = pgEnum("legal_document_status", ["draft", "active", "expired", "superseded", "archived"]);
+export const legalDocumentStatusEnum = pgEnum("legal_document_status", ["draft", "active", "expired", "superseded", "archived"]);
 export const disputeStatusEnum = pgEnum("dispute_status", ["open", "under_review", "mediation", "resolved", "escalated", "closed"]);
 export const licenseStatusEnum = pgEnum("license_status", ["pending", "active", "suspended", "expired", "revoked"]);
 
@@ -12,7 +12,7 @@ export const legalDocumentsTable = pgTable("legal_documents", {
   type: text("type").notNull().default("terms"),
   version: text("version").notNull().default("1.0"),
   content: text("content").notNull(),
-  status: documentStatusEnum("status").notNull().default("active"),
+  status: legalDocumentStatusEnum("status").notNull().default("active"),
   effectiveDate: date("effective_date").notNull(),
   expiryDate: date("expiry_date"),
   createdBy: integer("created_by"),
@@ -34,7 +34,7 @@ export const contractsLegalTable = pgTable("legal_contracts", {
   effectiveDate: date("effective_date").notNull(),
   expiryDate: date("expiry_date"),
   value: text("value"),
-  status: documentStatusEnum("status").notNull().default("active"),
+  status: legalDocumentStatusEnum("status").notNull().default("active"),
   documentUrl: text("document_url"),
   signedAt: timestamp("signed_at"),
   createdAt: timestamp("created_at").notNull().defaultNow(),

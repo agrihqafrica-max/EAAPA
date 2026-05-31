@@ -36,7 +36,7 @@ export default function Programs() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="mb-10 text-center max-w-3xl mx-auto">
-        <h1 className="text-4xl font-display font-bold text-white mb-4">EAAPA Programs</h1>
+        <h1 className="text-4xl font-display font-bold text-foreground mb-4">EAAPA Programs</h1>
         <p className="text-xl text-muted-foreground">Comprehensive growth tracks designed to elevate every stage of your agricultural journey.</p>
       </div>
 
@@ -49,7 +49,7 @@ export default function Programs() {
             className={`px-6 py-3 rounded-xl font-semibold transition-all ${
               activeTab === prog.id 
                 ? "bg-primary text-white shadow-lg shadow-primary/20" 
-                : "bg-white/5 text-muted-foreground hover:bg-white/10 hover:text-white"
+                : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
             }`}
           >
             {prog.name}
@@ -68,12 +68,12 @@ export default function Programs() {
         >
           <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[80px] rounded-full" />
           <div className="relative z-10">
-            <h2 className="text-3xl font-bold text-white mb-4">{currentProgram.name} Program</h2>
-            <p className="text-lg text-white/80 mb-8 max-w-2xl">{currentProgram.desc}</p>
+            <h2 className="text-3xl font-bold text-foreground mb-4">{currentProgram.name} Program</h2>
+            <p className="text-lg text-foreground/70 mb-8 max-w-2xl">{currentProgram.desc}</p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {currentProgram.benefits.map((ben, i) => (
-                <div key={i} className="flex items-center gap-3 bg-background/50 p-4 rounded-xl border border-white/5">
+                <div key={i} className="flex items-center gap-3 bg-background/50 p-4 rounded-xl border border-border">
                   <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0" />
                   <span className="font-medium text-white">{ben}</span>
                 </div>
@@ -86,12 +86,12 @@ export default function Programs() {
       {/* Program Cohort / Members */}
       <div className="mb-8 flex flex-col md:flex-row justify-between items-end md:items-center gap-4">
         <div>
-          <h3 className="text-2xl font-bold text-white">Current Cohort</h3>
+          <h3 className="text-2xl font-bold text-foreground">Current Cohort</h3>
           <p className="text-muted-foreground">Discover participants in this track.</p>
         </div>
         <div className="flex gap-3 w-full md:w-auto">
           <select 
-            className="bg-card border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:ring-2 focus:ring-primary outline-none flex-1 md:w-48"
+            className="bg-card border border-border rounded-xl px-4 py-2.5 text-sm text-foreground focus:ring-2 focus:ring-primary outline-none flex-1 md:w-48"
             value={regionFilter}
             onChange={(e) => setRegionFilter(e.target.value)}
           >
@@ -101,7 +101,7 @@ export default function Programs() {
             <option value="Western">Western</option>
           </select>
           <select 
-            className="bg-card border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:ring-2 focus:ring-primary outline-none flex-1 md:w-48"
+            className="bg-card border border-border rounded-xl px-4 py-2.5 text-sm text-foreground focus:ring-2 focus:ring-primary outline-none flex-1 md:w-48"
             value={sectorFilter}
             onChange={(e) => setSectorFilter(e.target.value)}
           >
@@ -120,18 +120,18 @@ export default function Programs() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: idx * 0.05 }}
             key={member.id} 
-            className="bg-card border border-white/10 p-6 rounded-2xl flex flex-col hover:border-primary/50 transition-colors group"
+            className="bg-card border border-border p-6 rounded-2xl flex flex-col hover:border-primary/50 transition-colors group"
           >
             <div className="flex justify-between items-start mb-4">
               <div className="w-12 h-12 rounded-full bg-primary/20 text-primary flex items-center justify-center text-lg font-bold">
                 {member.name.charAt(0)}
               </div>
-              <span className="px-2 py-1 rounded bg-white/5 text-[10px] uppercase font-bold text-white/70 tracking-wider">
+              <span className="px-2 py-1 rounded bg-muted/50 text-[10px] uppercase font-bold text-foreground/65 tracking-wider">
                 {member.role}
               </span>
             </div>
             
-            <h4 className="font-bold text-white text-lg group-hover:text-primary transition-colors">{member.name}</h4>
+            <h4 className="font-bold text-foreground text-lg group-hover:text-primary transition-colors">{member.name}</h4>
             <p className="text-sm text-primary mb-4">{member.sector}</p>
             
             <div className="space-y-2 mb-6 flex-1">
@@ -145,7 +145,7 @@ export default function Programs() {
 
             <button 
               onClick={() => connect({ id: member.id }, { onSuccess: () => toast({ title: "Connected", description: "Request sent successfully." }) })}
-              className="w-full py-2 rounded-lg bg-primary/10 text-primary font-bold hover:bg-primary hover:text-white transition-all text-sm"
+              className="w-full py-2 rounded-lg bg-primary/10 text-primary font-bold hover:bg-primary hover:text-foreground transition-all text-sm"
             >
               Connect
             </button>

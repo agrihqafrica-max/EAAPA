@@ -42,13 +42,13 @@ const DOC_TYPE_COLOR: Record<string, string> = {
   xlsx: "text-green-400 bg-green-500/10 border-green-500/20",
   csv: "text-teal-400 bg-teal-500/10 border-teal-500/20",
   image: "text-purple-400 bg-purple-500/10 border-purple-500/20",
-  txt: "text-muted-foreground bg-white/5 border-white/10",
-  other: "text-muted-foreground bg-white/5 border-white/10",
+  txt: "text-muted-foreground bg-muted/50 border-border",
+  other: "text-muted-foreground bg-muted/50 border-border",
 };
 
 const STATUS_CONFIG: Record<string, { label: string; color: string }> = {
   active:         { label: "Active",          color: "bg-primary/10 text-primary border-primary/20" },
-  archived:       { label: "Archived",        color: "bg-white/5 text-muted-foreground border-white/10" },
+  archived:       { label: "Archived",        color: "bg-muted/50 text-muted-foreground border-border" },
   draft:          { label: "Draft",           color: "bg-secondary/10 text-secondary border-secondary/20" },
   pending_review: { label: "Pending Review",  color: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20" },
 };
@@ -80,17 +80,17 @@ function DocumentPreview({ doc, onClose }: { doc: Document; onClose: () => void 
       onClick={onClose}
     >
       <div
-        className="bg-card border border-white/10 rounded-3xl w-full max-w-2xl shadow-2xl overflow-hidden"
+        className="bg-card border border-border rounded-3xl w-full max-w-2xl shadow-2xl overflow-hidden"
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="p-6 border-b border-white/10 flex items-start justify-between gap-4">
+        <div className="p-6 border-b border-border flex items-start justify-between gap-4">
           <div className="flex items-start gap-4">
             <div className={clsx("p-3 rounded-2xl border", DOC_TYPE_COLOR[doc.documentType])}>
               <TypeIcon className="w-6 h-6" />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-white leading-tight">{doc.title}</h2>
+              <h2 className="text-lg font-bold text-foreground leading-tight">{doc.title}</h2>
               <div className="flex items-center gap-2 mt-1 flex-wrap">
                 <span className={clsx("text-xs font-bold px-2 py-0.5 rounded-md border", STATUS_CONFIG[doc.status]?.color)}>
                   {STATUS_CONFIG[doc.status]?.label}
@@ -108,7 +108,7 @@ function DocumentPreview({ doc, onClose }: { doc: Document; onClose: () => void 
               </div>
             </div>
           </div>
-          <button onClick={onClose} className="text-muted-foreground hover:text-white transition-colors p-1">
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground transition-colors p-1">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -116,22 +116,22 @@ function DocumentPreview({ doc, onClose }: { doc: Document; onClose: () => void 
         {/* Body */}
         <div className="p-6 space-y-5 max-h-[60vh] overflow-y-auto no-scrollbar">
           {doc.description && (
-            <p className="text-white/80 leading-relaxed">{doc.description}</p>
+            <p className="text-foreground/70 leading-relaxed">{doc.description}</p>
           )}
 
           <div className="grid grid-cols-2 gap-4">
             <div className="glass-panel p-4 rounded-xl space-y-3">
               <div className="text-xs font-bold text-muted-foreground uppercase">Document Info</div>
-              <div className="flex items-center gap-2 text-sm text-white/80">
+              <div className="flex items-center gap-2 text-sm text-foreground/70">
                 <CatIcon className={clsx("w-4 h-4 flex-shrink-0", catDef?.color)} />
                 {catDef?.label ?? doc.category}
               </div>
-              <div className="flex items-center gap-2 text-sm text-white/80">
+              <div className="flex items-center gap-2 text-sm text-foreground/70">
                 <TypeIcon className="w-4 h-4 flex-shrink-0 text-muted-foreground" />
                 {doc.documentType.toUpperCase()} · {formatSize(doc.fileSizeKb)}
               </div>
               {doc.module && (
-                <div className="flex items-center gap-2 text-sm text-white/80">
+                <div className="flex items-center gap-2 text-sm text-foreground/70">
                   <Package className="w-4 h-4 flex-shrink-0 text-muted-foreground" />
                   {doc.module.replace(/_/g, " ")}
                 </div>
@@ -141,7 +141,7 @@ function DocumentPreview({ doc, onClose }: { doc: Document; onClose: () => void 
             <div className="glass-panel p-4 rounded-xl space-y-3">
               <div className="text-xs font-bold text-muted-foreground uppercase">Ownership</div>
               {doc.ownerName && (
-                <div className="flex items-center gap-2 text-sm text-white/80">
+                <div className="flex items-center gap-2 text-sm text-foreground/70">
                   <User className="w-4 h-4 flex-shrink-0 text-muted-foreground" />
                   {doc.ownerName}
                 </div>
@@ -149,11 +149,11 @@ function DocumentPreview({ doc, onClose }: { doc: Document; onClose: () => void 
               {doc.ownerRole && (
                 <div className="text-xs text-muted-foreground pl-6">{doc.ownerRole}</div>
               )}
-              <div className="flex items-center gap-2 text-sm text-white/80">
+              <div className="flex items-center gap-2 text-sm text-foreground/70">
                 <Clock className="w-4 h-4 flex-shrink-0 text-muted-foreground" />
                 {new Date(doc.createdAt).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
               </div>
-              <div className="flex items-center gap-2 text-sm text-white/80">
+              <div className="flex items-center gap-2 text-sm text-foreground/70">
                 <Download className="w-4 h-4 flex-shrink-0 text-muted-foreground" />
                 {doc.downloadCount} downloads
               </div>
@@ -165,7 +165,7 @@ function DocumentPreview({ doc, onClose }: { doc: Document; onClose: () => void 
               <div className="text-xs font-bold text-muted-foreground uppercase mb-2">Tags</div>
               <div className="flex flex-wrap gap-2">
                 {doc.tags.map((tag, i) => (
-                  <span key={i} className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-xs text-white/70">
+                  <span key={i} className="px-2.5 py-1 rounded-lg bg-muted/50 border border-border text-xs text-foreground/65">
                     <Tag className="w-3 h-3 inline mr-1" />{tag}
                   </span>
                 ))}
@@ -174,7 +174,7 @@ function DocumentPreview({ doc, onClose }: { doc: Document; onClose: () => void 
           )}
 
           {/* Simulated preview area */}
-          <div className="rounded-2xl bg-background/50 border border-white/10 p-8 text-center">
+          <div className="rounded-2xl bg-background/50 border border-border p-8 text-center">
             <TypeIcon className="w-12 h-12 text-muted-foreground/30 mx-auto mb-3" />
             <div className="text-sm text-muted-foreground">
               Document preview not available in this environment.
@@ -184,7 +184,7 @@ function DocumentPreview({ doc, onClose }: { doc: Document; onClose: () => void 
         </div>
 
         {/* Footer actions */}
-        <div className="p-4 border-t border-white/10 flex gap-3">
+        <div className="p-4 border-t border-border flex gap-3">
           <button
             onClick={() => {
               // Simulate download
@@ -197,7 +197,7 @@ function DocumentPreview({ doc, onClose }: { doc: Document; onClose: () => void 
           >
             <Download className="w-4 h-4" /> Download
           </button>
-          <button onClick={onClose} className="px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-colors">
+          <button onClick={onClose} className="px-6 py-3 rounded-xl bg-muted/50 border border-border text-white font-medium hover:bg-muted transition-colors">
             Close
           </button>
         </div>
@@ -216,13 +216,13 @@ function DocumentCard({ doc, onPreview, onDelete }: {
   const catDef = CATEGORIES.find(c => c.key === doc.category);
 
   return (
-    <div className="glass-panel rounded-2xl p-5 border-white/10 hover:border-white/20 transition-all group flex flex-col gap-4">
+    <div className="glass-panel rounded-2xl p-5 border-border hover:border-white/20 transition-all group flex flex-col gap-4">
       <div className="flex items-start gap-3">
         <div className={clsx("p-2.5 rounded-xl border flex-shrink-0", DOC_TYPE_COLOR[doc.documentType])}>
           <TypeIcon className="w-4 h-4" />
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="font-bold text-white text-sm leading-tight line-clamp-2 group-hover:text-primary transition-colors">
+          <h3 className="font-bold text-foreground text-sm leading-tight line-clamp-2 group-hover:text-primary transition-colors">
             {doc.title}
           </h3>
           <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
@@ -270,22 +270,22 @@ function DocumentCard({ doc, onPreview, onDelete }: {
       {doc.tags && doc.tags.length > 0 && (
         <div className="flex flex-wrap gap-1">
           {doc.tags.slice(0, 3).map((tag, i) => (
-            <span key={i} className="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[10px] text-white/50">
+            <span key={i} className="px-2 py-0.5 rounded-md bg-muted/50 border border-border text-[10px] text-muted-foreground">
               {tag}
             </span>
           ))}
           {doc.tags.length > 3 && (
-            <span className="px-2 py-0.5 rounded-md bg-white/5 text-[10px] text-muted-foreground/40">
+            <span className="px-2 py-0.5 rounded-md bg-muted/50 text-[10px] text-muted-foreground/40">
               +{doc.tags.length - 3}
             </span>
           )}
         </div>
       )}
 
-      <div className="flex gap-2 pt-1 border-t border-white/5">
+      <div className="flex gap-2 pt-1 border-t border-border">
         <button
           onClick={() => onPreview(doc)}
-          className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-medium text-white transition-colors"
+          className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-muted/50 hover:bg-muted text-xs font-medium text-white transition-colors"
         >
           <Eye className="w-3.5 h-3.5" /> Preview
         </button>
@@ -302,7 +302,7 @@ function DocumentCard({ doc, onPreview, onDelete }: {
         </button>
         <button
           onClick={() => onDelete(doc.id)}
-          className="p-2 rounded-lg bg-white/5 hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors"
+          className="p-2 rounded-lg bg-muted/50 hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors"
           title="Delete"
         >
           <Trash2 className="w-3.5 h-3.5" />
@@ -378,16 +378,16 @@ export default function Documents() {
 
       {/* ── Sidebar ── */}
       <aside className={clsx(
-        "fixed lg:relative inset-y-0 left-0 z-40 lg:z-auto w-72 border-r border-white/5 bg-card/40 flex flex-col flex-shrink-0 transition-transform duration-300 lg:transform-none",
+        "fixed lg:relative inset-y-0 left-0 z-40 lg:z-auto w-72 border-r border-border bg-card/40 flex flex-col flex-shrink-0 transition-transform duration-300 lg:transform-none",
         sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
       )}>
-        <div className="p-5 border-b border-white/5">
+        <div className="p-5 border-b border-border">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
               <FolderOpen className="w-5 h-5 text-primary" />
             </div>
             <div>
-              <div className="font-display font-bold text-white">Documents</div>
+              <div className="font-display font-bold text-foreground">Documents</div>
               <div className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest">
                 {stats ? Object.values(stats).reduce((a, b) => a + b, 0) : "–"} total records
               </div>
@@ -411,7 +411,7 @@ export default function Documents() {
                   "w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition-all group",
                   isActive
                     ? "bg-primary/10 text-primary border border-primary/20"
-                    : "text-muted-foreground hover:bg-white/5 hover:text-white"
+                    : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
                 )}
               >
                 <span className="flex items-center gap-2.5">
@@ -421,7 +421,7 @@ export default function Documents() {
                 {catCount > 0 && (
                   <span className={clsx(
                     "text-[11px] font-bold px-1.5 py-0.5 rounded-md min-w-[20px] text-center",
-                    isActive ? "bg-primary/20 text-primary" : "bg-white/5 text-muted-foreground"
+                    isActive ? "bg-primary/20 text-primary" : "bg-muted/50 text-muted-foreground"
                   )}>
                     {catCount}
                   </span>
@@ -432,7 +432,7 @@ export default function Documents() {
         </nav>
 
         {/* Sidebar footer */}
-        <div className="p-4 border-t border-white/5">
+        <div className="p-4 border-t border-border">
           <div className="text-xs text-muted-foreground/60 text-center">
             EAAPA Document Management System
           </div>
@@ -443,12 +443,12 @@ export default function Documents() {
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
 
         {/* Header bar */}
-        <div className="px-6 py-4 border-b border-white/5 flex-shrink-0">
+        <div className="px-6 py-4 border-b border-border flex-shrink-0">
           <div className="flex items-center gap-3 mb-4">
             {/* Mobile sidebar toggle */}
             <button
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white transition-colors"
+              className="lg:hidden p-2 rounded-lg bg-muted/50 hover:bg-muted text-foreground transition-colors"
             >
               <Filter className="w-4 h-4" />
             </button>
@@ -456,7 +456,7 @@ export default function Documents() {
             {activeCatDef && (
               <div className="flex items-center gap-2">
                 <activeCatDef.icon className={clsx("w-5 h-5", activeCatDef.color)} />
-                <h1 className="text-xl font-display font-bold text-white">{activeCatDef.label}</h1>
+                <h1 className="text-xl font-display font-bold text-foreground">{activeCatDef.label}</h1>
                 <ChevronRight className="w-4 h-4 text-muted-foreground" />
                 <span className="text-muted-foreground text-sm">{data?.total ?? totalCount} documents</span>
               </div>
@@ -472,10 +472,10 @@ export default function Documents() {
                 value={search}
                 onChange={e => { setSearch(e.target.value); setPage(1); }}
                 placeholder="Search documents..."
-                className="w-full bg-background border border-white/10 rounded-xl pl-9 pr-4 py-2 text-sm text-white outline-none focus:border-primary placeholder:text-muted-foreground/50"
+                className="w-full bg-background border border-border rounded-xl pl-9 pr-4 py-2 text-sm text-foreground outline-none focus:border-primary placeholder:text-muted-foreground/50"
               />
               {search && (
-                <button onClick={() => { setSearch(""); setPage(1); }} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-white">
+                <button onClick={() => { setSearch(""); setPage(1); }} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
                   <X className="w-3.5 h-3.5" />
                 </button>
               )}
@@ -484,7 +484,7 @@ export default function Documents() {
             <select
               value={statusFilter}
               onChange={e => { setStatusFilter(e.target.value); setPage(1); }}
-              className="bg-background border border-white/10 rounded-xl px-3 py-2 text-sm text-white outline-none focus:border-primary"
+              className="bg-background border border-border rounded-xl px-3 py-2 text-sm text-foreground outline-none focus:border-primary"
             >
               <option value="all">All Status</option>
               <option value="active">Active</option>
@@ -496,7 +496,7 @@ export default function Documents() {
             <select
               value={typeFilter}
               onChange={e => setTypeFilter(e.target.value)}
-              className="bg-background border border-white/10 rounded-xl px-3 py-2 text-sm text-white outline-none focus:border-primary"
+              className="bg-background border border-border rounded-xl px-3 py-2 text-sm text-foreground outline-none focus:border-primary"
             >
               <option value="all">All Types</option>
               <option value="pdf">PDF</option>
@@ -567,7 +567,7 @@ export default function Documents() {
                   { label: "System Generated", value: filteredDocs.filter(d => d.isSystemGenerated).length, icon: RefreshCw, color: "text-teal-400" },
                   { label: "Confidential", value: filteredDocs.filter(d => d.isConfidential).length, icon: Lock, color: "text-destructive" },
                 ].map(stat => (
-                  <div key={stat.label} className="glass-panel rounded-xl p-4 border-white/10 flex items-center gap-3">
+                  <div key={stat.label} className="glass-panel rounded-xl p-4 border-border flex items-center gap-3">
                     <stat.icon className={clsx("w-5 h-5 flex-shrink-0", stat.color)} />
                     <div>
                       <div className="text-xl font-bold font-mono text-white">{stat.value}</div>
@@ -584,7 +584,7 @@ export default function Documents() {
                     {deleteConfirm === doc.id && (
                       <div className="absolute inset-0 z-10 flex items-center justify-center rounded-2xl bg-destructive/20 border border-destructive/40 backdrop-blur-sm">
                         <div className="text-center p-4">
-                          <div className="text-sm font-bold text-white mb-2">Delete document?</div>
+                          <div className="text-sm font-bold text-foreground mb-2">Delete document?</div>
                           <div className="flex gap-2">
                             <button
                               onClick={() => handleDelete(doc.id)}
@@ -595,7 +595,7 @@ export default function Documents() {
                             </button>
                             <button
                               onClick={() => setDeleteConfirm(null)}
-                              className="px-3 py-1.5 rounded-lg bg-white/10 text-white text-xs font-medium"
+                              className="px-3 py-1.5 rounded-lg bg-muted text-foreground text-xs font-medium"
                             >
                               Cancel
                             </button>
@@ -618,7 +618,7 @@ export default function Documents() {
                   <button
                     onClick={() => setPage(p => Math.max(1, p - 1))}
                     disabled={page === 1}
-                    className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-sm text-white font-medium disabled:opacity-40 hover:bg-white/10 transition-colors"
+                    className="px-4 py-2 rounded-xl bg-muted/50 border border-border text-sm text-foreground font-medium disabled:opacity-40 hover:bg-muted transition-colors"
                   >
                     Previous
                   </button>
@@ -631,7 +631,7 @@ export default function Documents() {
                           onClick={() => setPage(p)}
                           className={clsx(
                             "w-9 h-9 rounded-xl text-sm font-medium transition-colors",
-                            p === page ? "bg-primary text-white" : "bg-white/5 text-muted-foreground hover:bg-white/10 hover:text-white"
+                            p === page ? "bg-primary text-white" : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
                           )}
                         >
                           {p}
@@ -642,7 +642,7 @@ export default function Documents() {
                   <button
                     onClick={() => setPage(p => Math.min(data.totalPages, p + 1))}
                     disabled={page === data.totalPages}
-                    className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-sm text-white font-medium disabled:opacity-40 hover:bg-white/10 transition-colors"
+                    className="px-4 py-2 rounded-xl bg-muted/50 border border-border text-sm text-foreground font-medium disabled:opacity-40 hover:bg-muted transition-colors"
                   >
                     Next
                   </button>

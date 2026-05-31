@@ -68,14 +68,14 @@ export default function AILayer() {
 
   return (
     <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <Link href={`/market-hub/${id}`} className="inline-flex items-center gap-2 text-muted-foreground hover:text-white transition-colors mb-8">
+      <Link href={`/market-hub/${id}`} className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8">
         <ArrowLeft className="w-4 h-4" /> Back to Data Room
       </Link>
 
       <div className="flex items-center justify-between mb-10 flex-wrap gap-4">
         <div>
           <div className="flex items-center gap-3 mb-2 flex-wrap">
-            <h1 className="text-4xl font-display font-bold text-white">{commodity.name}</h1>
+            <h1 className="text-4xl font-display font-bold text-foreground">{commodity.name}</h1>
             <span className="px-3 py-1 rounded-lg bg-secondary/20 border border-secondary/30 text-secondary text-sm font-bold flex items-center gap-1.5">
               <Cpu className="w-4 h-4" /> Layer 3 AI
             </span>
@@ -93,9 +93,9 @@ export default function AILayer() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         {/* Scenario Simulator */}
-        <div className="glass-panel rounded-3xl p-8 border-white/10 relative overflow-hidden">
+        <div className="glass-panel rounded-3xl p-8 border-border relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/5 blur-[80px] rounded-full pointer-events-none" />
-          <h2 className="text-2xl font-bold text-white mb-8">Scenario Simulator</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-8">Scenario Simulator</h2>
           
           <div className="space-y-8 relative z-10">
             <div>
@@ -122,7 +122,7 @@ export default function AILayer() {
                     "flex-1 py-3 rounded-xl border font-bold transition-all",
                     targetMarket === 'local'
                       ? 'bg-primary/20 border-primary text-primary'
-                      : 'bg-background border-white/10 text-white/70 hover:text-white'
+                      : 'bg-background border-border text-foreground/65 hover:text-foreground'
                   )}
                 >
                   Local Hubs
@@ -133,7 +133,7 @@ export default function AILayer() {
                     "flex-1 py-3 rounded-xl border font-bold transition-all",
                     targetMarket === 'export'
                       ? 'bg-secondary/20 border-secondary text-secondary'
-                      : 'bg-background border-white/10 text-white/70 hover:text-white'
+                      : 'bg-background border-border text-foreground/65 hover:text-foreground'
                   )}
                 >
                   Export Route (+40% Prem)
@@ -141,7 +141,7 @@ export default function AILayer() {
               </div>
             </div>
 
-            <div className="bg-background/80 border border-white/10 p-6 rounded-2xl">
+            <div className="bg-background/80 border border-border p-6 rounded-2xl">
               <div className="text-sm text-muted-foreground mb-4">AI Projection</div>
               <div className="text-base text-white font-medium leading-relaxed">
                 Planting <span className="font-bold text-primary">{acreage} acres</span> will yield approx{" "}
@@ -155,15 +155,15 @@ export default function AILayer() {
         </div>
 
         {/* AI Forecasting */}
-        <div className="glass-panel rounded-3xl p-8 border-white/10">
+        <div className="glass-panel rounded-3xl p-8 border-border">
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl font-bold text-white">Price Forecast</h2>
+            <h2 className="text-2xl font-bold text-foreground">Price Forecast</h2>
             <div className="flex gap-2">
               <button
                 onClick={() => setForecastPeriod(3)}
                 className={clsx(
                   "px-3 py-1 rounded text-xs font-bold transition-all",
-                  forecastPeriod === 3 ? "bg-primary text-white" : "bg-white/10 text-white hover:bg-white/20"
+                  forecastPeriod === 3 ? "bg-primary text-white" : "bg-muted text-foreground hover:bg-white/20"
                 )}
               >
                 3M
@@ -172,7 +172,7 @@ export default function AILayer() {
                 onClick={() => setForecastPeriod(12)}
                 className={clsx(
                   "px-3 py-1 rounded text-xs font-bold transition-all",
-                  forecastPeriod === 12 ? "bg-primary text-white" : "bg-white/10 text-white hover:bg-white/20"
+                  forecastPeriod === 12 ? "bg-primary text-white" : "bg-muted text-foreground hover:bg-white/20"
                 )}
               >
                 12M
@@ -217,14 +217,14 @@ export default function AILayer() {
 
       {/* Global Arbitrage & Smart Contracts */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 glass-panel rounded-3xl p-8 border-white/10">
-          <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+        <div className="lg:col-span-2 glass-panel rounded-3xl p-8 border-border">
+          <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
             <Globe className="w-6 h-6 text-primary" /> Global Arbitrage Scanner
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full text-left">
               <thead>
-                <tr className="text-sm text-muted-foreground border-b border-white/10">
+                <tr className="text-sm text-muted-foreground border-b border-border">
                   <th className="pb-4">Market</th>
                   <th className="pb-4">Est. Landed Price</th>
                   <th className="pb-4">Opp. Score</th>
@@ -233,24 +233,24 @@ export default function AILayer() {
               </thead>
               <tbody className="divide-y divide-white/5">
                 {arbitrageMarkets.map((m, i) => (
-                  <tr key={i} className="hover:bg-white/[0.02] transition-colors">
-                    <td className="py-4 font-bold text-white">{m.name}</td>
-                    <td className="py-4 font-mono text-white/80">${m.price.toFixed(2)}</td>
+                  <tr key={i} className="hover:bg-muted transition-colors">
+                    <td className="py-4 font-bold text-foreground">{m.name}</td>
+                    <td className="py-4 font-mono text-foreground/70">${m.price.toFixed(2)}</td>
                     <td className="py-4">
                       <div className="flex items-center gap-2">
-                        <div className="w-20 h-2 bg-white/10 rounded-full overflow-hidden">
+                        <div className="w-20 h-2 bg-muted rounded-full overflow-hidden">
                           <div
                             className={clsx("h-full", m.score > 80 ? "bg-primary" : m.score > 60 ? "bg-blue-500" : "bg-secondary")}
                             style={{ width: `${m.score}%` }}
                           />
                         </div>
-                        <span className="text-xs text-white/70">{m.score}</span>
+                        <span className="text-xs text-foreground/65">{m.score}</span>
                       </div>
                     </td>
                     <td className="py-4 text-right">
                       <span className={clsx(
                         "px-3 py-1 rounded-md text-xs font-bold",
-                        m.rec.includes('Buy') ? 'bg-primary/20 text-primary' : 'bg-white/10 text-white/70'
+                        m.rec.includes('Buy') ? 'bg-primary/20 text-primary' : 'bg-muted text-foreground/65'
                       )}>
                         {m.rec}
                       </span>
@@ -262,16 +262,16 @@ export default function AILayer() {
           </div>
         </div>
 
-        <div className="glass-panel rounded-3xl p-8 border-white/10 bg-gradient-to-br from-card to-background">
-          <h2 className="text-2xl font-bold text-white mb-6">Smart Contracts</h2>
+        <div className="glass-panel rounded-3xl p-8 border-border bg-gradient-to-br from-card to-background">
+          <h2 className="text-2xl font-bold text-foreground mb-6">Smart Contracts</h2>
           <div className="space-y-6">
             {/* Auto-Negotiate Toggle */}
             <button
               onClick={() => setAutoNegotiate(v => !v)}
-              className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10 w-full text-left hover:bg-white/[0.07] transition-colors"
+              className="flex items-center justify-between p-4 rounded-xl bg-muted/50 border border-border w-full text-left hover:bg-muted transition-colors"
             >
               <div>
-                <div className="font-bold text-white">Auto-Negotiation</div>
+                <div className="font-bold text-foreground">Auto-Negotiation</div>
                 <div className="text-xs text-muted-foreground">AI negotiates within margins</div>
               </div>
               <div className={clsx(
@@ -286,16 +286,16 @@ export default function AILayer() {
             </button>
 
             <div className="space-y-3">
-              <div className="text-sm font-medium text-white/80">Execution Pipeline</div>
+              <div className="text-sm font-medium text-foreground/70">Execution Pipeline</div>
               {['Match Buyer', 'Lock Price Oracle', 'Escrow Funds', 'Trigger Logistics'].map((step, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <div className={clsx(
                     "w-6 h-6 rounded-full flex items-center justify-center text-xs flex-shrink-0 transition-colors",
-                    deployState === "deployed" ? "bg-primary/20 text-primary" : "bg-white/5 text-muted-foreground"
+                    deployState === "deployed" ? "bg-primary/20 text-primary" : "bg-muted/50 text-muted-foreground"
                   )}>
                     {deployState === "deployed" ? <Check className="w-3 h-3" /> : i + 1}
                   </div>
-                  <span className={clsx("text-sm", deployState === "deployed" ? "text-white" : "text-white/70")}>{step}</span>
+                  <span className={clsx("text-sm", deployState === "deployed" ? "text-white" : "text-foreground/65")}>{step}</span>
                 </div>
               ))}
             </div>
@@ -305,13 +305,13 @@ export default function AILayer() {
                 <div className="w-full py-3 rounded-xl bg-primary/20 border border-primary text-primary font-bold flex items-center justify-center gap-2 text-sm">
                   <Check className="w-4 h-4" /> Contract Live
                 </div>
-                <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
+                <div className="p-3 rounded-xl bg-muted/50 border border-border text-center">
                   <div className="text-xs text-muted-foreground mb-1">Contract ID</div>
-                  <div className="font-mono font-bold text-white text-sm">{deployedId}</div>
+                  <div className="font-mono font-bold text-foreground text-sm">{deployedId}</div>
                 </div>
                 <button
                   onClick={() => { setDeployState("idle"); setDeployedId(""); }}
-                  className="w-full py-2.5 rounded-xl bg-white/5 border border-white/10 text-white/60 hover:text-white text-sm font-medium transition-colors"
+                  className="w-full py-2.5 rounded-xl bg-muted/50 border border-border text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
                 >
                   New Contract
                 </button>
